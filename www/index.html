@@ -3,36 +3,116 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<style>
+		h1{
+			text-align:center;
+		}
+		.msgbox{
+			position:relative;
+			width:800px;
+			height:600px;
+			margin:0 auto;
+			overflow-y: auto;
+			background:aliceblue;
+		}
+		.msgbox-content{
+			position:absolute;
+			bottom:0;
+			left:0;
+			width:100%;
+		}
+		.msgbox-content p{
+			margin:9px 0;
+			line-height:28px;
+			overflow:hidden;
+		}
+		.msgbox-content p span{
+			padding:0 10px;
+			border:1px solid #eee;
+			border-radius:14px;
+		}
+		.msgbox-content p span.o{
+			float:right;
+			color:red;
+			background:yellow;
+		}
+		.msgbox-content p span.i{
+			float:left;
+			color:#fff;
+			background:#038;
+		}
+		.send-msg-box{
+			border:1px solid #eee;
+			width:800px;
+			height:80px;
+			margin:20px auto;
+		}
+		.send-msg-box textarea{
+			float:left;
+			width:700px;
+			height:70px;
+			line-height:20px;
+			outline:none;
+			border:none;
+			resize:none;
+		}
+		.send-msg-box button{
+			float:right;
+			width:90px;
+			height:80px;
+			border:none;
+			outline:none;
+		}
+	</style>
 	<script src="./jquery-1.11.3.min.js"></script>
 </head>
 <body>
-	<input type="text" id="msg">
-	<button class="btn" disabled>发送</button>
-	<div class="msgbox"></div>
+	<h1>Welcome my chat room</h1>
+	<div class="msgbox">
+		<div class="msgbox-content"></div>
+	</div>
+	<div class="send-msg-box">
+		<textarea id="msg"></textarea>
+		<button class="btn" disabled>发送</button>
+	</div>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
-		var btn = document.querySelector('.btn')
-		var msgContent = document.querySelector('#msg')
-		var msgbox = document.querySelector('.msgbox')
-		var socket = io.connect('http://60.205.226.213');
+		// var domain = 'http://60.205.226.213',
+		var domain = 'http://127.0.0.1',
+			btn = document.querySelector('.btn'),
+			msgContent = document.querySelector('#msg'),
+			msgbox = document.querySelector('.msgbox'),
+			msgboxContent = document.querySelector('.msgbox-content'),
+			msg = '',
+			socket = io.connect(domain);
+
 		socket.on('connect',function(){
 			btn.removeAttribute('disabled')
 		})
 		socket.on('putMsg',function(data){
-			console.log(data);
-			putMsg(data.msg)
+			putMsg(data.msg,'i')
 		})
 		btn.addEventListener('click',function(){
 			var msg = msgContent.value
 			if(msg === '') return false
-			putMsg(msg)
+			putMsg(msg,'o')
 			socket.send(msg)
 			msgContent.value = ''
 		})
-		function putMsg(msg){
+		msgContent.addEventListener('keydown',function(e){
+			e = e || event;
+			if(e.keyCode !== 13) return false;
+			msg = this.value;
+			if(msg === '') return false;
+			socket.send(msg)
+			putMsg(msg,'o')
+			msgContent.value = ''
+			msgContent.innerHTML = ''
+		})
+		function putMsg(msg,cn){
 			var p = document.createElement('p')
-			p.innerHTML = msg
-			msgbox.appendChild(p)
+			p.innerHTML = '<span class="'+cn+'">' + msg + '</span>'
+			msgboxContent.appendChild(p)
 		}
 	</script>
 </body>
