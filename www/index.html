@@ -10,7 +10,7 @@
 		.msgbox{
 			position:relative;
 			width:800px;
-			height:600px;
+			height:400px;
 			margin:0 auto;
 			overflow-y: auto;
 			background:aliceblue;
@@ -67,7 +67,7 @@
 	<script src="./jquery-1.11.3.min.js"></script>
 </head>
 <body>
-	<h1>Welcome my chat room</h1>
+	<h1>Welcome to my chat room</h1>
 	<div class="msgbox">
 		<div class="msgbox-content"></div>
 	</div>
@@ -77,8 +77,8 @@
 	</div>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
-		// var domain = 'http://60.205.226.213',
-		var domain = 'http://127.0.0.1',
+		var domain = 'http://60.205.226.213',
+		// var domain = 'http://127.0.0.1',
 			btn = document.querySelector('.btn'),
 			msgContent = document.querySelector('#msg'),
 			msgbox = document.querySelector('.msgbox'),
