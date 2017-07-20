@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -8,55 +8,13 @@
 <body>
 	<input type="text" id="msg">
 	<button class="btn" disabled>发送</button>
-	<div>
-		<select style="width:100px"  id="s1" class="s"  name="ft">
-		    <option value="" disabled selected>请选择</option>
-		    <option>A</option>
-		    <option>B</option>
-		    <option>C</option>
-		    <option>D</option>
-		</select>
-		<select style="width:100px"   id="s2" class="s">
-		    <option value="" disabled selected>请选择</option>
-		</select>
-		<select style="width:100px"   id="s3" class="s">
-		    <option value="" disabled selected>请选择</option>
-		</select>
-		<select style="width:100px"   id="s4" class="s">
-		    <option value="" disabled selected>请选择</option>
-		</select>
-	</div>
-	
-	<script>
-	    var arr = [];
-	    var $select = $('.s');
-	    var index = 0;
-	    function se(dom,index){
-	        dom.eq(index++).on('change',function(){
-	            for(var i = index;i<dom.length;i++){
-	                dom.eq(i).html('<option value="" disabled selected>请选择</option>');
-	            }
-	            arr[$(this).index()] = $(this).val();
-	            dom.eq(index).html($(this).html()).find('option').each(function(){
-	                var l = $(this).parent().index();
-	                for(var i = 0;i<l;i++){
-	                    if($(this).val() === arr[i]){
-	                        $(this).hide();
-	                    }
-	                }
-	            })
-	        });
-	        if(index < dom.length){
-	            se(dom,index);
-	        }
-	    }
-	    se($select,0);
-	</script>
+	<div class="msgbox"></div>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var btn = document.querySelector('.btn')
 		var msgContent = document.querySelector('#msg')
-		var socket = io.connect('http://127.0.0.1:3000');
+		var msgbox = document.querySelector('.msgbox')
+		var socket = io.connect('http://60.205.226.213');
 		socket.on('connect',function(){
 			btn.removeAttribute('disabled')
 		})
@@ -66,14 +24,15 @@
 		})
 		btn.addEventListener('click',function(){
 			var msg = msgContent.value
+			if(msg === '') return false
 			putMsg(msg)
 			socket.send(msg)
+			msgContent.value = ''
 		})
 		function putMsg(msg){
 			var p = document.createElement('p')
 			p.innerHTML = msg
-			console.log(p);
-			document.querySelector('body').appendChild(p)
+			msgbox.appendChild(p)
 		}
 	</script>
 </body>

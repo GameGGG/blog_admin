@@ -2,7 +2,7 @@ var express = require('express'),
 	app = express(),
 	server = require('http').Server(app),
 	io = require('socket.io').listen(server);
-server.listen(3000);
+server.listen(80);
 
 
 app.use(express.static('www'));
