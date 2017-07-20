@@ -45,7 +45,7 @@
 			border:1px solid #eee;
 			width:800px;
 			height:80px;
-			margin:20px auto;
+			margin:0 auto;
 		}
 		.send-msg-box textarea{
 			float:left;
@@ -78,11 +78,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var domain = 'http://60.205.226.213',
-<<<<<<< HEAD
-		//var domain = 'http://127.0.0.1',
-=======
 		// var domain = 'http://127.0.0.1',
->>>>>>> bed16f10537ce082bffd8e248785a1cb4a98c0c8
 			btn = document.querySelector('.btn'),
 			msgContent = document.querySelector('#msg'),
 			msgbox = document.querySelector('.msgbox'),
@@ -109,9 +105,14 @@
 			msg = this.value;
 			if(msg === '') return false;
 			socket.send(msg)
-			putMsg(msg,'o')
 			msgContent.value = ''
-			msgContent.innerHTML = ''
+			putMsg(msg,'o')
+			if(e.preventDefault){
+            			e.preventDefault();
+        		}else{
+           			e.returnValue = false;
+        		} 
+			
 		})
 		function putMsg(msg,cn){
 			var p = document.createElement('p')
