@@ -23,29 +23,30 @@
 		}
 		.msgbox-content p{
 			margin:9px 0;
+			font-size:14px;
 			line-height:28px;
 			overflow:hidden;
 		}
 		.msgbox-content p span{
-			padding:0 10px;
+			padding:0 15px;
 			border:1px solid #eee;
-			border-radius:14px;
+			border-radius:6px;
 		}
 		.msgbox-content p span.o{
 			float:right;
-			color:red;
-			background:yellow;
+			color:black;
+			background:rgb(168,250,106);
 		}
 		.msgbox-content p span.i{
 			float:left;
-			color:#fff;
-			background:#038;
+			color:black;
+			background:#fff;
 		}
 		.send-msg-box{
 			border:1px solid #eee;
 			width:800px;
 			height:80px;
-			margin:20px auto;
+			margin:0 auto;
 		}
 		.send-msg-box textarea{
 			float:left;
@@ -63,6 +64,11 @@
 			border:none;
 			outline:none;
 		}
+		.send-msg-box button:hover{
+			background:#33cc00;
+			color:#fff;
+		}
+		.send-msg-box button.active{}
 	</style>
 	<script src="./jquery-1.11.3.min.js"></script>
 </head>
@@ -105,9 +111,14 @@
 			msg = this.value;
 			if(msg === '') return false;
 			socket.send(msg)
-			putMsg(msg,'o')
 			msgContent.value = ''
-			msgContent.innerHTML = ''
+			putMsg(msg,'o')
+			if(e.preventDefault){
+            			e.preventDefault();
+        		}else{
+           			e.returnValue = false;
+        		} 
+			
 		})
 		function putMsg(msg,cn){
 			var p = document.createElement('p')
