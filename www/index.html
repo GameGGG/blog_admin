@@ -23,23 +23,24 @@
 		}
 		.msgbox-content p{
 			margin:9px 0;
+			font-size:14px;
 			line-height:28px;
 			overflow:hidden;
 		}
 		.msgbox-content p span{
-			padding:0 10px;
+			padding:0 15px;
 			border:1px solid #eee;
-			border-radius:14px;
+			border-radius:6px;
 		}
 		.msgbox-content p span.o{
 			float:right;
-			color:red;
-			background:yellow;
+			color:black;
+			background:#66cc00;
 		}
 		.msgbox-content p span.i{
 			float:left;
-			color:#fff;
-			background:#038;
+			color:black;
+			background:#fff;
 		}
 		.send-msg-box{
 			border:1px solid #eee;
@@ -63,6 +64,10 @@
 			border:none;
 			outline:none;
 		}
+		.send-msg-box button:hover{
+			background:#33cc00;
+		}
+		.send-msg-box button.active{}
 	</style>
 	<script src="./jquery-1.11.3.min.js"></script>
 </head>
