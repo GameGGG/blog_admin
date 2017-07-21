@@ -202,6 +202,7 @@
 		function drawLine(obj){
 			for(var i = 0;i<obj.length;i++){
 				myCanvas.beginPath();
+				myCanvas.strokeStyle = 'pink'
 				myCanvas.lineWidth = .1
 				myCanvas.moveTo(obj[i].beginX,obj[i].beginY)
 				myCanvas.lineTo(obj[i].closeX,obj[i].closeY)
