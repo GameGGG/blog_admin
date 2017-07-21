@@ -170,7 +170,6 @@
 			bodyW = bodyDom.clientWidth,
 			dotArr = [],
 			FPS = 60,
-			step = 1,
 			gap = 150;
 		canvas.setAttribute('height',bodyH)
 		canvas.setAttribute('width',bodyW)
@@ -178,8 +177,10 @@
 		for(var i = 0;i<dotNumber;i++){
 			var x = Math.random() * bodyW;
 			var y = Math.random() * bodyH;
-			var stepX = Math.random() > 0.5? -step : step;
-			var stepY = Math.random() > 0.5? -step : step;
+			var rx = Math.floor(Math.random() * 2) || 1;
+			var ry = Math.floor(Math.random() * 2) || 1;
+			var stepX = Math.random() > 0.5? -rx : rx;
+			var stepY = Math.random() > 0.5? -ry : ry;
 			dotArr.push({x:x,y:y,stepX:stepX,stepY:stepY})
 		}
 		drawDot(dotArr);
