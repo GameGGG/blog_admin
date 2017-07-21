@@ -4,8 +4,27 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		html,body{
+			width:100%;
+		}
 		h1{
 			text-align:center;
+			margin:80px 0;
+		}
+		canvas{
+			width:100%;
+			height:100%;
+		}
+		.main{
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
 		}
 		.msgbox{
 			position:relative;
@@ -13,7 +32,7 @@
 			height:400px;
 			margin:0 auto;
 			overflow-y: auto;
-			background:aliceblue;
+			background:url(./bg.png) no-repeat center;
 		}
 		.msgbox-content{
 			position:absolute;
@@ -47,6 +66,7 @@
 			width:800px;
 			height:80px;
 			margin:0 auto;
+			background:#ffffff;
 		}
 		.send-msg-box textarea{
 			float:left;
@@ -73,13 +93,16 @@
 	<script src="./jquery-1.11.3.min.js"></script>
 </head>
 <body>
-	<h1>Welcome to my chat room</h1>
-	<div class="msgbox">
-		<div class="msgbox-content"></div>
-	</div>
-	<div class="send-msg-box">
-		<textarea id="msg"></textarea>
-		<button class="btn" disabled>发送</button>
+	<canvas></canvas>
+	<div class="main">
+		<h1>Welcome to my chat room</h1>
+		<div class="msgbox">
+			<div class="msgbox-content"></div>
+		</div>
+		<div class="send-msg-box">
+			<textarea id="msg"></textarea>
+			<button class="btn" disabled>发送</button>
+		</div>
 	</div>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
@@ -125,6 +148,97 @@
 			p.innerHTML = '<span class="'+cn+'">' + msg + '</span>'
 			msgboxContent.appendChild(p)
 		}
+
+		var canvas = document.querySelector('canvas'),
+			dotNumber = 100,
+			myCanvas = canvas.getContext('2d'),
+			bodyDom = document.querySelector('body'),
+			bodyH = bodyDom.clientHeight,
+			bodyW = bodyDom.clientWidth,
+			dotArr = [],
+			FPS = 60,
+			step = 1,
+			gap = 150;
+		canvas.setAttribute('height',bodyH)
+		canvas.setAttribute('width',bodyW)
+
+		for(var i = 0;i<dotNumber;i++){
+			var x = Math.random() * bodyW;
+			var y = Math.random() * bodyH;
+			var stepX = Math.random() > 0.5? -step : step;
+			var stepY = Math.random() > 0.5? -step : step;
+			dotArr.push({x:x,y:y,stepX:stepX,stepY:stepY})
+		}
+		drawDot(dotArr);
+
+
+		function clearCanvas(){
+			myCanvas.clearRect(0,0,bodyW,bodyH)
+		}
+		function drawDot(obj){
+			for(var i = 0;i<obj.length;i++){
+				myCanvas.beginPath();
+				myCanvas.arc(obj[i].x,obj[i].y,1,0,Math.PI * 2,true)
+				myCanvas.fill();
+				myCanvas.fillStyle = "black";
+				myCanvas.closePath();
+			}
+			interval();
+		}
+		function drawLine(obj){
+			for(var i = 0;i<obj.length;i++){
+				myCanvas.beginPath();
+				myCanvas.lineWidth = .1
+				myCanvas.moveTo(obj[i].beginX,obj[i].beginY)
+				myCanvas.lineTo(obj[i].closeX,obj[i].closeY)
+				myCanvas.closePath();
+				myCanvas.stroke();
+			}
+			
+		}
+		function move(){
+			var lineArr = [];
+			for(var i = 0;i<dotArr.length;i++){
+				if(dotArr[i].y >= bodyH || dotArr[i].y <= 0){
+					dotArr[i].stepY = -(dotArr[i].stepY)
+				}
+				if(dotArr[i].x >= bodyW || dotArr[i].x <= 0){
+					dotArr[i].stepX = -(dotArr[i].stepX)
+				}
+				dotArr[i].x += dotArr[i].stepX
+				dotArr[i].y += dotArr[i].stepY
+			}
+			for(var j = 0;j<dotArr.length;j++){
+				for(var k = 0;k<dotArr.length;k++){
+					var w = dotArr[k].x - dotArr[j].x;
+					var h = dotArr[k].y - dotArr[j].y;
+					if(w > gap || w < -gap){
+						continue;
+					}
+					if(h > gap || h < -gap){
+						continue;
+					}
+					if(w*w + h*h < gap*gap){
+						lineArr.push({
+							beginX:dotArr[k].x,
+							beginY:dotArr[k].y,
+							closeX:dotArr[j].x,
+							closeY:dotArr[j].y
+						})
+					}
+				}
+			}
+			clearCanvas();
+			drawDot(dotArr);
+			drawLine(lineArr)
+		}
+		function interval(){
+			setTimeout(move,1000/FPS)
+		}
+
+
+
+
 	</script>
 </body>
 </html>
