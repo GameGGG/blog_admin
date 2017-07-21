@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>chat room</title>
 	<style>
 		h1{
 			text-align:center;
@@ -90,13 +90,17 @@
 			msgbox = document.querySelector('.msgbox'),
 			msgboxContent = document.querySelector('.msgbox-content'),
 			msg = '',
+			pageHide = false,
 			socket = io.connect(domain);
 
 		socket.on('connect',function(){
 			btn.removeAttribute('disabled')
 		})
 		socket.on('putMsg',function(data){
-			putMsg(data.msg,'i')
+			putMsg(data.msg,'i');
+			if(pageHide){
+				document.title = '你有新消息'
+			}
 		})
 		btn.addEventListener('click',function(){
 			var msg = msgContent.value
@@ -118,7 +122,16 @@
         		}else{
            			e.returnValue = false;
         		} 
-			
+		})
+		document.addEventListener('visibilitychange',function(e){
+			e = e || event;
+			var hide = e.target.hidden;
+			if(hide){
+				pageHide = true
+			}else{
+				pageHide = false
+				document.title = 'chat room'
+			}
 		})
 		function putMsg(msg,cn){
 			var p = document.createElement('p')
