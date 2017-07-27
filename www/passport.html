@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>passport</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		html,body{
+			min-height:100%;
+		}
+		body{
+			background:url(./images/loginbg_001.jpg) no-repeat center / cover;
+		}
+		ul{
+			list-style:none;
+		}
+		h2{
+			height:90px;
+			line-height:90px;
+			text-align:center;
+		}
+		.continer{
+			position:absolute;
+			top:0;left:0;right:0;bottom:0;
+			margin:auto;
+			width:750px;
+			height:500px;
+			box-shadow:0 0 0 9999px rgba(0,0,0,.4);
+		}
+		.registerbox{
+			width:340px;
+			float:right;
+			height:100%;
+			background:#ffffff;
+		}
+		.registerbox li:nth-of-type(1){
+			margin-top:10px;
+		}
+		.registerbox li{
+			overflow:hidden;
+			margin-top:10px;
+		}
+		.registerbox input{
+			outline:none;
+			width:220px;
+			height:28px;
+			margin-top:4px;
+			vertical-align:middle;
+		}
+		.registerbox li:before{
+			vertical-align:middle;
+			float:left;
+			color:#000000;
+			font-size:14px;
+			width:90px;
+			height:40px;
+			line-height:40px;
+			text-align:right;
+		}
+		.registerbox li:nth-of-type(1):before{
+			content:"用户名：";
+		}
+		.registerbox li:nth-of-type(2):before{
+			content:"密 码：";
+		}
+		.registerbox li:nth-of-type(3):before{
+			content:"重复密码：";
+		}
+		.registerbox li:nth-of-type(4):before{
+			content:"邮箱：";
+		}
+		.registerbtn{
+			display:block;
+			width:200px;
+			height:40px;
+			background:aliceblue;
+			line-height:40px;
+			margin:40px auto;
+			outline:none;
+			border:1px solid #eee;
+			box-shadow:5px 5px 5px 1px rgba(0,0,0,0.2);
+			transition:all .3s;
+		}
+	</style>
+	<script src="./jquery-1.11.3.min.js"></script>
+</head>
+<body>
+	<div class="continer">
+		<ul class="registerbox">
+			<h2>账号注册</h2>
+			<li><input class="uname" type="text"></li>
+			<li><input class="password" type="password"></li>
+			<li><input class="repassword" type="text"></li>
+			<li><input class="email" type="text"></li>
+			<li><button class="registerbtn">注 册</button></li>
+		</ul>
+	</div>
+	
+	<script>
+		var $registerbtn = $('.registerbtn');
+
+
+		$registerbtn.on('mousedown',function(){
+			console.log(this);
+			$(this).css({
+				'box-shadow':'none'
+			})
+		})
+		$registerbtn.on('mouseup',function(){
+			console.log(this);
+			$(this).css({
+				'box-shadow':'5px 5px 5px 1px rgba(0,0,0,0.2)'
+			})
+		})
+
+		$registerbtn.on('click',function(){
+			var uname = $('.uname').val(),
+				password = $('.password').val(),
+				repassword = $('.repassword').val(),
+				email = $('.email').val();
+			if(!uname){
+				alert('用户名不能为空')
+				return;
+			}
+			if(!password || password.length<6 || password.length>20){
+				alert('密码长度不能小于6并且不能大于20')
+				return;
+			}
+			if(repassword !== password){
+				alert('两次密码不一致')
+				return;
+			}
+			if(!email){
+				alert('邮箱不能为空')
+				return;
+			}
+			$.ajax({
+				url:'/user/register',
+				type:'POST',
+				data:{
+					uname:uname,
+					email:email,
+					password:password
+				},
+				success:function(data){
+					if(data.state === 1){
+						alert('注册成功！');
+						window.location.href = './index.html'
+					}else{
+						alert(data.message)
+					}
+				},
+				error:function(data){
+					alert('网络连接失败，请稍后重试。')
+				}
+			})
+		})
+		
+	</script>
+</body>
+</html>

@@ -17,5 +17,3 @@ for(var j in arr){
 }
 console.log(forInS - forInF);
 
-
-
