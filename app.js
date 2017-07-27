@@ -71,7 +71,8 @@ app.post('/user/register',function(req,res,next){
 app.post('/user/login',function(req,res,next){
 	let value_uname = req.body.uname,
 		value_password = req.body.password;
-	if(!value_uname || !value_password){
+
+	if(!(value_uname && value_password)){
 		res.json({
 			state:0,
 			message:'缺少参数'
@@ -83,7 +84,6 @@ app.post('/user/login',function(req,res,next){
 			console.log('[SELECT ERROR] - ',err.message);
 			return;
 		}
-		console.log(!result.length)
 		if(!!result.length){
 			res.json({
 				state:1,
@@ -96,7 +96,6 @@ app.post('/user/login',function(req,res,next){
 			message:'账号或密码错误。'
 		})
 	});
-	next();
 })
 
 app.use(logErrors);

@@ -30,7 +30,7 @@
 			height:500px;
 			box-shadow:0 0 0 9999px rgba(0,0,0,.4);
 		}
-		.registerbox{
+		.registerbox,.loginbox{
 			width:340px;
 			float:right;
 			height:100%;
@@ -39,18 +39,25 @@
 		.registerbox li:nth-of-type(1){
 			margin-top:10px;
 		}
+		.loginbox li:nth-of-type(1){
+			margin-top:55px;
+		}
 		.registerbox li{
 			overflow:hidden;
 			margin-top:10px;
 		}
-		.registerbox input{
+		.loginbox li{
+			overflow:hidden;
+			margin-top:20px;
+		}
+		.registerbox input,.loginbox input{
 			outline:none;
 			width:220px;
 			height:28px;
 			margin-top:4px;
 			vertical-align:middle;
 		}
-		.registerbox li:before{
+		.registerbox li:before,.loginbox li:before{
 			vertical-align:middle;
 			float:left;
 			color:#000000;
@@ -60,10 +67,10 @@
 			line-height:40px;
 			text-align:right;
 		}
-		.registerbox li:nth-of-type(1):before{
+		.registerbox li:nth-of-type(1):before,.loginbox li:nth-of-type(1):before{
 			content:"用户名：";
 		}
-		.registerbox li:nth-of-type(2):before{
+		.registerbox li:nth-of-type(2):before,.loginbox li:nth-of-type(2):before{
 			content:"密 码：";
 		}
 		.registerbox li:nth-of-type(3):before{
@@ -72,24 +79,36 @@
 		.registerbox li:nth-of-type(4):before{
 			content:"邮箱：";
 		}
-		.registerbtn{
+		.registerbtn,.loginbtn{
 			display:block;
 			width:200px;
 			height:40px;
 			background:aliceblue;
+			font-size:18px;
 			line-height:40px;
-			margin:40px auto;
+			text-align:center;
+			margin:20px auto 10px;
 			outline:none;
 			border:1px solid #eee;
 			box-shadow:5px 5px 5px 1px rgba(0,0,0,0.2);
 			transition:all .3s;
+		}
+		.loginbox li:nth-of-type(3){
+			position:relative;
+		}
+		.changeregister{
+			position:absolute;
+			bottom:10px;
+			right:20px;
+			font-size:14px;
+			color:#038;
 		}
 	</style>
 	<script src="./jquery-1.11.3.min.js"></script>
 </head>
 <body>
 	<div class="continer">
-		<ul class="registerbox">
+		<ul class="registerbox" style="display:none">
 			<h2>账号注册</h2>
 			<li><input class="uname" type="text"></li>
 			<li><input class="password" type="password"></li>
@@ -97,20 +116,38 @@
 			<li><input class="email" type="text"></li>
 			<li><button class="registerbtn">注 册</button></li>
 		</ul>
+		<ul class="loginbox">
+			<h2>登 陆</h2>
+			<li><input class="lguname" type="text"></li>
+			<li><input class="lgpassword" type="password"></li>
+			<li><button class="loginbtn">登 录</button><span class="changeregister">注册</span></li>
+		</ul>
 	</div>
 	
 	<script>
-		var $registerbtn = $('.registerbtn');
+		var $registerbtn = $('.registerbtn'),
+			$changeregister = $('.changeregister'),
+			$registerbox = $('.registerbox'),
+			$loginbox = $('.loginbox'),
+			$loginbtn = $('.loginbtn');
 
 
 		$registerbtn.on('mousedown',function(){
-			console.log(this);
 			$(this).css({
 				'box-shadow':'none'
 			})
 		})
 		$registerbtn.on('mouseup',function(){
-			console.log(this);
+			$(this).css({
+				'box-shadow':'5px 5px 5px 1px rgba(0,0,0,0.2)'
+			})
+		})
+		$loginbtn.on('mousedown',function(){
+			$(this).css({
+				'box-shadow':'none'
+			})
+		})
+		$loginbtn.on('mouseup',function(){
 			$(this).css({
 				'box-shadow':'5px 5px 5px 1px rgba(0,0,0,0.2)'
 			})
@@ -157,6 +194,40 @@
 					alert('网络连接失败，请稍后重试。')
 				}
 			})
+		})
+		$loginbtn.on('click',function(){
+			var uname = $('.lguname').val(),
+				password = $('.lgpassword').val();
+			if(!uname){
+				alert('用户名不能为空')
+				return;
+			}
+			if(!password || password.length<5 || password.length>20){
+				alert('密码长度不能小于6并且不能大于20')
+				return;
+			}
+			$.ajax({
+				url:'/user/login',
+				type:'POST',
+				data:{
+					uname:uname,
+					password:password
+				},
+				success:function(data){
+					if(data.state === 1){
+						window.location.href = './index.html'
+					}else{
+						alert(data.message)
+					}
+				},
+				error:function(data){
+					alert('网络连接失败，请稍后重试。')
+				}
+			})
+		})
+		$changeregister.on('click',function(){
+			$registerbox.show();
+			$loginbox.hide();
 		})
 		
 	</script>
