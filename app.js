@@ -18,7 +18,9 @@ var connection = mysql.createConnection({
 })
 connection.connect();
 
-app.use(express.static('www'));
+app.use(express.static('www',{
+	index:'passport.html'
+}));
 app.use(bodyParser.urlencoded({extend:false}))
 
 io.sockets.on('connection',function(socket){
