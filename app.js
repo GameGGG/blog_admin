@@ -18,9 +18,7 @@ var connection = mysql.createConnection({
 })
 connection.connect();
 
-app.use(express.static('www',{
-	index:'passport.html'
-}));
+app.use(express.static('www'));
 app.use(bodyParser.urlencoded({extend:false}))
 
 io.sockets.on('connection',function(socket){
@@ -70,8 +68,8 @@ app.post('/user/register',function(req,res,next){
 // 登陆
 app.post('/user/login',function(req,res,next){
 	let value_uname = req.body.uname,
-		value_password = req.body.password,
-	if(!(value_uname && value_password)){
+		value_password = req.body.password;
+	if(!value_uname || !value_password){
 		res.json({
 			state:0,
 			message:'缺少参数'
