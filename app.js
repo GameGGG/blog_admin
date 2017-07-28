@@ -1,12 +1,13 @@
 var express = require('express'),
 	app = express(),
+	add = express(),
 	server = require('http').Server(app),
 	io = require('socket.io').listen(server),
 	mysql = require('mysql'),
 	bodyParser = require('body-parser');
 
-server.listen(80);
-
+server.listen(3000);
+add.listen(80);
 
 // db connect
 var connection = mysql.createConnection({
@@ -18,20 +19,36 @@ var connection = mysql.createConnection({
 })
 connection.connect();
 
-app.use(express.static('www',{
+
+add.use(express.static('www',{
 	index:'passport.html'
 }));
-app.use(bodyParser.urlencoded({extend:false}))
+add.use(bodyParser.urlencoded({extend:false}))
 
 io.sockets.on('connection',function(socket){
-	socket.emit('news',{hello:'world'});
+	socket.on('commit',function(data){
+		insertScoketId(data.uname,data.sid)
+	})
 	socket.on('message',function(data){
-		socket.broadcast.emit('putMsg',{msg:data});
+		connection.query('SELECT * FROM uinfo WHERE socketid = ?',[data.sid],function(err,result){
+			if(err){
+				console.log('[SELECT ERROR] - ',err.message);
+				return false;
+			}
+			let uname = result && result[0] && result[0].uname
+			if(!uname){
+				socket.emit('errorMsg',{
+					state:0
+				});
+				return;
+			};
+			socket.broadcast.emit('putMsg',{msg:data.msg,uname:uname});
+		})
 	})
 })
 
 // 注册
-app.post('/user/register',function(req,res,next){
+add.post('/user/register',function(req,res,next){
 	let value_uname = req.body.uname,
 		value_password = req.body.password,
 		value_email = req.body.email;
@@ -68,7 +85,7 @@ app.post('/user/register',function(req,res,next){
 	});
 })
 // 登陆
-app.post('/user/login',function(req,res,next){
+add.post('/user/login',function(req,res,next){
 	let value_uname = req.body.uname,
 		value_password = req.body.password;
 
@@ -85,9 +102,15 @@ app.post('/user/login',function(req,res,next){
 			return;
 		}
 		if(!!result.length){
-			res.json({
-				state:1,
-				message:''
+			connection.query("UPDATE uinfo SET login = 1 WHERE uname = ?",[value_uname],function(err,result){
+				if(err){
+					console.log("[UPDATE ERROR] - ",err.message);
+					return;
+				}
+				res.json({
+					state:1,
+					message:''
+				})
 			})
 			return;
 		}
@@ -98,8 +121,8 @@ app.post('/user/login',function(req,res,next){
 	});
 })
 
-app.use(logErrors);
-app.use(errorHandler);
+add.use(logErrors);
+add.use(errorHandler);
 
 function logErrors(err,req,res,next){
 	console.error(err.stack);
@@ -109,4 +132,21 @@ function errorHandler(err,req,res,next){
 	res.status(500);
 	res.render('error',{error:err});
 }
-
+function insertScoketId(uname,id){
+	connection.query('UPDATE uinfo SET socketid = ? WHERE uname = ? AND login = 1',[id,uname],function(err,result){
+		if(err){
+			console.log("[UPDATE ERROR] - ",err.message);
+			return;
+		}
+	})
+}
+function selectUname(sid){
+	connection.query('SELECT * FROM uinfo WHERE socketid = ?',[sid],function(err,result){
+		if(err){
+			console.log('[SELECT ERROR] - ',err.message);
+			return false;
+		}
+		let uname = result && result[0] && result[0].uname
+		return uname;
+	})
+}
