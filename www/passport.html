@@ -12,7 +12,7 @@
 			min-height:100%;
 		}
 		body{
-			background:url(./images/loginbg_001.jpg) no-repeat center / cover;
+			background: no-repeat center / cover;
 		}
 		ul{
 			list-style:none;
@@ -105,6 +105,12 @@
 		}
 	</style>
 	<script src="./jquery-1.11.3.min.js"></script>
+	<script>
+		var randomNumber = Math.ceil(Math.random() * 5),
+		imgUrl = './images/loginbg_00' + randomNumber + '.jpg',
+		img = document.createElement('img');
+		img.src = imgUrl;
+	</script>
 </head>
 <body>
 	<div class="continer">
@@ -132,6 +138,7 @@
 			$loginbtn = $('.loginbtn');
 
 
+		document.querySelector('body').style.backgroundImage = 'url('+imgUrl+')'
 		$registerbtn.on('mousedown',function(){
 			$(this).css({
 				'box-shadow':'none'
@@ -141,6 +148,7 @@
 			$(this).css({
 				'box-shadow':'5px 5px 5px 1px rgba(0,0,0,0.2)'
 			})
+			registerBeforeDeal();
 		})
 		$loginbtn.on('mousedown',function(){
 			$(this).css({
@@ -151,9 +159,13 @@
 			$(this).css({
 				'box-shadow':'5px 5px 5px 1px rgba(0,0,0,0.2)'
 			})
+			loginBeforeDeal();
 		})
-
-		$registerbtn.on('click',function(){
+		$changeregister.on('click',function(){
+			$registerbox.show();
+			$loginbox.hide();
+		})
+		function registerBeforeDeal(){
 			var uname = $('.uname').val(),
 				password = $('.password').val(),
 				repassword = $('.repassword').val(),
@@ -194,8 +206,8 @@
 					alert('网络连接失败，请稍后重试。')
 				}
 			})
-		})
-		$loginbtn.on('click',function(){
+		}
+		function loginBeforeDeal(){
 			var uname = $('.lguname').val(),
 				password = $('.lgpassword').val();
 			if(!uname){
@@ -224,11 +236,8 @@
 					alert('网络连接失败，请稍后重试。')
 				}
 			})
-		})
-		$changeregister.on('click',function(){
-			$registerbox.show();
-			$loginbox.hide();
-		})
+		}
+		
 		
 	</script>
 </body>
