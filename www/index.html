@@ -68,6 +68,11 @@
 			font-style: normal;
 			text-align:right;
 		}
+		.msgbox-content p em.i{
+			float: left;
+    		padding:0 10px;
+		}
+		
 		.send-msg-box{
 			border:1px solid #eee;
 			width:800px;
@@ -121,14 +126,17 @@
 			msgboxContent = document.querySelector('.msgbox-content'),
 			msg = '',
 			pageHide = false,
+			un = getCookie('uname'),
 			socket = io.connect(domain);
 
-
-
+		if(!un){
+			alert('请先登录。');
+			window.location.href = './passport.html';
+		}
 		socket.on('connect',function(){
 			socket.emit('commit',{
 				sid:socket.id,
-				uname:'white_g'
+				uname:un
 			})
 			btn.removeAttribute('disabled')
 		})
@@ -141,7 +149,8 @@
 		})
 		socket.on('errorMsg',function(data){
 			if(data.state === 0){
-				alert('消息发送失败，请先登录。')
+				alert('消息发送失败，请先登录。');
+				window.location.href = './passport.html';
 			}
 		})
 		btn.addEventListener('click',function(){
@@ -185,7 +194,17 @@
 			msgboxContent.appendChild(p)
 		}
 
-
+		function getCookie(name){
+			var str = document.cookie;
+			var cookieArr = str.split('&');
+			for(var i = 0;i<cookieArr.length;i++){
+				var ca = cookieArr[i].split('=');
+				if(ca[0] === name){
+					return ca[1];
+				}
+			}
+			return false;
+		}
 
 
 

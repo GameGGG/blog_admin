@@ -20,7 +20,7 @@ var connection = mysql.createConnection({
 connection.connect();
 
 add.use(express.static('www',{
-	index:'passport.html'
+	index:'index.html'
 }));
 add.use(bodyParser.urlencoded({extend:false}))
 
@@ -29,6 +29,7 @@ io.sockets.on('connection',function(socket){
 		insertScoketId(data.uname,data.sid)
 	})
 	socket.on('message',function(data){
+		console.log(data);
 		connection.query('SELECT * FROM uinfo WHERE socketid = ?',[data.sid],function(err,result){
 			if(err){
 				console.log('[SELECT ERROR] - ',err.message);
@@ -101,11 +102,12 @@ add.post('/user/login',function(req,res,next){
 			return;
 		}
 		if(!!result.length){
-			connection.query("UPDATE uinfo SET login = 1 WHERE uname = ?",[value_uname],function(err,result){
+			connection.query("UPDATE uinfo SET uname = ?",[value_uname],function(err,result){
 				if(err){
 					console.log("[UPDATE ERROR] - ",err.message);
 					return;
 				}
+				res.cookie('uname',value_uname);
 				res.json({
 					state:1,
 					message:''
@@ -132,7 +134,7 @@ function errorHandler(err,req,res,next){
 	res.render('error',{error:err});
 }
 function insertScoketId(uname,id){
-	connection.query('UPDATE uinfo SET socketid = ? WHERE uname = ? AND login = 1',[id,uname],function(err,result){
+	connection.query('UPDATE uinfo SET socketid = ? WHERE uname = ?',[id,uname],function(err,result){
 		if(err){
 			console.log("[UPDATE ERROR] - ",err.message);
 			return;
