@@ -6,7 +6,7 @@ var express = require('express'),
 	mysql = require('mysql'),
 	bodyParser = require('body-parser');
 
-server.listen(3000);
+server.listen(30000);
 add.listen(80);
 
 // db connect
@@ -18,7 +18,6 @@ var connection = mysql.createConnection({
 	database:'passport'
 })
 connection.connect();
-
 
 add.use(express.static('www',{
 	index:'passport.html'
