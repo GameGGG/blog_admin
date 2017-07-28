@@ -170,7 +170,10 @@
 			if(msg === '') return false;
 			msgContent.value = ''
 			putMsg({msg:msg},'o')
-			socket.send(msg)
+			socket.send({
+				msg:msg,
+				sid:socket.id
+			})
 			if(e.preventDefault){
             			e.preventDefault();
         		}else{
