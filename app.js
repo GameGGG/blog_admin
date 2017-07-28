@@ -6,7 +6,7 @@ var express = require('express'),
 	mysql = require('mysql'),
 	bodyParser = require('body-parser');
 
-server.listen(30000);
+server.listen(3000);
 add.listen(80);
 
 // db connect
