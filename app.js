@@ -96,22 +96,17 @@ add.post('/user/login',function(req,res,next){
 		})
 		return false;
 	}
+	console.log(value_uname)
 	connection.query("SELECT * FROM uinfo WHERE uname=? AND password=?;",[value_uname,value_password],function(err,result){
 		if(err){
 			console.log('[SELECT ERROR] - ',err.message);
 			return;
 		}
 		if(!!result.length){
-			connection.query("UPDATE uinfo SET uname = ?",[value_uname],function(err,result){
-				if(err){
-					console.log("[UPDATE ERROR] - ",err.message);
-					return;
-				}
-				res.cookie('uname',value_uname);
-				res.json({
-					state:1,
-					message:''
-				})
+			res.cookie('uname',value_uname);
+			res.json({
+				state:1,
+				message:''
 			})
 			return;
 		}
