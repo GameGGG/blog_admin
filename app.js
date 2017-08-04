@@ -19,7 +19,10 @@ var connection = mysql.createConnection({
 })
 connection.connect();
 
-add.use(express.static('www',{
+add.use('/www',express.static('www',{
+	index:'index.html'
+}));
+add.use(express.static('linerace',{
 	index:'index.html'
 }));
 add.use(bodyParser.urlencoded({extend:false}))
