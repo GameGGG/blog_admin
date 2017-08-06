@@ -29,7 +29,9 @@ add.use(bodyParser.urlencoded({extend:false}))
 
 io.sockets.on('connection',function(socket){
 	socket.on('commit',function(data){
-		insertScoketId(data.uname,data.sid)
+		if(data.uname && data.sid){
+			insertScoketId(data.uname,data.sid)
+		}
 	})
 	socket.on('message',function(data){
 		console.log(data);
