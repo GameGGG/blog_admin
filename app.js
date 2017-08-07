@@ -4,21 +4,34 @@ var express = require('express'),
 	server = require('http').Server(app),
 	io = require('socket.io').listen(server),
 	mysql = require('mysql'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	connection;
 
 server.listen(3000);
 add.listen(80);
 
 // db connect
-var connection = mysql.createConnection({
-	host:'localhost',
-	user:'root',
-	password:'admin',
-	prot:'3306',
-	database:'passport'
-})
-connection.connect();
+function connect(){
+	connection = mysql.createConnection({
+		host:'localhost',
+		user:'root',
+		password:'admin',
+		prot:'3306',
+		database:'passport'
+	})
+	connection.on('error',function(){
+		if (err) {
+		    // 如果是连接断开，自动重新连接
+		    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+		      connect();
+		    } else {
+		      console.error(err.stack || err);
+		    }
+		}
+	});
+}
 
+connection.on()
 add.use('/www',express.static('www',{
 	index:'index.html'
 }));
