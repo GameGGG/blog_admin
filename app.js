@@ -19,7 +19,6 @@ function connect(){
 		prot:'3306',
 		database:'passport'
 	})
-	connection.connect(handleError);
 	connection.on('error',function(){
 		if (err) {
 		    // 如果是连接断开，自动重新连接
