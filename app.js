@@ -19,7 +19,7 @@ function connect(){
 		prot:'3306',
 		database:'passport'
 	})
-	connection.on('error',function(){
+	connection.on('error',function(err){
 		if (err) {
 		    // 如果是连接断开，自动重新连接
 		    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
