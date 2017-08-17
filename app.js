@@ -1,6 +1,7 @@
 var express = require('express'),
 	app = express(),
 	add = express(),
+	compression = require('compression'),
 	server = require('http').Server(app),
 	io = require('socket.io').listen(server),
 	mysql = require('mysql'),
@@ -31,6 +32,7 @@ function connect(){
 	});
 }
 connect();
+add.use(compression())
 add.use('/www',express.static('www',{
 	index:'index.html'
 }));
