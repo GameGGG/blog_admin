@@ -66,7 +66,7 @@ io.sockets.on('connection',function(socket){
 		})
 	})
 })
-app.get('/git/jojojo',function(){
+app.get('/git/jojojo',function(req,res){
 	const bat = spawn('cmd.exe',['/c/Desktop','jojojogitpull.bat']);
 	bat.stdout.on('data', (data) => {
 	  console.log(data.toString());
@@ -77,6 +77,7 @@ app.get('/git/jojojo',function(){
 	bat.on('exit', (code) => {
 	  console.log(`子进程退出码：${code}`);
 	});
+	res.send('pull yes')
 })
 // 注册
 add.post('/user/register',function(req,res,next){
