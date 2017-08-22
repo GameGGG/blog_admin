@@ -66,7 +66,7 @@ io.sockets.on('connection',function(socket){
 		})
 	})
 })
-app.get('/git/jojojo',function(req,res){
+add.get('/git/jojojo',function(req,res){
 	const bat = spawn('cmd.exe',['/c/Desktop','jojojogitpull.bat']);
 	bat.stdout.on('data', (data) => {
 	  console.log(data.toString());
