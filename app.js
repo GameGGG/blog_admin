@@ -1,7 +1,7 @@
 var express = require('express'),
 	app = express(),
 	add = express(),
-	{spawn} = require('child_process'),
+	{exec} = require('child_process'),
 	compression = require('compression'),
 	server = require('http').Server(app),
 	io = require('socket.io').listen(server),
@@ -67,17 +67,22 @@ io.sockets.on('connection',function(socket){
 	})
 })
 add.get('/git/jojojo',function(req,res){
-	const bat = spawn('cmd.exe',['/c/Desktop','jojojogitpull.bat']);
-	bat.stdout.on('data', (data) => {
-	  console.log(data.toString());
+	exec('"c/Desktop/jojochat/chatRoom git pull"',function(err){
+		if(err){
+			res.send(err)
+		}else{
+			res.send('jojojo project git pull is OK')
+		}
 	});
-	bat.stderr.on('data', (data) => {
-	  console.log(data.toString());
+})
+add.get('/git/white_g',function(req,res){
+	exec('git pull',function(err){
+		if(err){
+			res.send(err)
+		}else{
+			res.send('white_g project git pull is OK')
+		}
 	});
-	bat.on('exit', (code) => {
-	  console.log(`子进程退出码：${code}`);
-	});
-	res.send('pull yes')
 })
 // 注册
 add.post('/user/register',function(req,res,next){
