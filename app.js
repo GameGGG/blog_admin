@@ -1,7 +1,7 @@
 var express = require('express'),
 	app = express(),
 	add = express(),
-	{exec} = require('child_process'),
+	{exec,execFile} = require('child_process'),
 	compression = require('compression'),
 	server = require('http').Server(app),
 	io = require('socket.io').listen(server),
@@ -67,7 +67,7 @@ io.sockets.on('connection',function(socket){
 	})
 })
 add.get('/git/jojojo',function(req,res){
-	exec('"c/Desktop/jojochat/chatRoom git pull"',function(err){
+	execFile('jojojogitpull.bat',function(err){
 		if(err){
 			res.send(err)
 		}else{
