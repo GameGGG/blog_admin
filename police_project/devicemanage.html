@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./styles/base.css">
+	<link rel="stylesheet" href="./styles/usermanage.css">
+	<script src="./javascripts/jquery-1.11.3.js"></script>
+</head>
+<body>
+	<nav class="c">
+		<slide class="user_msg"><p><span>用户：</span><span class="user_msg_name">管理员</span><a href="#">退出</a></p></slide>
+		<dl class="c">
+			<dt>
+				<h1>
+					<a href="javascript:void(0)"><img src="./images/logo.png" alt="警徽"></a>
+				</h1>
+			</dt>
+			<dd>
+				<p>郑州市公安局</p>
+				<p>融合通信资源管理平台</p>
+			</dd>
+		</dl>
+		<ul class="c nav">
+			<li><a href="./index.html">首页</a></li>
+			<li><a href="./usermanage.html">用户管理</a></li>
+			<li class="active"><a href="javascript:void(0);">设备管理</a></li>
+			<li class="no-bg authority"><a href="./authority.html">权限管理</a>
+				<ul class="authority_hover">
+					<li><a href="./authority.html">角色管理</a></li>
+					<li><a href="./commanage.html">呼叫优先管理</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<main>
+		<section class="user_or_tree">
+
+		</section>
+		<section class="user_container">
+			<div class="user_utils">
+				<input type="text" placeholder="请输入查询条件">
+				<button class="user_select_btn">查询</button>
+				<div class="f_r">
+					<div class="user_pg_btn ">
+							
+					</div>
+					<button class="user_new_btn">新建</button>
+				</div>
+				
+			</div>
+			<ul class="user_table_box">
+				<li class="user_table_header c">
+					<div>序号</div>
+					<div>姓名</div>
+					<div>职称</div>
+					<div>创建者名称</div>
+					<div>创建时间</div>
+					<div>单位</div>
+					<div>密码</div>
+					<div>操作</div>
+				</li>
+				<li class="c">
+					<div>1</div>
+					<div>代用名</div>
+					<div>领导管理类</div>
+					<div>admin</div>
+					<div>2015-06-11 22：27：05</div>
+					<div>大类</div>
+					<div></div>
+					<div>
+						<a href="">删除</a>
+						<a href="">编辑</a>
+					</div>
+				</li>
+			</ul>
+		</section>
+	</main>
+	<script src="./javascripts/pager.js"></script>
+	<script src="./javascripts/devicemanage.js"></script>
+</body>
+</html>
