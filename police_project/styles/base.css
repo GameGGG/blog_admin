@@ -41,9 +41,10 @@ img{
 html{
 	height:100%;
 	color:#ffffff;
+}
+body{
 	background:#140949 url(./../images/all_bg.png) no-repeat center / cover;
 }
-
 h1{
 	height:90px;
 }
@@ -116,5 +117,6 @@ li.hover>a{
 nav .authority_hover{
 	display:none;
 	position:absolute;
+	z-index:2;
 }
 

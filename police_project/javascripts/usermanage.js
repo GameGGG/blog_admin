@@ -22,7 +22,7 @@ $(function(){
 		$(this).removeClass('hover');
 	})
 	$.ajax({
-		url:'http://124.205.60.109:7223/zhengzhou/Service/police',
+		url:'http://124.205.60.109:7223/zhengzhou/Service/GetUnit',
 		type:'post',
 		data:{
 			"PoliceNo":"100004021001",
@@ -36,5 +36,98 @@ $(function(){
 	pagerObj = new Pager({el:'.user_pg_btn',count:100})
 	pagerObj.evon(function(num){
 		console.log(num);
+	})
+
+	new navTree({
+		el:'.user_or_tree',
+		obj:[
+			{
+				name:'郑州市公安局',
+				children:[
+					{
+						name:'东城分局',
+						children:[
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							}
+						]
+					},
+					{
+						name:'月牙河分局',
+						children:[
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							},
+							{
+								name:'街道派出所'
+							},
+							{
+								name:'河东区派出所'
+							}
+						]
+					}
+				]
+			}
+		]
 	})
 })

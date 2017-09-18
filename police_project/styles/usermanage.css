@@ -6,7 +6,42 @@ main{
 	float:left;
 	width:260px;
 	min-height:800px;
+	user-select:none;
 	background:rgba(0,0,0,.5); 
+	font-size:16px;
+}
+.user_or_tree ul{
+	margin-left:10px;
+}
+
+.user_or_tree li{
+	line-height:40px;
+	cursor:pointer;
+}
+.user_or_tree .nav_tree-title{
+	position:relative;
+	padding-left:20px;
+}
+.user_or_tree .nav_tree-title:before {
+	content:'';
+	position:absolute;
+	top:12px;left:7px;
+	width:0;
+	height:0;
+	border:5px solid transparent;
+	border-bottom-color:#eee;
+}
+.user_or_tree .nav_tree-title.nav_tree-active:before {
+	content:'';
+	position:absolute;
+	top:17px;left:7px;
+	width:0;
+	height:0;
+	border:5px solid transparent;
+	border-top-color:#eee;
+}
+.nav_tree-p-active {
+	color:#00cdff;
 }
 .user_container{
 	float:left;
