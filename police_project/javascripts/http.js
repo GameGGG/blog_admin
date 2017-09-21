@@ -14,3 +14,122 @@ var API = {
 	UPDATE_COM_INFO:DOMAIN + '/UpdateDev'						// 修改通信信息
 
 }
+
+var HTTP = {
+	net_error:function() {
+		if(this.timer){
+			clearInterval(this.timer);
+		}
+		this.timer = setTimeout(function(){
+			alert('网络连接失败。')
+		},1000)
+	},
+	GETUNIT:function(s_func,e_func,options){
+		$.ajax({
+			url:'http://124.205.60.109:7223/zhengzhou/Service/GetUnit',
+			type:'post',
+			data:options,
+			success:function(data) {
+				if(data.result === 1){
+					s_func(MOCK);
+					return;
+				}
+				e_func(data.message);
+			},
+			error:function() {
+				this.net_error()
+			}
+		})
+	}
+}
+
+
+var MOCK = [
+	{
+		name:'郑州市公安局',
+		children:[
+			{
+				name:'东城分局',
+				children:[
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					}
+				]
+			},
+			{
+				name:'月牙河分局',
+				children:[
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					},
+					{
+						name:'街道派出所'
+					},
+					{
+						name:'河东区派出所'
+					}
+				]
+			}
+		]
+	}
+]

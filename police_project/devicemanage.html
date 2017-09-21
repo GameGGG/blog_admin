@@ -71,14 +71,80 @@
 					<div>大类</div>
 					<div></div>
 					<div>
-						<a href="">删除</a>
-						<a href="">编辑</a>
+						<a href="javascript:void(0);" class="del_btn">删除</a>
+						<a href="javascript:void(0);" class="update_btn">编辑</a>
 					</div>
 				</li>
 			</ul>
 		</section>
+		<section class="update_alt" style="display:none;">
+			<div class="update_alt_container">
+				<div class="update-top c">
+					<div class="user_role_pic">
+						<img src="">
+					</div>
+					<ul>	
+						<li class="c">
+							<p>类型</p>
+							<select>
+								<option value="1">1</options>
+								<option value="2">2</options>
+								<option value="3">3</options>
+								<option value="4">4</options>
+							</select>
+						</li>
+						<li class="c">
+							<p>单位</p>
+							<select>
+								<option value="1">1</options>
+								<option value="2">2</options>
+								<option value="3">3</options>
+								<option value="4">4</options>
+							</select>
+						</li>
+						<li class="c">
+							<p>名称</p>
+							<input type="text" name="">
+						</li>
+						<li class="c">
+							<p>设备ID</p>
+							<input type="text" name="">
+						</li>
+					</ul>
+				</div>
+				<div class="update-bottom">
+					<ul class="c">
+						<li>
+							<p>呼叫优先</p>
+							<select>
+								<option value="1">1</options>
+								<option value="2">2</options>
+								<option value="3">3</options>
+								<option value="4">4</options>
+							</select>
+						</li>
+						<li></li>
+						<li>
+							<p>通信号码</p>
+							<select>
+								<option value="1">1</options>
+								<option value="2">2</options>
+								<option value="3">3</options>
+								<option value="4">4</options>
+							</select>
+						</li>
+					</ul>
+					<div class="update_menu">
+						<button type="button">确认</button>
+						<button type="button" class="update_not">取消</button>
+					</div>
+				</div>
+			</div>
+		</section>
 	</main>
 	<script src="./javascripts/pager.js"></script>
+	<script type="text/javascript" src="./javascripts/navtree.js"></script>
+	<script type="text/javascript" src="./javascripts/http.js"></script>
 	<script src="./javascripts/devicemanage.js"></script>
 </body>
 </html>

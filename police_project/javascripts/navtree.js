@@ -12,6 +12,8 @@ function navTree (options){
 	this.openOnlyone = true;
 	this.activeNode = 'nav_tree-active'
 	this.activePClass = 'nav_tree-p-active'
+	this.title = "name"
+	this.children = "children"
 	this.init();
 }
 navTree.prototype.init = function(){
@@ -31,10 +33,10 @@ navTree.prototype.createTagetStr = function(obj,n){
 	this.classArr.push(n);
 	for(var i = 0;i < obj.length;i++){
 		if(obj[i].children){
-			str += '<li class="'+ (n + '-' + i) +' nav_tree-title"><p>'+ obj[i].name +'</p>'
-			str += this.createTagetStr(obj[i].children,n+'-'+i)
+			str += '<li class="'+ (n + '-' + i) +' nav_tree-title"><p>'+ obj[i][this.title] +'</p>'
+			str += this.createTagetStr(obj[i][this.children],n+'-'+i)
 		}else{
-			str += '<li class="'+ (n + '-' + i) +'"><p>'+ obj[i].name +'</p>'
+			str += '<li class="'+ (n + '-' + i) +'"><p>'+ obj[i][this.title] +'</p>'
 		}
 
 		str += '</li>'
