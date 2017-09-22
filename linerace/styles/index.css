@@ -1,0 +1,42 @@
+
+main{
+	width:1780px;
+	margin:auto;
+}
+section{
+	margin-bottom:5px;
+	border:1px solid #221b47;
+	background:rgba(0,0,0,.3)
+}
+section dd{
+	float:left;
+}
+section dt{
+	float:left;
+}
+section h2{
+	height:40px;
+	font-size:18px;
+	line-height:40px;
+	border-bottom:1px solid #221b47;
+	text-indent:20px;
+	font-weight:100;
+}
+.index_main_left{
+	float:left;
+	margin-right:5px;
+	width:420px;
+}
+.index_main_right{
+	float:left;
+}
+.index_right_top{
+	margin-bottom:5px;
+}
+.index_rt_l{
+	float:left;
+	margin-right:5px;
+}
+.index_rt_r{
+	float:left;
+}

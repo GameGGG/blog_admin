@@ -1,0 +1,121 @@
+/* -------------------------[Reset]------------------------- */
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, p, blockquote, pre, form, fieldset, legend, button, input, textarea, th, td nav{ margin: 0; padding: 0; }
+ul, ol { list-style: outside none; }
+fieldset, img { border: 0; }
+table { border-collapse: collapse; border-spacing: 0; }
+body, small, sup, sub, button, input, textarea, select { font: 12px/1 Microsoft YaHei,Arial, Helvetica, Verdana, SimSun, sans-serif; }
+body { line-height: 1.5; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+address, cite, dfn, em, var { font-style: normal; }
+code, kbd, pre, samp { font-family: "微软雅黑", Courier, SimSun, monospace; }
+sup, sub { position: relative; vertical-align: baseline; }
+sup { top: -3px; }
+sub { bottom: -3px; }
+button { padding: 5px 10px; overflow: visible; }
+ul{
+	list-style:none;
+}
+a{
+	text-decoration: none;
+}
+img{
+	display:block;
+	border:none;
+	border:0;
+}
+.c{
+	zoom:1;
+}
+.c:after{
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility:hidden;
+	overflow:hidden;
+}
+
+
+
+/* nav */
+html{
+	color:#ffffff;
+}
+body{
+	background:#140949 url(./../images/all_bg.png) no-repeat center / cover;
+}
+h1{
+	height:90px;
+}
+nav{
+	position:relative;
+	padding:20px 0;
+	margin-bottom:10px;
+	background:url(./../images/nav_bg.png) no-repeat top / cover;
+}
+.user_msg{
+	position:absolute;
+	top:0;
+	right:0;
+	width:900px;
+	height:30px;
+	line-height:30px;
+	text-align:right;
+	padding-left:10px;
+	background:url(./../images/top_user_bg.png) no-repeat top right
+}
+.user_msg a{
+	color:#ffffff;
+}
+.user_msg_name{
+	margin-right:10px;
+}
+nav dl{
+	float:left;
+	font-size:20px;
+}
+nav dl dt{
+	float:left;
+	margin:0px 20px 0px 40px;
+}
+nav dl dd{
+	float:left;
+	padding-top:11px;
+}
+nav>.nav{
+	padding-top:34px;
+	float:left;
+	font-size:16px;
+	margin-left:100px;
+}
+nav>.nav>li{
+	float:left;
+	padding-right:18px;
+	line-height:40px;
+	background:url(./../images/nav_list_right_bg.png) no-repeat right center;
+}
+nav>.nav>li.no-bg{
+	background:none;
+}
+nav>.nav>li a{
+	display:block;
+	text-align:center;
+	height:40px;
+	width:148px;
+	color:#ffffff;
+	transition:all .3s;
+}
+nav>.nav>li.active>a{
+	background:url(./../images/top_c.png) no-repeat center;
+	color:#00cdff;
+}
+li.hover>a{
+	background:url(./../images/top_c.png) no-repeat center;
+	color:#00cdff;
+}
+nav .authority_hover{
+	display:none;
+	position:absolute;
+	z-index:2;
+}
+

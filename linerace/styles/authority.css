@@ -1,0 +1,139 @@
+main{
+	width:1840px;
+	margin:auto;
+}
+.user_or_tree{
+	float:left;
+	width:260px;
+	min-height:800px;
+	background:rgba(0,0,0,.5); 
+}
+.user_container{
+	float:left;
+	margin-left:5px;
+	background:#1e2a5d;
+	padding:30px 20px;
+}
+.user_table_box{
+	width:1500px;
+	margin-top:20px;
+}
+.user_table_header{
+	background:#182146;
+}
+.user_pg_btn{
+	display:inline-block;
+}
+.f_r{
+	float:right;
+}
+.user_utils input{
+	width:300px;
+	height:34px;
+	line-height:34px;
+	text-indent:20px;
+	border-radius:4px;
+	box-shadow:1px 1px 5px 2px rgba(0,0,0,.5);
+	border:none;
+	outline:none;
+}
+.user_utils button{
+	position:relative;
+	padding:0 10px;
+	margin-left:20px;
+	width:82px;
+	height:34px;
+	border:none;
+	outline:none;
+	color:#ffffff;
+	font-size:14px;
+	text-indent:16px;
+	background:url(./../images/btn_bg.png) repeat-x top left;
+	border-radius:4px;
+	box-shadow:2px 2px 5px 2px rgba(0,0,0,.3);
+}
+.user_select_btn:before{
+	content:'';
+	position:absolute;
+	left:10px;
+	top:10px;
+	width:18px;
+	height:18px;
+	background:url(./../images/search_icon.png) no-repeat center;
+}
+.user_new_btn:before{
+	content:'';
+	position:absolute;
+	left:10px;
+	top:8px;
+	width:18px;
+	height:18px;
+	background:url(./../images/new_icon.png) no-repeat center;
+}
+.user_table_box{
+	border-top:1px solid #293c8c;
+	border-left:1px solid #293c8c;
+}
+.user_table_box li{
+	border-bottom:1px solid #293c8c;
+}
+.user_table_box li>div{
+	min-height:26px;
+	float:left;
+	text-align:center;
+	padding:10px;
+	line-height:26px;
+	border-right:1px solid #293c8c;
+}
+.user_table_box li>div:nth-of-type(1){
+	width:70px;
+}
+.user_table_box li>div:nth-of-type(2){
+	width:150px;
+}
+.user_table_box li>div:nth-of-type(3){
+	width:260px;
+}
+.user_table_box li>div:nth-of-type(4){
+	width:150px;
+}
+.user_table_box li>div:nth-of-type(5){
+	width:220px;
+}
+.user_table_box li>div:nth-of-type(6){
+	width:212px;
+}
+.user_table_box li>div:nth-of-type(7){
+	width:150px;
+}
+.user_table_box li>div:nth-of-type(8){
+	width:120px;
+}
+.user_table_box li>div a{
+	color:#0693ff;
+}
+.del_btn{
+	margin-right:20px;
+}
+
+.pager-span{
+	display:inline-block;
+	margin-left:8px;
+	height:32px;
+	line-height:32px;
+}
+.pager-btn_prev,.pager-btn_next{
+	padding:0 10px;
+	background:#00c0ff;
+	color:#ffffff;
+}
+.pager-btn{
+	width:32px;
+	background:#000000;
+	color:#00c0ff;
+	text-align:center;
+}
+.pager-active{
+	background:#e1e1e1;
+	color:#00c0ff;
+}

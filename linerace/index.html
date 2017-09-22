@@ -1,1 +1,110 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><title>police_project</title><link href=/static/css/app.24ea7752ba93e2183afabf36128c4371.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0beeb31258ef28d69460.js></script><script type=text/javascript src=/static/js/vendor.f027bcc1f59c1cc60a40.js></script><script type=text/javascript src=/static/js/app.efbe6cdcf43f05368787.js></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./styles/base.css">
+	<link rel="stylesheet" href="./styles/index.css">
+	<script src="./javascripts/jquery-1.11.3.js"></script>
+</head>
+<body>
+	<nav class="c">
+		<slide class="user_msg"><p><span>用户：</span><span class="user_msg_name">管理员</span><a href="#">退出</a></p></slide>
+		<dl class="c">
+			<dt>
+				<h1>
+					<a href="javascript:void(0)"><img src="./images/logo.png" alt="警徽"></a>
+				</h1>
+			</dt>
+			<dd>
+				<p>郑州市公安局</p>
+				<p>融合通信资源管理平台</p>
+			</dd>
+		</dl>
+		<ul class="c nav">
+			<li class="active"><a href="javascript:void(0);">首页</a></li>
+			<li><a href="./usermanage.html">用户管理</a></li>
+			<li><a href="./devicemanage.html">设备管理</a></li>
+			<li class="no-bg authority"><a href="./authority.html">权限管理</a>
+				<ul class="authority_hover">
+					<li><a href="./authority.html">角色管理</a></li>
+					<li><a href="./commanage.html">呼叫优先管理</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<main class="c">
+		<div class="index_main_left">
+			<section>
+				<h2>设备类型数量</h2>
+				<dl class="c">
+					<dd>
+						<canvas width="180px" height="180px"></canvas>
+					</dd>
+					<dt>
+						<ul>
+							<li>设备类型1<span></span></li>
+							<li>设备类型2<span></span></li>
+							<li>设备类型3<span></span></li>
+							<li>设备类型4<span></span></li>
+						</ul>
+					</dt>
+				</dl>
+			</section>
+			<section>
+					<h2>人员变更</h2>
+					<ul>
+						<li>
+							<div>人员</div>
+							<div>单位</div>
+							<div>变更内容</div>
+						</li>
+						<li></li>
+						<li></li>
+					</ul>
+			</section>
+		</div>
+		<div class="index_main_right">
+			 <div class="index_right_top c">
+				<div class="index_rt_l">
+					<img src="./images/map.png" alt="">
+				</div>
+				<div class="index_rt_r">
+					<section>
+						<h2>各呼叫优先级数量</h2>
+						<dl class="c">
+							<dd>
+								<canvas width="180px" height="180px"></canvas>
+							</dd>
+							<dt>
+								<ul>
+									<li>重大警情<span></span></li>
+									<li>一般有限<span></span></li>
+									<li>紧急不重要<span></span></li>
+									<li>重要不紧急<span></span></li>
+								</ul>
+							</dt>
+						</dl>
+					</section>
+					<section>
+						<h2>各角色统计</h2>
+						<ul>
+							<li>123</li>
+							<li>310</li>
+							<li>620</li>
+							<li>620</li>
+						</ul>
+					</section>
+				</div>
+			 </div>
+			 <section>
+				 <canvas width="1300px" height="270px"></canvas>
+			 </section>
+		</div>
+	</main>
+	<script type="text/javascript" src="./javascripts/http.js"></script>
+	<script src="./javascripts/index.js"></script>
+</body>
+</html>
