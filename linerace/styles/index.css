@@ -25,7 +25,7 @@ section h2{
 .index_main_left{
 	float:left;
 	margin-right:5px;
-	width:420px;
+	width:320px;
 }
 .index_main_right{
 	float:left;
@@ -39,4 +39,41 @@ section h2{
 }
 .index_rt_r{
 	float:left;
+}
+.device_number li{
+	position:relative;
+	text-indent:20px;
+	line-height:40px;
+	color:#00cdff;
+}
+.device_number li:before {
+	content:'';
+	position:absolute;
+	top:18px;
+	left:0;
+	width:4px;
+	height:4px;
+	border-radius:50%;
+	background:#00cdff;
+}
+.ca1{
+	width:180px;
+	height:180px;
+}
+.people_change li div{
+	float:left;
+	line-height:40px;
+	text-align:center;
+}
+.people_change li.title{
+	background:#00cdff;
+}
+.people_name{
+	width:80px;
+}
+.department{
+	width:120px;
+}
+.change_content{
+	width:118px;
 }

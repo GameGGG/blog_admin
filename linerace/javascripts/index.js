@@ -21,16 +21,105 @@ $(function(){
 	$('.authority_hover li').on('mouseout',function(){
 		$(this).removeClass('hover');
 	})
-	$.ajax({
-		url:'http://124.205.60.109:7223/zhengzhou/Service/Police',
-		type:'post',
-		data:{
-			"PoliceNo":"100004021001",
-			"TOKEN":"49e0877ad05d444ac2d6730931d3e28f",
-			"UNIT_ID":"100004000000"
-		},
-		success:function(data){
-			console.log(data);
-		}
-	})
+	renderCa1();
 })
+
+function renderCa1() {
+	var myChart = echarts.init(document.querySelector('.ca1'))
+	var	option = {
+		    tooltip: {
+		        trigger: 'item',
+		        formatter: "{a} <br/>{b}: {c} ({d}%)"
+		    },
+		    legend: {
+		        orient: 'vertical',
+		        x: 'left',
+		        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+		    },
+		    series: [
+		        {
+		            name:'访问来源',
+		            type:'pie',
+		            radius: ['40%', '70%'],
+		            avoidLabelOverlap: false,
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'center'
+		                },
+		                emphasis: {
+		                    show: true,
+		                    textStyle: {
+		                        fontSize: '30',
+		                        fontWeight: 'bold'
+		                    }
+		                }
+		            },
+		            labelLine: {
+		                normal: {
+		                    show: false
+		                }
+		            },
+		            data:[
+		                {value:335},
+		                {value:310},
+		                {value:234},
+		                {value:135},
+		                {value:1548}
+		            ]
+		        }
+		    ]
+		};
+	var o = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+    visualMap: {
+        show: false,
+        min: 125,
+        max: 500,
+        inRange: {
+            colorLightness: [0, 1]
+        }
+    },
+    series: [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius: ['40%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:335},
+                {value:310},
+                {value:234},
+                {value:135}
+            ],
+            itemStyle: {
+                normal: {
+                    color: '#00cdff'
+                }
+            },
+        }
+    ]
+};
+	myChart.setOption(o)		
+}

@@ -27,7 +27,7 @@
 			<li class="active"><a href="javascript:void(0);">首页</a></li>
 			<li><a href="./usermanage.html">用户管理</a></li>
 			<li><a href="./devicemanage.html">设备管理</a></li>
-			<li class="no-bg authority"><a href="./authority.html">权限管理</a>
+			<li class="no-bg authority"><a href="javascript:void(0);">权限管理</a>
 				<ul class="authority_hover">
 					<li><a href="./authority.html">角色管理</a></li>
 					<li><a href="./commanage.html">呼叫优先管理</a></li>
@@ -37,11 +37,11 @@
 	</nav>
 	<main class="c">
 		<div class="index_main_left">
-			<section>
+			<section class="device_number">
 				<h2>设备类型数量</h2>
 				<dl class="c">
 					<dd>
-						<canvas width="180px" height="180px"></canvas>
+						<div class="ca1"></div>
 					</dd>
 					<dt>
 						<ul>
@@ -53,16 +53,16 @@
 					</dt>
 				</dl>
 			</section>
-			<section>
+			<section class="people_change">
 					<h2>人员变更</h2>
 					<ul>
-						<li>
-							<div>人员</div>
-							<div>单位</div>
-							<div>变更内容</div>
+						<li class="title c">
+							<div class="people_name">人员</div>
+							<div class="department">单位</div>
+							<div class="change_content">变更内容</div>
 						</li>
-						<li></li>
-						<li></li>
+						<li class="c"></li>
+						<li class="c"></li>
 					</ul>
 			</section>
 		</div>
@@ -76,7 +76,7 @@
 						<h2>各呼叫优先级数量</h2>
 						<dl class="c">
 							<dd>
-								<canvas width="180px" height="180px"></canvas>
+								
 							</dd>
 							<dt>
 								<ul>
@@ -100,10 +100,11 @@
 				</div>
 			 </div>
 			 <section>
-				 <canvas width="1300px" height="270px"></canvas>
+				 <div class="ca4"></div>
 			 </section>
 		</div>
 	</main>
+	<script type="text/javascript" src="./javascripts/echarts.min.js"></script>
 	<script type="text/javascript" src="./javascripts/http.js"></script>
 	<script src="./javascripts/index.js"></script>
 </body>
