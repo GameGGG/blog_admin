@@ -1,10 +1,10 @@
 main{
-	width:1840px;
+	width:18.4rem;
 	margin:auto;
 }
 .user_or_tree{
 	float:left;
-	width:260px;
+	width:2.6rem;
 	min-height:800px;
 	user-select:none;
 	background:rgba(0,0,0,.5); 
@@ -43,14 +43,14 @@ main{
 .nav_tree-p-active {
 	color:#00cdff;
 }
-.user_container{
+.user_container,.update_alt{
 	float:left;
 	margin-left:5px;
 	background:#1e2a5d;
 	padding:30px 20px;
 }
 .user_table_box{
-	width:1500px;
+	width:15rem;
 	margin-top:20px;
 }
 .user_table_header{
@@ -113,36 +113,37 @@ main{
 	border-bottom:1px solid #293c8c;
 }
 .user_table_box li>div{
-	min-height:26px;
+	min-height:0.46rem;
 	float:left;
 	text-align:center;
-	padding:10px;
-	line-height:26px;
+	padding:0.1rem;
+	line-height:0.26rem;
+	box-sizing:border-box;
 	border-right:1px solid #293c8c;
 }
 .user_table_box li>div:nth-of-type(1){
-	width:70px;
+	width:0.9rem;
 }
 .user_table_box li>div:nth-of-type(2){
-	width:150px;
+	width:1.7rem;
 }
 .user_table_box li>div:nth-of-type(3){
-	width:260px;
+	width:2.8rem;
 }
 .user_table_box li>div:nth-of-type(4){
-	width:150px;
+	width:1.7rem;
 }
 .user_table_box li>div:nth-of-type(5){
-	width:220px;
+	width:2.4rem;
 }
 .user_table_box li>div:nth-of-type(6){
-	width:212px;
+	width:2.32rem;
 }
 .user_table_box li>div:nth-of-type(7){
-	width:150px;
+	width:1.7rem;
 }
 .user_table_box li>div:nth-of-type(8){
-	width:120px;
+	width:1.48rem;
 }
 .user_table_box li>div a{
 	color:#0693ff;
@@ -150,29 +151,11 @@ main{
 .del_btn{
 	margin-right:20px;
 }
-
-.update_alt{
-	position:fixed;
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	margin:auto;
-	background:rgba(0,0,0,.5);
-}
 .update_alt_container{
-	position:absolute;
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	margin:auto;
-	width:800px;
+	width:14rem;
 	height:600px;
 	background:#1e2a5d;
-	padding:30px 20px;
-	border-radius:5px;
-	box-shadow:2px 2px 10px 2px rgba(0,0,0,.6);
+	padding:0.3rem 0.2rem;
 }
 .update-top .user_role_pic{
 	float:left;

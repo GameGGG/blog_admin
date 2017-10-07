@@ -21,7 +21,8 @@ $(function(){
 	$('.authority_hover li').on('mouseout',function(){
 		$(this).removeClass('hover');
 	})
-	renderCa1();
+	setTimeout(renderCa1,1000)
+	
 })
 
 function renderCa1() {

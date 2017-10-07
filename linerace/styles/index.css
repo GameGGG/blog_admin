@@ -1,6 +1,6 @@
 
 main{
-	width:1780px;
+	width:18.8rem;
 	margin:auto;
 }
 section{
@@ -15,17 +15,17 @@ section dt{
 	float:left;
 }
 section h2{
-	height:40px;
+	height:0.4rem;
 	font-size:18px;
-	line-height:40px;
+	line-height:0.4rem;
 	border-bottom:1px solid #221b47;
-	text-indent:20px;
+	text-indent:0.2rem;
 	font-weight:100;
 }
 .index_main_left{
 	float:left;
 	margin-right:5px;
-	width:320px;
+	width:4.2rem;
 }
 .index_main_right{
 	float:left;
@@ -34,16 +34,21 @@ section h2{
 	margin-bottom:5px;
 }
 .index_rt_l{
+	width:11rem;
 	float:left;
 	margin-right:5px;
 }
+.index_rt_l img{
+	width:100%;
+}
 .index_rt_r{
+	width:3rem;
 	float:left;
 }
 .device_number li{
 	position:relative;
-	text-indent:20px;
-	line-height:40px;
+	text-indent:0.2rem;
+	line-height:0.4rem;
 	color:#00cdff;
 }
 .device_number li:before {
@@ -57,23 +62,23 @@ section h2{
 	background:#00cdff;
 }
 .ca1{
-	width:180px;
-	height:180px;
+	width:1.8rem;
+	height:1.8rem;
 }
 .people_change li div{
 	float:left;
-	line-height:40px;
+	line-height:0.4rem;
 	text-align:center;
 }
 .people_change li.title{
 	background:#00cdff;
 }
 .people_name{
-	width:80px;
+	width:0.8rem;
 }
 .department{
-	width:120px;
+	width:1.2rem;
 }
 .change_content{
-	width:118px;
+	width:1.18rem;
 }

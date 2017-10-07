@@ -30,13 +30,16 @@ $(function(){
 	// 编辑信息页的弹出关闭
 	$('.update_not').on('click',function(){
 		$('.update_alt').hide();
+		$('.user_container').show();
 	})
 	$('.user_table_box').on('click','.update_btn',function(){
 		$('.update_alt').show();
+		$('.user_container').hide();
 	})
 
 	$('.user_new_btn').on('click',function (){
 		$('.update_alt').show();
+		$('.user_container').hide();
 	})
 
 	// 获取组织结构

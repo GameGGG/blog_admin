@@ -5,8 +5,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+	<script type="text/javascript">
+		window.onload = function() {
+			document.querySelector('html').style.fontSize = document.body.offsetWidth/1920 * 100 + 'px'
+		}
+	</script>
 	<link rel="stylesheet" href="./styles/base.css">
-	<link rel="stylesheet" href="./styles/usermanage.css">
+	<link rel="stylesheet" href="./styles/devicemanage.css">
 	<script src="./javascripts/jquery-1.11.3.js"></script>
 </head>
 <body>
@@ -53,13 +58,10 @@
 			</div>
 			<ul class="user_table_box">
 				<li class="user_table_header c">
-					<div>序号</div>
-					<div>姓名</div>
-					<div>职称</div>
-					<div>创建者名称</div>
-					<div>创建时间</div>
-					<div>单位</div>
-					<div>密码</div>
+					<div>设备ID</div>
+					<div>设备类型</div>
+					<div>通信号码</div>
+					<div>设备所属单位</div>
 					<div>操作</div>
 				</li>
 				<li class="c">
@@ -67,9 +69,6 @@
 					<div>代用名</div>
 					<div>领导管理类</div>
 					<div>admin</div>
-					<div>2015-06-11 22：27：05</div>
-					<div>大类</div>
-					<div></div>
 					<div>
 						<a href="javascript:void(0);" class="del_btn">删除</a>
 						<a href="javascript:void(0);" class="update_btn">编辑</a>
