@@ -1,21 +1,22 @@
 main{
-	width:1840px;
+	width:18.4rem;
 	margin:auto;
 }
 .user_or_tree{
 	float:left;
-	width:260px;
+	width:2.6rem;
 	min-height:800px;
 	background:rgba(0,0,0,.5); 
 }
 .user_container{
+	width:15rem;
 	float:left;
 	margin-left:5px;
 	background:#1e2a5d;
 	padding:30px 20px;
 }
 .user_table_box{
-	width:1500px;
+	
 	margin-top:20px;
 }
 .user_table_header{

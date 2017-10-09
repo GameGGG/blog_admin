@@ -8,11 +8,18 @@ section{
 	border:1px solid #221b47;
 	background:rgba(0,0,0,.3)
 }
+section dl{
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+}
 section dd{
 	float:left;
 }
 section dt{
 	float:left;
+	margin-left:0.2px;
+	height:100%;
 }
 section h2{
 	height:0.4rem;
@@ -34,15 +41,17 @@ section h2{
 	margin-bottom:5px;
 }
 .index_rt_l{
-	width:11rem;
+	width:10rem;
+	height:5.5rem;
 	float:left;
 	margin-right:5px;
 }
 .index_rt_l img{
 	width:100%;
+	height:100%;
 }
 .index_rt_r{
-	width:3rem;
+	width:4.4rem;
 	float:left;
 }
 .device_number li{
@@ -54,7 +63,7 @@ section h2{
 .device_number li:before {
 	content:'';
 	position:absolute;
-	top:18px;
+	top:12px;
 	left:0;
 	width:4px;
 	height:4px;
@@ -62,23 +71,93 @@ section h2{
 	background:#00cdff;
 }
 .ca1{
-	width:1.8rem;
-	height:1.8rem;
+	width:2.4rem;
+	height:2.4rem;
+}
+.ca2{
+	width:2.2rem;
+	height:2.2rem;
+	margin:0.1rem 0;
+}
+.ca4{
+	height:200px;
 }
 .people_change li div{
 	float:left;
-	line-height:0.4rem;
+	padding:10px 0;
 	text-align:center;
+}
+.people_change li:nth-child(even){
+	background:#051B4F;
 }
 .people_change li.title{
 	background:#00cdff;
 }
 .people_name{
-	width:0.8rem;
-}
-.department{
 	width:1.2rem;
 }
+.department{
+	width:1.4rem;
+
+}
 .change_content{
-	width:1.18rem;
+	width:1.5rem;
+}
+
+.role_statistics_box h2{
+	border:none;
+}
+.role_statistics li{
+	height:24px;
+	background:#1E1F1E;
+	margin:10px 10px;
+	padding:0 5px;
+	line-height:24px;
+	text-align:right;
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+
+}
+.role_statistics li:nth-of-type(1){
+	color:#F7911D;
+}
+.role_statistics li:nth-of-type(1) span{
+	background:#F7911D;
+}
+.role_statistics li:nth-of-type(2){
+	color:#2CC0E8;
+}
+.role_statistics li:nth-of-type(2) span{
+	background:#2CC0E8;
+}
+.role_statistics li:nth-of-type(3){
+	color:#00D096;
+}
+.role_statistics li:nth-of-type(3) span{
+	background:#00D096;
+}
+.role_statistics li:nth-of-type(4){
+	color:#FF4B79;
+}
+.role_statistics li:nth-of-type(4) span{
+	background:#FF4B79;
+}
+.role_statistics em{
+	flex:1;
+}
+.role_statistics div{
+	flex:4;
+	height:6px;
+	background:#D9E0E8;
+	border-radius:3px;
+}
+.role_statistics div span{
+	display:block;
+	height:100%;
+	border-radius:3px;
+}
+.role_statistics p{
+	flex:1;
+	text-align:center;
 }

@@ -22,105 +22,143 @@ $(function(){
 		$(this).removeClass('hover');
 	})
 	setTimeout(renderCa1,1000)
-	
+	setTimeout(renderCa2,1000)
+	setTimeout(renderCa4,1000)
 })
 
 function renderCa1() {
 	var myChart = echarts.init(document.querySelector('.ca1'))
-	var	option = {
+	var o = {
+		color:["#82E2FF", "#00B0D9", "#2CC0E8", "#53CEF2"],
+	    tooltip: {
+	        trigger: 'item',
+	        formatter: "{a} <br/>{b}: {c} ({d}%)"
+	    },
+	    series: [
+	        {
+	            name:'设备数量',
+	            type:'pie',
+	            radius: ['40%', '70%'],
+	            avoidLabelOverlap: false,
+	            label: {
+	                normal: {
+	                    show: false,
+	                    position: 'center'
+	                },
+	                emphasis: {
+	                    show: true,
+	                    textStyle: {
+	                        fontSize: '30',
+	                        fontWeight: 'bold'
+	                    }
+	                }
+	            },
+	            labelLine: {
+	                normal: {
+	                    show: false
+	                }
+	            },
+	            data:[
+	                {value:335},
+	                {value:310},
+	                {value:234},
+	                {value:135}
+	            ]
+	        }
+	    ]
+	};
+	myChart.setOption(o)		
+}
+
+function renderCa4() {
+	var myChart = echarts.init(document.querySelector('.ca4')),
+		option = {
+		    color: ['#0094EF', '#00CBC9'],
 		    tooltip: {
-		        trigger: 'item',
-		        formatter: "{a} <br/>{b}: {c} ({d}%)"
+		        trigger: 'axis',
+		        axisPointer: {
+		            type: 'shadow'
+		        }
+		    },
+		    textStyle: {
+		    	color:'#00CBC9'
 		    },
 		    legend: {
-		        orient: 'vertical',
-		        x: 'left',
-		        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+		        data: ['人员', '设备']
 		    },
+		    xAxis:{
+		        	show: true,
+		            type: 'category',
+		            axisTick: {show: true},
+		            data: ['派出所1', '派出所2', '派出所3', '派出所4', '派出所5','派出所1', '派出所2', '派出所3', '派出所4', '派出所5','派出所1', '派出所2', '派出所3', '派出所4', '派出所5']
+		    }
+		    ,
+		    yAxis: [
+		        {
+		        	show: true,
+		            type: 'value'
+		        }
+		    ],
 		    series: [
 		        {
-		            name:'访问来源',
-		            type:'pie',
-		            radius: ['40%', '70%'],
-		            avoidLabelOverlap: false,
-		            label: {
-		                normal: {
-		                    show: false,
-		                    position: 'center'
-		                },
-		                emphasis: {
-		                    show: true,
-		                    textStyle: {
-		                        fontSize: '30',
-		                        fontWeight: 'bold'
-		                    }
-		                }
-		            },
-		            labelLine: {
-		                normal: {
-		                    show: false
-		                }
-		            },
-		            data:[
-		                {value:335},
-		                {value:310},
-		                {value:234},
-		                {value:135},
-		                {value:1548}
-		            ]
+		            name: '人员',
+		            type: 'bar',
+		            barGap: '0.1',
+		            data: [320, 332, 301, 334, 390,320, 332, 301, 334, 390,320, 332, 301, 334, 390]
+		        },
+		        {
+		            name: '设备',
+		            type: 'bar',
+		            data: [220, 182, 191, 234, 290,320, 332, 301, 334, 390,320, 332, 301, 334, 390]
 		        }
 		    ]
 		};
-	var o = {
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b}: {c} ({d}%)"
-    },
-    visualMap: {
-        show: false,
-        min: 125,
-        max: 500,
-        inRange: {
-            colorLightness: [0, 1]
-        }
-    },
-    series: [
-        {
-            name:'访问来源',
-            type:'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-                normal: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    show: true,
-                    textStyle: {
-                        fontSize: '30',
-                        fontWeight: 'bold'
-                    }
-                }
-            },
-            labelLine: {
-                normal: {
-                    show: false
-                }
-            },
-            data:[
-                {value:335},
-                {value:310},
-                {value:234},
-                {value:135}
-            ],
-            itemStyle: {
-                normal: {
-                    color: '#00cdff'
-                }
-            },
-        }
-    ]
-};
-	myChart.setOption(o)		
+	myChart.setOption(option)
 }
+
+function renderCa2() {
+	var myChart = echarts.init(document.querySelector('.ca2'))
+	var o = {
+		color:["#00FF4E", "#D20000", "#FFA200", "#EFFF00"],
+	    tooltip: {
+	        trigger: 'item',
+	        formatter: "{a} <br/>{b}: {c} ({d}%)"
+	    },
+	    series: [
+	        {
+	            name:'优先级数量',
+	            type:'pie',
+	            radius: ['50%', '70%'],
+	            avoidLabelOverlap: false,
+	            label: {
+	                normal: {
+	                    show: false,
+	                    position: 'center'
+	                },
+	                emphasis: {
+	                    show: true,
+	                    textStyle: {
+	                        fontSize: '30',
+	                        fontWeight: 'bold'
+	                    }
+	                }
+	            },
+	            labelLine: {
+	                normal: {
+	                    show: false
+	                }
+	            },
+	            data:[
+	                {value:335},
+	                {value:310},
+	                {value:234},
+	                {value:135}
+	            ]
+	        }
+	    ]
+	};
+	myChart.setOption(o)
+}
+
+
+
