@@ -1,4 +1,4 @@
-var DOMAIN = '//124.205.60.109:7223/zhengzhou'
+var DOMAIN = 'http://124.205.60.109:7223/zhengzhou'
 var API = {
 	SELECT_OR_TREE:DOMAIN + '/Service/GetUnit',					// 查询组织结构
 	ADD_OR_TREE:DOMAIN + '/AddUnit',							// 增加组织结构
@@ -26,8 +26,8 @@ var HTTP = {
 	},
 	GETUNIT:function(s_func,e_func,options){
 		$.ajax({
-			url:'http://124.205.60.109:7223/zhengzhou/Service/GetUnit',
-			type:'post',
+			url:API.SELECT_OR_TREE,
+			type:'POST',
 			data:options,
 			success:function(data) {
 				if(data.result === 1){
@@ -37,8 +37,26 @@ var HTTP = {
 				}
 				e_func(data.message);
 			},
+			error:function(err) {
+				console.log(err)
+				// this.net_error()
+			}
+		})
+	},
+	GETPOLICE:function(s_func, e_func, options) {
+		$.ajax({
+			url:API.SELECT_POLICE_MSG,
+			type:'POST',
+			data:options,
+			success:function(data) {
+				if(data.result === 1){
+					s_func(data.policeList)
+					return;
+				}
+				e_func(data.message);
+			},
 			error:function() {
-				this.net_error()
+				// this.net_error()
 			}
 		})
 	}

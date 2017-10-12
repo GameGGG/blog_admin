@@ -1,3 +1,8 @@
+var CONFIG = {
+	pageNumber: 10
+}
+
+var pagerObj = null
 $(function(){
 	// ======================= 导航设置【BEGIN】 =======================
 	// **
@@ -41,6 +46,27 @@ $(function(){
 		$('.user_container').hide();
 	})
 
+	// 点击查询按钮
+	$('.user_select_btn').on('mousedown', function() {
+		$(this).addClass('active')
+	})
+	$('.user_select_btn').on('mouseup', function() {
+		$(this).removeClass('active')
+	})
+	$('.user_select_btn').on('click', function() {
+		var search_word = $('.user_select_input').val()
+		if(search_word === '') return false;
+		HTTP.GETPOLICE(
+			dealPolice, 
+			alert_window,
+			{
+				"KEY_WORD": search_word,
+				"ROWS": CONFIG.pageNumber,
+				"PAGE_INDEX": "1"
+			}
+		)
+	})
+
 	// 获取组织结构
 	HTTP.GETUNIT(
 		dealUnit,
@@ -50,21 +76,74 @@ $(function(){
 			"ALL_SUBUNIT":"1"
 		}
 	);
-	pagerObj = new Pager({el:'.user_pg_btn',count:100})
-	pagerObj.evon(function(num){
-		console.log(num);
-	})
+	
 
 	
 })
 
 // 组织结构处理
 function dealUnit(data) {
-	console.log(data)
 	new navTree({
 		el:'.user_or_tree',
 		obj:data
+	}).enov(function(value) {
+		HTTP.GETPOLICE(
+			dealPolice, 
+			alert_window,
+			{
+				"UNIT_ID": value,
+				"ROWS": CONFIG.pageNumber,
+				"PAGE_INDEX": "1"
+			}
+		)
+		console.log(value)
 	})
+}
+// 警员列表处理
+function dealPolice(data) {
+	dealPager(data.length)
+	renderPoliceList(data)
+}
+function dealPager(total) {
+	if(pagerObj){
+		pagerObj.refresh({el:'.user_pg_btn',count:total})
+		return;
+	}
+
+	pagerObj = new Pager({el:'.user_pg_btn',count:total})
+
+	pagerObj.evon(function(num){
+		console.log(num);
+	})
+}
+function renderPoliceList(data) {
+	var htmlStr = '<li class="user_table_header c">'
+					+'<div>序号</div>'
+					+'<div>姓名</div>'
+					+'<div>职称</div>'
+					+'<div>创建者名称</div>'
+					+'<div>创建时间</div>'
+					+'<div>单位</div>'
+					+'<div>密码</div>'
+					+'<div>操作</div>'
+				+'</li>',
+		i = 0;
+	for(; i < data.length; i++){
+		htmlStr += '<li class="c">'
+					+'<div>1</div>'
+					+'<div>'+ data[i].POLICE_NAME +'</div>'
+					+'<div>'+ (data[i].POLICE_POST || '') +'</div>'
+					+'<div>admin</div>'
+					+'<div>2015-06-11 22：27：05</div>'
+					+'<div>大类</div>'
+					+'<div>'+ data[i].PWS +'</div>'
+					+'<div>'
+						+'<a href="javascript:void(0);" class="del_btn">删除</a>'
+						+'<a href="javascript:void(0);" class="update_btn">编辑</a>'
+					+'</div>'
+				+'</li>'
+	}
+	$('.user_table_box').html(htmlStr)
 }
 
 

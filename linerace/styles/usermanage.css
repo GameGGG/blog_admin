@@ -31,7 +31,7 @@ main{
 .nav_tree-p-active {
 	color:#00cdff;
 }
-.user_or_tree .nav_tree-title{
+.user_or_tree li{
 	position:relative;
 	padding-left:20px;
 }
@@ -98,6 +98,9 @@ main{
 	border-radius:4px;
 	box-shadow:2px 2px 5px 2px rgba(0,0,0,.3);
 }
+.user_utils button.active{
+	box-shadow:2px 2px 5px 2px rgba(0,0,0,0);
+}
 .user_select_btn:before{
 	content:'';
 	position:absolute;
@@ -131,6 +134,7 @@ main{
 	line-height:0.26rem;
 	box-sizing:border-box;
 	border-right:1px solid #293c8c;
+	word-break:break-all;
 }
 .user_table_box li>div:nth-of-type(1){
 	width:0.9rem;
@@ -163,7 +167,7 @@ main{
 	margin-right:20px;
 }
 .update_alt_container{
-	width:14rem;
+	width:13rem;
 	height:600px;
 	background:#1e2a5d;
 	padding:0.3rem 0.2rem;

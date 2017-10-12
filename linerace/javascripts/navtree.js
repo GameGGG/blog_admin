@@ -136,7 +136,9 @@ navTree.prototype.judgeIsChild = function(str,name){
 	return false;
 }
 navTree.prototype.dispatch = function(index, value){
-	console.log(value);
+	if(this.__func){
+		this.__func(value)
+	}
 }
 navTree.prototype.hasClass = function(str,name){
 	var className = str,
@@ -164,5 +166,8 @@ navTree.prototype.addClass = function(dom,name){
 	if(!this.hasClass(dom.className,name)){
 		dom.className += ' ' + name
 	}
+}
+navTree.prototype.enov = function(func) {
+	this.__func = func;
 }
 		
