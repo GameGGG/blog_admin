@@ -47,9 +47,8 @@ $(function(){
 		dealUnit,
 		alert_window,
 		{
-			"PoliceNo":"100004021001",
-			"TOKEN":"49e0877ad05d444ac2d6730931d3e28f",
-			"UNIT_ID":"100004000000"
+			"UNIT_ID":"-1",
+			"ALL_SUBUNIT":"1"
 		}
 	);
 	pagerObj = new Pager({el:'.user_pg_btn',count:100})

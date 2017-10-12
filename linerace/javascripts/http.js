@@ -31,7 +31,8 @@ var HTTP = {
 			data:options,
 			success:function(data) {
 				if(data.result === 1){
-					s_func(MOCK);
+					s_func(beforeDealUnit(data.unitList))
+					console.log()
 					return;
 				}
 				e_func(data.message);
@@ -42,94 +43,27 @@ var HTTP = {
 		})
 	}
 }
-
-
-var MOCK = [
-	{
-		name:'郑州市公安局',
-		children:[
-			{
-				name:'东城分局',
-				children:[
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					}
-				]
-			},
-			{
-				name:'月牙河分局',
-				children:[
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					},
-					{
-						name:'街道派出所'
-					},
-					{
-						name:'河东区派出所'
-					}
-				]
-			}
-		]
+function beforeDealUnit(data) {
+	var obj = {},
+		result;
+	for(var i = 0; i < data.length; i++){
+		if(obj[data[i].PARENT_ID]){
+			obj[data[i].PARENT_ID].push(data[i])
+		} else {
+			obj[data[i].PARENT_ID] = [data[i]]
+		}
 	}
-]
+	result = unitTree('-1', obj)
+	return result;
+}
+function unitTree(parent_id, obj) {
+	var result = [];
+	if(!obj[parent_id]) return null;
+	for(var i = 0; i < obj[parent_id].length; i++) {
+		obj[parent_id][i].keys = obj[parent_id][i].UNIT_ID
+		obj[parent_id][i].name = obj[parent_id][i].UNIT_NAME
+		obj[parent_id][i].children = unitTree(obj[parent_id][i].UNIT_ID, obj)
+		result.push(obj[parent_id][i])
+	}
+	return result
+}

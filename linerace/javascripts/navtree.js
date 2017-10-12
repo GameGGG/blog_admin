@@ -14,6 +14,8 @@ function navTree (options){
 	this.activePClass = 'nav_tree-p-active'
 	this.title = "name"
 	this.children = "children"
+	this.keys = "keys"
+	this.dataValue = ''
 	this.init();
 }
 navTree.prototype.init = function(){
@@ -32,11 +34,12 @@ navTree.prototype.createTagetStr = function(obj,n){
 								   : "style=\"display:none;\">");
 	this.classArr.push(n);
 	for(var i = 0;i < obj.length;i++){
+		var p_str = '<p data-value="'+obj[i][this.keys]+'"">'+ obj[i][this.title] +'</p>'
 		if(obj[i].children){
-			str += '<li class="'+ (n + '-' + i) +' nav_tree-title"><p>'+ obj[i][this.title] +'</p>'
+			str += '<li class="'+ (n + '-' + i) +' nav_tree-title">' + p_str
 			str += this.createTagetStr(obj[i][this.children],n+'-'+i)
 		}else{
-			str += '<li class="'+ (n + '-' + i) +'"><p>'+ obj[i][this.title] +'</p>'
+			str += '<li class="'+ (n + '-' + i) +'">' + p_str
 		}
 
 		str += '</li>'
@@ -50,11 +53,11 @@ navTree.prototype.addEvent = function(dom){
 		var targetDom = e.target,
 			hasPChild = that.hasPTarget(targetDom);
 		if(hasPChild){
+			that.dataValue = e.target.getAttribute('data-value')
 			if(that.activePArr[0]){
 				that.removeClass(that.activePArr[0],that.activePClass);
 			}
 			if(!targetDom.nextSibling){
-				
 				that.activePArr[0] = targetDom
 				that.addClass(targetDom,that.activePClass)
 				that.dealDate(targetDom);
@@ -99,7 +102,7 @@ navTree.prototype.dealDate = function(dom){
 			arr.splice(arr.indexOf(this.activeNode),1);
 		}
 		result = arr[0].replace('nav_tree-','');
-		this.dispatch(result)
+		this.dispatch(result, this.dataValue)
 	}
 }
 navTree.prototype.closeTarget = function(str){
@@ -132,8 +135,8 @@ navTree.prototype.judgeIsChild = function(str,name){
 	}
 	return false;
 }
-navTree.prototype.dispatch = function(val){
-	console.log(val);
+navTree.prototype.dispatch = function(index, value){
+	console.log(value);
 }
 navTree.prototype.hasClass = function(str,name){
 	var className = str,

@@ -46,7 +46,8 @@ $(function(){
 		dealUnit,
 		alert_window,
 		{
-			"UNIT_ID":"-1"
+			"UNIT_ID":"-1",
+			"ALL_SUBUNIT":"1"
 		}
 	);
 	pagerObj = new Pager({el:'.user_pg_btn',count:100})
