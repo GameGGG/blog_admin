@@ -65,6 +65,15 @@ $(function(){
 				"PAGE_INDEX": "1"
 			}
 		)
+		HTTP.GETCOUNTPOLICE(
+			dealPager,
+			alert_window, 
+			{
+				"KEY_WORD": search_word,
+				"ROWS": CONFIG.pageNumber,
+				"PAGE_INDEX": "1"
+			}
+		)
 	})
 
 	// 获取组织结构
@@ -96,12 +105,19 @@ function dealUnit(data) {
 				"PAGE_INDEX": "1"
 			}
 		)
-		console.log(value)
+		HTTP.GETCOUNTPOLICE(
+			dealPager,
+			alert_window, 
+			{
+				"UNIT_ID": value,
+				"ROWS": CONFIG.pageNumber,
+				"PAGE_INDEX": "1"
+			}
+		)
 	})
 }
 // 警员列表处理
 function dealPolice(data) {
-	dealPager(data.length)
 	renderPoliceList(data)
 }
 function dealPager(total) {
@@ -109,7 +125,7 @@ function dealPager(total) {
 		pagerObj.refresh({el:'.user_pg_btn',count:total})
 		return;
 	}
-
+	console.log(total)
 	pagerObj = new Pager({el:'.user_pg_btn',count:total})
 
 	pagerObj.evon(function(num){
@@ -144,8 +160,15 @@ function renderPoliceList(data) {
 				+'</li>'
 	}
 	$('.user_table_box').html(htmlStr)
+	dealLiHeight();
 }
-
+function dealLiHeight() {
+	if(!$('.user_table_box li')[1]){
+		return false
+	}
+	var h = $('.user_table_box li')[1].offsetHeight
+	$('.user_table_box li').not('.user_table_header').css('height',h + "px")
+}
 
 function alert_window(msg){
 	console.log(msg)

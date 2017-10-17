@@ -1,14 +1,14 @@
 main{
-	width:18.4rem;
-	margin:auto;
+	width:100%;
 }
 .user_or_tree{
 	float:left;
-	width:4rem;
+	width:263px;
 	min-height:800px;
 	user-select:none;
 	background:rgba(0,0,0,.5); 
 	font-size:16px;
+	margin:0 11px;
 }
 .user_or_tree ul{
 	margin-left:10px;
@@ -59,12 +59,14 @@ main{
 }
 .user_container,.update_alt{
 	float:left;
-	margin-left:5px;
 	background:#1e2a5d;
-	padding:30px 20px;
+	padding:35px 30px;
+}
+.update_alt{
+	width:1572px;
 }
 .user_table_box{
-	width:13.6rem;
+	width:1572px;
 	margin-top:20px;
 }
 .user_table_header{
@@ -125,15 +127,20 @@ main{
 }
 .user_table_box li{
 	border-bottom:1px solid #293c8c;
+	min-height:0.46rem;
+}
+.user_table_box .user_table_header {
+	height:0.46rem;
 }
 .user_table_box li>div{
-	min-height:0.46rem;
+	height:100%;
 	float:left;
 	text-align:center;
 	padding:0.1rem;
 	line-height:0.26rem;
 	box-sizing:border-box;
 	border-right:1px solid #293c8c;
+	word-break:break-all;
 }
 .user_table_box li>div:nth-of-type(1){
 	width:2rem;
@@ -170,9 +177,11 @@ main{
 	height:300px;
 }
 .update-top ul{
+	width:900px;
 	float:left;
 }
 .update-top li{
+	float:left;
 	width:400px;
 	line-height:60px;
 	font-size:16px;

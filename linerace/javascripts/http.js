@@ -8,10 +8,12 @@ var API = {
 	ADD_POLICE_MSG:DOMAIN + '/AddPollice',						// 添加警力信息
 	DELECT_POLICE_MSG:DOMAIN + '/DelPollice',					// 删除警力信息
 	UPDATE_POLICE_MSG:DOMAIN + '/UpdatePollice',				// 修改警力信息
+	COUNT_POLECE:DOMAIN + '/Service/CountPolice',				// 获取警力条数
 	SELECT_COM_INFO:DOMAIN + '/Service/GetDev',					// 查询通信信息
 	ADD_COM_INFO:DOMAIN +　'/AddDev',							// 添加通信信息
 	DELECT_COM_INFO:DOMAIN +　'/DelDev',							// 删除通信信息
-	UPDATE_COM_INFO:DOMAIN + '/UpdateDev'						// 修改通信信息
+	UPDATE_COM_INFO:DOMAIN + '/UpdateDev',						// 修改通信信息
+	COUNT_DEV:DOMAIN + '/Service/CountDev'						// 获取设备条数
 
 }
 
@@ -51,6 +53,57 @@ var HTTP = {
 			success:function(data) {
 				if(data.result === 1){
 					s_func(data.policeList)
+					return;
+				}
+				e_func(data.message);
+			},
+			error:function() {
+				// this.net_error()
+			}
+		})
+	},
+	GETDEV:function(s_func, e_func, options) {
+		$.ajax({
+			url:API.SELECT_COM_INFO,
+			type:'POST',
+			data:options,
+			success:function(data) {
+				if(data.result === 1){
+					s_func(data.devList)
+					return;
+				}
+				e_func(data.message);
+			},
+			error:function() {
+				// this.net_error()
+			}
+		})
+	},
+	GETCOUNTPOLICE:function(s_func, e_func, options) {
+		$.ajax({
+			url:API.COUNT_POLECE,
+			type:'POST',
+			data:options,
+			success:function(data) {
+				if(data.result === 1){
+					s_func(data.NCOUNT)
+					return;
+				}
+				e_func(data.message);
+			},
+			error:function() {
+				// this.net_error()
+			}
+		})
+	},
+	GETCOUNTDEV:function(s_func, e_func, options) {
+		$.ajax({
+			url:API.COUNT_DEV,
+			type:'POST',
+			data:options,
+			success:function(data) {
+				if(data.result === 1){
+					s_func(data.NCOUNT)
 					return;
 				}
 				e_func(data.message);

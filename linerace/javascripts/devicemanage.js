@@ -1,3 +1,8 @@
+var CONFIG = {
+	pageNumber: 10
+}
+
+var pagerObj = null
 $(function(){
 	// ======================= 导航设置【BEGIN】 =======================
 	// **
@@ -41,6 +46,29 @@ $(function(){
 		$('.update_alt').show();
 		$('.user_container').hide();
 	})
+	// 点击搜索按钮
+	$('.user_select_btn').on('click', function() {
+		var search_word = $('.user_select_input').val()
+		if(search_word === '') return false;
+		HTTP.GETDEV(
+			dealDev, 
+			alert_window,
+			{
+				"KEY_WORD": search_word,
+				"ROWS": CONFIG.pageNumber,
+				"PAGE_INDEX": "1"
+			}
+		)
+		HTTP.GETCOUNTDEV(
+			dealPager,
+			alert_window, 
+			{
+				"KEY_WORD": search_word,
+				"ROWS": CONFIG.pageNumber,
+				"PAGE_INDEX": "1"
+			}
+		)
+	})
 
 	// 获取组织结构
 	HTTP.GETUNIT(
@@ -51,23 +79,81 @@ $(function(){
 			"ALL_SUBUNIT":"1"
 		}
 	);
-	pagerObj = new Pager({el:'.user_pg_btn',count:100})
-	pagerObj.evon(function(num){
-		console.log(num);
-	})
-
 	
 })
 
 // 组织结构处理
 function dealUnit(data) {
-	console.log(data)
 	new navTree({
 		el:'.user_or_tree',
 		obj:data
+	}).enov(function(value) {
+		HTTP.GETDEV(
+			dealDev, 
+			alert_window,
+			{
+				"UNIT_ID": value,
+				"ROWS": CONFIG.pageNumber,
+				"PAGE_INDEX": "1"
+			}
+		)
+		HTTP.GETCOUNTDEV(
+			dealPager,
+			alert_window, 
+			{
+				"KEY_WORD": dealPager,
+				"ROWS": CONFIG.pageNumber,
+				"PAGE_INDEX": "1"
+			}
+		)
 	})
 }
+// 警员列表处理
+function dealDev(data) {
+	renderDevList(data)
+}
+function dealPager(total) {
+	if(pagerObj){
+		pagerObj.refresh({el:'.user_pg_btn',count:total})
+		return;
+	}
 
+	pagerObj = new Pager({el:'.user_pg_btn',count:total})
+
+	pagerObj.evon(function(num){
+		console.log(num);
+	})
+}
+function renderDevList(data) {
+	var htmlStr = '<li class="user_table_header c">'
+					+'<div>设备ID</div>'
+					+'<div>设备类型</div>'
+					+'<div>通信号码</div>'
+					+'<div>设备所属单位</div>'
+					+'<div>操作</div>'
+				+'</li>',
+		i = 0;
+	for(; i < data.length; i++){
+		htmlStr += '<li class="c">'
+					+'<div>'+ data[i] +'</div>'
+					+'<div>'+ (data[i].DEV_TYPE || '') +'</div>'
+					+'<div>'+ (data[i].CALL_NO || '') +'</div>'
+					+'<div>暂无所属单位字段</div>'
+					+'<div>'
+						+'<a href="javascript:void(0);" class="del_btn">删除</a>'
+						+'<a href="javascript:void(0);" class="update_btn">编辑</a>'
+					+'</div>'
+				+'</li>'
+	}
+	$('.user_table_box').html(htmlStr)
+	dealLiHeight();
+}
+function dealLiHeight() {
+	var li2 = $('.user_table_box li')[1]
+	if(!li2) return;
+	var h = li2.offsetHeight
+	$('.user_table_box li').not('.user_table_header').css('height',h + "px")
+}
 
 function alert_window(msg){
 	console.log(msg)
