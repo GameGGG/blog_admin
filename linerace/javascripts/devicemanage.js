@@ -107,6 +107,9 @@ function dealUnit(data) {
 			}
 		)
 	})
+	setTimeout(function () {
+		$('.nav_tree-0 p').eq(0).click();
+	}, 0)
 }
 // 警员列表处理
 function dealDev(data) {

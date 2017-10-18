@@ -115,6 +115,9 @@ function dealUnit(data) {
 			}
 		)
 	})
+	setTimeout(function () {
+		$('.nav_tree-0 p').eq(0).click();
+	}, 0)
 }
 // 警员列表处理
 function dealPolice(data) {
@@ -134,13 +137,17 @@ function dealPager(total) {
 }
 function renderPoliceList(data) {
 	var htmlStr = '<li class="user_table_header c">'
-					+'<div>序号</div>'
+					+'<div>警员</div>'
 					+'<div>姓名</div>'
-					+'<div>职称</div>'
-					+'<div>创建者名称</div>'
-					+'<div>创建时间</div>'
 					+'<div>单位</div>'
-					+'<div>密码</div>'
+					+'<div>职务</div>'
+					+'<div>手机号</div>'
+					+'<div>警务通APP</div>'
+					+'<div>4G执法仪</div>'
+					+'<div>4G车载</div>'
+					+'<div>云镜</div>'
+					+'<div>摩托车载</div>'
+					+'<div>其他设备</div>'
 					+'<div>操作</div>'
 				+'</li>',
 		i = 0;
@@ -152,6 +159,10 @@ function renderPoliceList(data) {
 					+'<div>admin</div>'
 					+'<div>2015-06-11 22：27：05</div>'
 					+'<div>大类</div>'
+					+'<div>'+ data[i].PWS +'</div>'
+					+'<div>'+ data[i].PWS +'</div>'
+					+'<div>'+ data[i].PWS +'</div>'
+					+'<div>'+ data[i].PWS +'</div>'
 					+'<div>'+ data[i].PWS +'</div>'
 					+'<div>'
 						+'<a href="javascript:void(0);" class="del_btn">删除</a>'

@@ -1,5 +1,6 @@
 main{
-	width:1920px;
+	width:1894px;
+	margin:0 auto;
 }
 section{
 	margin-bottom:18px;
@@ -30,7 +31,6 @@ section h2{
 .index_main_left{
 	float:left;
 	width:420px;
-	margin-left:13px;
 }
 .index_main_right{
 	width:1456px;

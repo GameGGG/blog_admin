@@ -4,6 +4,7 @@ function navTree (options){
 	}
 	this.el = options.el;
 	this.obj = options.obj;
+	this.defaultShow = options.defaultShow || false;
 	this.default = 'nav_tree';
 	this.classArr = [];
 	this.activePArr = [];
