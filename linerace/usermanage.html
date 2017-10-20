@@ -92,19 +92,16 @@
 					<!-- <div class="user_role_pic">
 						<img src="">
 					</div> -->
-					<ul>	
-						<li class="c">
-							<p>职务</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
-							</select>
-						</li>
+					<ul>
 						<li class="c">
 							<p>单位</p>
-							<select>
+							<select class="unit_select">
+								<option value="" default>请选择</options>
+							</select>
+						</li>	
+						<li class="c">
+							<p>职务</p>
+							<select class="policepost_select">
 								<option value="1">1</options>
 								<option value="2">2</options>
 								<option value="3">3</options>
@@ -112,12 +109,12 @@
 							</select>
 						</li>
 						<li class="c">
-							<p>人员</p>
-							<input type="text" name="">
+							<p>姓名</p>
+							<input class="name_input" type="text" name="">
 						</li>
 						<li class="c">
 							<p>警号</p>
-							<input type="text" name="">
+							<input class="policeid_input" type="text" name="">
 						</li>
 					</ul>
 				</div>
@@ -125,65 +122,47 @@
 					<ul class="c">
 						<li>
 							<p>警务通APP</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="jwt_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
 							<p>手机号</p>
-							<input type="text" name="">
+							<input class="phone_input" type="text" name="">
 						</li>
 						<li>
 							<p>执法仪</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="zfy_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
 							<p>摩托车</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="mtc_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
 							<p>车载4G</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="cz_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
 							<p>其他设备</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="qtsb_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
 							<p>云镜</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="yj_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 					</ul>
 					<div class="update_menu">
-						<button type="button">确认</button>
+						<button type="button" class="sub_sure">确认</button>
 						<button type="button" class="update_not">取消</button>
 					</div>
 				</div>

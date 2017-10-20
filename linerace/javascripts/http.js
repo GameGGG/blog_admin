@@ -6,7 +6,7 @@ var API = {
 	UPDATE_OR_TREE:DOMAIN + '/UpdateUnit',						// 修改组织结构 
 	SELECT_POLICE_MSG:DOMAIN + '/Service/police',				// 查询警力信息
 	ADD_POLICE_MSG:DOMAIN + '/AddPollice',						// 添加警力信息
-	DELECT_POLICE_MSG:DOMAIN + '/DelPollice',					// 删除警力信息
+	DELECT_POLICE_MSG:DOMAIN + '/DelPolice',					// 删除警力信息
 	UPDATE_POLICE_MSG:DOMAIN + '/UpdatePollice',				// 修改警力信息
 	COUNT_POLECE:DOMAIN + '/Service/CountPolice',				// 获取警力条数
 	SELECT_COM_INFO:DOMAIN + '/Service/GetDev',					// 查询通信信息
@@ -33,7 +33,7 @@ var HTTP = {
 			data:options,
 			success:function(data) {
 				if(data.result === 1){
-					s_func(beforeDealUnit(data.unitList))
+					s_func(beforeDealUnit(data.unitList),data.unitList)
 					console.log()
 					return;
 				}
@@ -53,6 +53,57 @@ var HTTP = {
 			success:function(data) {
 				if(data.result === 1){
 					s_func(data.policeList)
+					return;
+				}
+				e_func(data.message);
+			},
+			error:function() {
+				// this.net_error()
+			}
+		})
+	},
+	DELECTPOLICE: function (s_func, e_func, options) {
+		$.ajax({
+			url:API.DELECT_POLICE_MSG,
+			type:'POST',
+			data:options,
+			success:function(data) {
+				if(data.result === 1){
+					s_func(data.Msg)
+					return;
+				}
+				e_func(data.message);
+			},
+			error:function() {
+				// this.net_error()
+			}
+		})
+	},
+	UPDATEPOLICE: function (s_func, e_func, options) {
+		$.ajax({
+			url:API.UPDATE_POLICE_MSG,
+			type:'POST',
+			data:options,
+			success:function(data) {
+				if(data.result === 1){
+					s_func(data.Msg)
+					return;
+				}
+				e_func(data.message);
+			},
+			error:function() {
+				// this.net_error()
+			}
+		})
+	},
+	ADDPOLICE: function (s_func, e_func, options) {
+		$.ajax({
+			url:API.UPDATE_POLICE_MSG,
+			type:'POST',
+			data:options,
+			success:function(data) {
+				if(data.result === 1){
+					s_func(data.Msg)
 					return;
 				}
 				e_func(data.message);
