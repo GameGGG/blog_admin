@@ -209,7 +209,7 @@ main{
 	vertical-align:middle;
 	height:30px;
 }
-.tx_input{
+.tx_input , .level_select{
 	width:250px;
 	outline:none;
 	vertical-align:middle;

@@ -1,5 +1,5 @@
 var CONFIG = {
-	pageNumber: 10,
+	pageNumber: 20,
 	editDefaultMsg: {},
 	add: false,
 	searchOptions: {}
@@ -64,9 +64,9 @@ $(function(){
 	})
 
 	$('.user_new_btn').on('click',function (){
+		CONFIG.add = true;
 		$('.update_alt').show();
 		$('.user_container').hide();
-		CONFIG.add = true;
 	})
 
 	// 点击查询按钮
@@ -107,13 +107,19 @@ $(function(){
 			PolicePost: $('.policepost_select').val(),
 			UnitId: $('.unit_select').val(),
 			MobileNum: $('.phone_input').val(),
-			JWT: $('.jwt_input').val(),
-			ZFY: $('.zfy_input').val(),
-			CZ: $('.cz_input').val(),
-			MTCZ: $('.mtc_input').val(),
-			YJ: $('.yj_input').val(),
-			QTSB: $('.qtsb_select').val()
+			JWT: $('.jwt_select').val(),
+			ZFY: $('.zfy_select').val(),
+			CZ: $('.cz_select').val(),
+			MTCZ: $('.mtc_select').val(),
+			YJ: $('.yj_select').val(),
+			QTSB: $('.qtsb_select').val(),
+			POLICETYPE: '巡警',
+			GENDER: "1",
+			CALLNUM: "123456",
+			REMARK: '11',
+			PWS: '123456'
 		} 
+		console.log(opt)
 		if (CONFIG.add) {
 			HTTP.ADDPOLICE(addSuccess, alert_window, opt)
 		} else {
@@ -123,7 +129,6 @@ $(function(){
 
 	// 点击删除警员信息
 	$('.user_table_box').on('click', '.del_btn', function () {
-		return false;
 		HTTP.DELECTPOLICE(delPoliceSuccess, alert_window, {
 			PoliceId: $(this).attr('data-policeId')
 		})
@@ -176,7 +181,24 @@ function dealUnit (data, unitList) {
 
 function submitSuccess () {
 	alert('修改信息成功')
+	var options = CONFIG.searchOptions;
+	HTTP.GETPOLICE(
+		dealPolice, 
+		alert_window,
+		options
+	)
 }
+
+function delPoliceSuccess () {
+	alert('删除警员信息成功')
+	var options = CONFIG.searchOptions;
+	HTTP.GETPOLICE(
+		dealPolice, 
+		alert_window,
+		options
+	)
+}
+
 // 警员列表处理
 function dealPolice (data) {
 	renderPoliceList(data)
@@ -218,8 +240,8 @@ function renderPoliceList (data) {
 		htmlStr += '<li class="c">'
 					+'<div>'+ data[i].POLICE_ID +'</div>'
 					+'<div>'+ data[i].POLICE_NAME +'</div>'
-					+'<div>'+ (data[i].UNIT_ID || '') +'</div>'
-					+'<div>'+ (data[i].POLICE_TYPE || '') +'</div>'
+					+'<div>'+ (data[i].UNIT_NAME || '') +'</div>'
+					+'<div>'+ (data[i].POLICE_POST || '') +'</div>'
 					+'<div>'+ (data[i].MOBILE_NO || '') +'</div>'
 					+'<div>'+ (data[i].JWT || '') +'</div>'
 					+'<div>'+ (data[i].ZFY || '') +'</div>'
@@ -234,8 +256,7 @@ function renderPoliceList (data) {
 				+'</li>'
 	}
 	$('.user_table_box').html(htmlStr)
-
-	dealLiHeight();
+	// dealLiHeight();
 }
 function dealLiHeight() {
 	if(!$('.user_table_box li')[1]){
@@ -260,86 +281,110 @@ function setUnitSelectOptions (unitList) {
 function setSelectOptions (unitId) {
 	HTTP.GETDEV(setJwtSelectOptions, alert_window, {
 		UNIT_ID: unitId,
-		DEV_TYPE: '警务通APP'
+		DEV_TYPE: '警务通APP',
+		ROWS: 9999,
+		PAGE_INDEX: '1'
 	})
 	HTTP.GETDEV(setZfySelectOptions, alert_window, {
 		UNIT_ID: unitId,
-		DEV_TYPE: '执法仪'
+		DEV_TYPE: '执法仪',
+		ROWS:9999,
+		PAGE_INDEX: '1'
 	})
 	HTTP.GETDEV(setMtcSelectOptions, alert_window, {
 		UNIT_ID: unitId,
-		DEV_TYPE: '摩托车载'
+		DEV_TYPE: '摩托车载',
+		ROWS:9999,
+		PAGE_INDEX: '1'
 	})
 	HTTP.GETDEV(setCzSelectOptions, alert_window, {
 		UNIT_ID: unitId,
-		DEV_TYPE: '车载4G'
+		DEV_TYPE: '车载4G',
+		ROWS:9999,
+		PAGE_INDEX: '1',
 	})
 	HTTP.GETDEV(setQtsbSelectOptions, alert_window, {
 		UNIT_ID: unitId,
-		DEV_TYPE: '其他设备'
+		DEV_TYPE: '其他设备',
+		ROWS:9999,
+		PAGE_INDEX: '1',
 	})
 	HTTP.GETDEV(setYjSelectOptions, alert_window, {
 		UNIT_ID: unitId,
-		DEV_TYPE: '云镜'
+		DEV_TYPE: '云镜',
+		ROWS:9999,
+		PAGE_INDEX: '1'
 	})
 }
-
+function addSuccess () {
+	alert('添加警员信息成功！')
+	var options = CONFIG.searchOptions;
+	HTTP.GETPOLICE(
+		dealPolice, 
+		alert_window,
+		options
+	)
+}
+function submitSuccess () {
+	alert('修改警员信息成功！')
+	var options = CONFIG.searchOptions;
+	HTTP.GETPOLICE(
+		dealPolice, 
+		alert_window,
+		options
+	)
+}
 function setJwtSelectOptions (data) {
-	var htmlStr = '';
+	var htmlStr = '<option value="">请选择</option>';
 	for(var i = 0, l = data.length; i < l; i++){
-		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
+		htmlStr += '<option value="'+ data[i].IMEI +'">'+ data[i].DEV_NAME +'</option>'
 	}
-	$('.jwt_select').append(htmlStr)
-	setTimeout(function () {
-		if (CONFIG.editDefaultMsg.ZW) {
-			$('.jwt_select').val(CONFIG.editDefaultMsg.ZW)
-		}
-	}, 0)
+	$('.jwt_select').html(htmlStr)
+	setDefalutSelect($('.jwt_select'), 'jwt');
 }
 
 function setZfySelectOptions (data) {
-	var htmlStr = '';
+	var htmlStr = '<option value="">请选择</option>';
 	for(var i = 0, l = data.length; i < l; i++){
-		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
+		htmlStr += '<option value="'+ data[i].IMEI +'">'+ data[i].DEV_NAME +'</option>'
 	}
-	$('.zfy_select').append(htmlStr);
+	$('.zfy_select').html(htmlStr);
 	setDefalutSelect($('.zfy_select'), 'ZFY');
 }
 
 function setMtcSelectOptions (data) {
-	var htmlStr = '';
+	var htmlStr = '<option value="">请选择</option>';
 	for(var i = 0, l = data.length; i < l; i++){
-		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
+		htmlStr += '<option value="'+ data[i].IMEI +'">'+ data[i].DEV_NAME +'</option>'
 	}
-	$('.mtc_select').append(htmlStr);
-	setDefalutSelect($('.mtc_select'), 'MTC');
+	$('.mtc_select').html(htmlStr);
+	setDefalutSelect($('.mtc_select'), 'MTCZ');
 }
 
 function setCzSelectOptions (data) {
-	var htmlStr = '';
+	var htmlStr = '<option value="">请选择</option>';
 	for(var i = 0, l = data.length; i < l; i++){
-
-		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
+		htmlStr += '<option value="'+ data[i].IMEI +'">'+ data[i].DEV_NAME +'</option>'
 	}
-	$('.cz_select').append(htmlStr)
+	$('.cz_select').html(htmlStr)
 	setDefalutSelect($('.cz_select'), 'CZ');
 }
 
 function setQtsbSelectOptions (data) {
-	var htmlStr = '';
+	var htmlStr = '<option value="">请选择</option>';
 	for(var i = 0, l = data.length; i < l; i++){
-		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
+		htmlStr += '<option value="'+ data[i].IMEI +'">'+ data[i].DEV_NAME +'</option>'
 	}
-	$('.qtsb_select').append(htmlStr)
+	$('.qtsb_select').html(htmlStr)
 	setDefalutSelect($('.qtsb_select'), 'QTSB');
 }
 
 function setYjSelectOptions (data) {
-	var htmlStr = '';
+	var htmlStr = '<option value="">请选择</option>';
 	for(var i = 0, l = data.length; i < l; i++){
-		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
+		htmlStr += '<option value="'+ data[i].IMEI +'">'+ data[i].DEV_NAME +'</option>'
 	}
-	$('.yj_select').append(htmlStr)
+	$('.yj_select').html(htmlStr)
 	setDefalutSelect($('.yj_select'), 'YJ');
 }
 

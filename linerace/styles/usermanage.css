@@ -61,6 +61,8 @@ main{
 	padding:35px 30px;
 }
 .update_alt{
+	position:relative;
+	z-index:100;
 	width:1563px;
 }
 .user_table_box{
@@ -129,7 +131,7 @@ main{
 }
 .user_table_box li{
 	border-bottom:1px solid #293c8c;
-	min-height:0.46rem;
+	height:70px;
 }
 .user_table_box .user_table_header {
 	height:0.46rem;

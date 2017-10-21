@@ -1,5 +1,8 @@
 var CONFIG = {
-	pageNumber: 10
+	pageNumber: 20,
+	editDefaultMsg: {},
+	searchOptions: {},
+	add:false
 }
 
 var pagerObj = null
@@ -32,17 +35,58 @@ $(function(){
 	// ======================= 导航设置【END】 =======================
 
 	
-	// 编辑信息页的弹出关闭
+	// 添加设备信息
 	$('.update_not').on('click',function(){
+		clearEditMsg();
 		$('.update_alt').hide();
 		$('.user_container').show();
 	})
+	// 修改设备信息
 	$('.user_table_box').on('click','.update_btn',function(){
+		CONFIG.add = false;
+		var devtype = $(this).parent().siblings().eq(1).html()
+		var unitid = $(this).attr('data-unitid')
+		var name = $(this).attr('data-devname')
+		var devid = $(this).parent().siblings().eq(0).html()
+		var devnum = $(this).parent().siblings().eq(2).html()
+		var yxj = $(this).attr('data-yxj')
+		$('.type_select').val(devtype)
+		$('.unit_select').val(unitid)
+		$('.name_input').val(name)
+		$('.devid_input').val(devid)
+		$('.tx_input').val(devnum)
+		$('.level_select').val(yxj)
 		$('.update_alt').show();
 		$('.user_container').hide();
 	})
 
+	// 删除设备信息
+	$('.user_table_box').on('click', '.del_btn', function () {
+		HTTP.DELDEV(delDevSuccess, alert_window, {
+			"DevId": $(this).attr('data-devid')
+		})
+	})
+	// 提交修改/增加设备信息
+	$('.sure_submit').on('click', function () {
+		var options = {
+			DevId: $('.devid_input').val(),
+			DevType: $('.type_select').val(),
+			UnitID: $('.unit_select').val(),
+			CallNum: $('.tx_input').val(),
+			YXJ: $('.level_select').val(),
+			DEV_NAME: $('.name_input').val(),
+			GPSID:11111,
+			REMARK: '11',
+		}
+		if (CONFIG.add) {
+			HTTP.ADDDEV(addDevSuccess, alert_window, options)
+		} else {
+			HTTP.UPDATEDEV(updateDevSuccess, alert_window, options)
+		}
+	})
+
 	$('.user_new_btn').on('click',function (){
+		CONFIG.add = true;		
 		$('.update_alt').show();
 		$('.user_container').hide();
 	})
@@ -152,18 +196,18 @@ function renderDevList(data) {
 		i = 0;
 	for(; i < data.length; i++){
 		htmlStr += '<li class="c">'
-					+'<div>'+ data[i] +'</div>'
+					+'<div>'+ (data[i].IMEI || '') +'</div>'
 					+'<div>'+ (data[i].DEV_TYPE || '') +'</div>'
 					+'<div>'+ (data[i].CALL_NO || '') +'</div>'
-					+'<div>暂无所属单位字段</div>'
+					+'<div>'+ (data[i].UNIT_NAME || '') +'</div>'
 					+'<div>'
-						+'<a href="javascript:void(0);" class="del_btn">删除</a>'
-						+'<a href="javascript:void(0);" class="update_btn">编辑</a>'
+						+'<a href="javascript:void(0);" class="del_btn" data-devid="'+ data[i].IMEI +'">删除</a>'
+						+'<a href="javascript:void(0);" class="update_btn" data-unitid="'+ data[i].UNIT_ID +'" data-devname="'+ data[i].DEV_NAME +'" data-yxj="'+ data[i].YXJ +'">编辑</a>'
 					+'</div>'
 				+'</li>'
 	}
 	$('.user_table_box').html(htmlStr)
-	dealLiHeight();
+	// dealLiHeight();
 }
 function dealLiHeight() {
 	var li2 = $('.user_table_box li')[1]
@@ -184,7 +228,46 @@ function setUnitSelectOptions (unitList) {
 		})
 	}, 0)
 }
+function setSelectOptions () {
+	console.log()
+}
 
-function alert_window(msg){
+function addDevSuccess () {
+	alert('添加通信设备信息成功')
+	var options = CONFIG.searchOptions;
+	HTTP.GETDEV(
+		dealDev, 
+		alert_window,
+		options
+	)
+}
+function updateDevSuccess () {
+	alert('修改通信设备信息成功')
+	var options = CONFIG.searchOptions;
+	HTTP.GETDEV(
+		dealDev, 
+		alert_window,
+		options
+	)
+}
+function delDevSuccess () {
+	alert('删除设备信息成功')
+	var options = CONFIG.searchOptions;
+	HTTP.GETDEV(
+		dealDev, 
+		alert_window,
+		options
+	)
+}
+
+function clearEditMsg () {
+	$('.type_select').val('');
+	$('.unit_select').val('');
+	$('.name_input').val('');
+	$('.devid_input').val('');
+	$('.level_select').val('');
+	$('.tx_input').val('')
+}
+function alert_window (msg){
 	console.log(msg)
 }
