@@ -23,8 +23,8 @@ $(function(){
 	})
 
 
-	pagerObj = new Pager({el:'.user_pg_btn',count:100})
-	pagerObj.evon(function(num){
-		console.log(num);
-	})
+	// pagerObj = new Pager({el:'.user_pg_btn',count:100})
+	// pagerObj.evon(function(num){
+	// 	console.log(num);
+	// })
 })

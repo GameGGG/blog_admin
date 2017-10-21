@@ -128,6 +128,9 @@ main{
 	height:18px;
 	background:url(./../images/new_icon.png) no-repeat center;
 }
+.user_select_btn.active{
+	box-shadow:2px 2px 5px 2px rgba(0,0,0,0);
+}
 .user_table_box{
 	border-top:1px solid #293c8c;
 	border-left:1px solid #293c8c;
@@ -153,19 +156,19 @@ main{
 	font-size:16px;
 }
 .user_table_box li>div:nth-of-type(1){
-	width:2rem;
+	width:312px;
 }
 .user_table_box li>div:nth-of-type(2){
-	width:2.6rem;
+	width:312px;
 }
 .user_table_box li>div:nth-of-type(3){
-	width:3rem;
+	width:312px;
 }
 .user_table_box li>div:nth-of-type(4){
-	width:4rem;
+	width:312px;
 }
 .user_table_box li>div:nth-of-type(5){
-	width:2rem;
+	width:312px;
 }
 .user_table_box li>div a{
 	color:#0693ff;
@@ -206,12 +209,19 @@ main{
 	vertical-align:middle;
 	height:30px;
 }
+.tx_input{
+	width:250px;
+	outline:none;
+	vertical-align:middle;
+	height:30px;
+}
 .update-bottom{
 	width:800px;
 }
 .update-bottom li{
 	float:left;
 	width:399px;
+	font-size:16px;
 	line-height:60px;
 }
 .update-bottom p{
@@ -236,15 +246,12 @@ main{
 	font-size:16px;
 	margin:0 10px;
 	color:#ffffff;
-	background:url(./../images/btn_bg.png) top left repeat-x / 5px 100%;
+	background:url(./../images/btn_bg.png) top left repeat-x;
 	border:none;
 	border-radius:3px;
 	box-shadow:2px 2px 5px 2px rgba(0,0,0,.3);
 	outline:none;
 }
-
-
-
 
 
 .pager-span{

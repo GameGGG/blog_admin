@@ -7,7 +7,7 @@ var API = {
 	SELECT_POLICE_MSG:DOMAIN + '/Service/police',				// 查询警力信息
 	ADD_POLICE_MSG:DOMAIN + '/AddPollice',						// 添加警力信息
 	DELECT_POLICE_MSG:DOMAIN + '/DelPolice',					// 删除警力信息
-	UPDATE_POLICE_MSG:DOMAIN + '/UpdatePollice',				// 修改警力信息
+	UPDATE_POLICE_MSG:DOMAIN + '/Service/UpdatePolice',				// 修改警力信息
 	COUNT_POLECE:DOMAIN + '/Service/CountPolice',				// 获取警力条数
 	SELECT_COM_INFO:DOMAIN + '/Service/GetDev',					// 查询通信信息
 	ADD_COM_INFO:DOMAIN +　'/AddDev',							// 添加通信信息
@@ -89,7 +89,7 @@ var HTTP = {
 					s_func(data.Msg)
 					return;
 				}
-				e_func(data.message);
+				e_func(data.msg);
 			},
 			error:function() {
 				// this.net_error()

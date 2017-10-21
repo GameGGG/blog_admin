@@ -54,21 +54,52 @@ section h2{
 	width:388px;
 	float:left;
 }
+.device_number{
+	position:relative;
+}
 .device_number li{
 	position:relative;
 	text-indent:0.2rem;
 	line-height:0.4rem;
 	color:#00cdff;
+	font-size:14px;
 }
 .device_number li:before {
 	content:'';
 	position:absolute;
-	top:12px;
+	top:19px;
 	left:0;
 	width:4px;
 	height:4px;
 	border-radius:50%;
 	background:#00cdff;
+}
+.yxj_count li{
+	position:relative;
+	font-size:14px;
+	line-height:40px;
+	text-indent:20px;
+}
+.yxj_count li:before{
+	content:'';
+	position:absolute;
+	top:14px;
+	left:0;
+	width:10px;
+	height:10px;
+	border-radius:50%;
+}
+.yxj_count li:nth-of-type(1):before{
+	background:#00FF4E;
+}
+.yxj_count li:nth-of-type(2):before{
+	background:#D20000;
+}
+.yxj_count li:nth-of-type(3):before{
+	background:#FFA200;
+}
+.yxj_count li:nth-of-type(4):before{
+	background:#EFFF00;
 }
 .ca1{
 	height:300px;
@@ -125,9 +156,9 @@ section h2{
 	overflow:hidden;
 }
 .role_statistics li{
-	height:24px;
+	height:40px;
 	background:#1E1F1E;
-	margin:10px 10px;
+	margin:16px 10px;
 	padding:0 5px;
 	line-height:24px;
 	text-align:right;
@@ -162,19 +193,92 @@ section h2{
 }
 .role_statistics em{
 	flex:1;
+	height:40px;
+}
+.role_statistics li:nth-of-type(1) em{
+	background:url(../images/s_all.png) no-repeat center 6px;
+}
+.role_statistics li:nth-of-type(2) em{
+	background:url(../images/s_all.png) no-repeat center -53px;
+}
+.role_statistics li:nth-of-type(3) em{
+	background:url(../images/s_all.png) no-repeat center -113px;
+}
+.role_statistics li:nth-of-type(4) em{
+	background:url(../images/s_all.png) no-repeat center -172px;
 }
 .role_statistics div{
 	flex:4;
-	height:6px;
+	height:10px;
 	background:#D9E0E8;
-	border-radius:3px;
+	border-radius:5px;
 }
 .role_statistics div span{
 	display:block;
 	height:100%;
-	border-radius:3px;
+	width:10%;
+	border-radius:5px;
 }
 .role_statistics p{
 	flex:1;
 	text-align:center;
+}
+.ca4_section{
+	position:relative;
+}
+.ca4_tips{
+	position:absolute;
+	top:15px;
+	right:0;
+	height:40px;
+	width:160px;
+}
+.ca4_tips span{
+	position:relative;
+	float:left;
+	width:20px;
+	height:20px;
+	border-radius:4px;
+	margin-right:60px;
+}
+.ca4_blue{
+	background:#0094EF;
+}
+.ca4_blue:after{
+	content:"人员";
+	position:absolute;
+	top:0;
+	left:25px;
+	width:50px;
+	line-height:20px;
+}
+.ca4_green{
+	background:#00CBC9;
+}
+.ca4_green:after{
+	content:"设备";
+	position:absolute;
+	top:0;
+	left:25px;
+	width:50px;
+	line-height:20px;
+}
+.device_tips{
+	position:absolute;
+	top:133px;
+	left:90px;
+	width:120px;
+	height:120px;
+	border-radius:50%;
+	background:#ffffff;
+	text-align:center;
+	color:#000;
+}
+.device_tips p:nth-of-type(1){
+	margin-top:30px;
+	font-size:18px;
+}
+.device_tips p:nth-of-type(2){
+	line-height:30px;
+	font-size:14px;
 }

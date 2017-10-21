@@ -1,7 +1,8 @@
 var CONFIG = {
 	pageNumber: 10,
 	editDefaultMsg: {},
-	add: false
+	add: false,
+	searchOptions: {}
 }
 
 var pagerObj = null
@@ -78,22 +79,22 @@ $(function(){
 	$('.user_select_btn').on('click', function() {
 		var search_word = $('.user_select_input').val()
 		if(search_word === '') return false;
+		var options = {
+			"KEY_WORD": search_word,
+			"ROWS": CONFIG.pageNumber,
+			"PAGE_INDEX": "1"
+		}
+		CONFIG.searchOptions = options
 		HTTP.GETPOLICE(
 			dealPolice, 
 			alert_window,
-			{
-				"KEY_WORD": search_word,
-				"ROWS": CONFIG.pageNumber,
-				"PAGE_INDEX": "1"
-			}
+			options
 		)
 		HTTP.GETCOUNTPOLICE(
 			dealPager,
 			alert_window, 
 			{
 				"KEY_WORD": search_word,
-				"ROWS": CONFIG.pageNumber,
-				"PAGE_INDEX": "1"
 			}
 		)
 	})
@@ -148,22 +149,22 @@ function dealUnit (data, unitList) {
 		el:'.user_or_tree',
 		obj:data
 	}).enov(function(value) {
+		var options = {
+			"UNIT_ID": value,
+			"ROWS": CONFIG.pageNumber,
+			"PAGE_INDEX": "1"
+		}
+		CONFIG.searchOptions = options
 		HTTP.GETPOLICE(
 			dealPolice, 
 			alert_window,
-			{
-				"UNIT_ID": value,
-				"ROWS": CONFIG.pageNumber,
-				"PAGE_INDEX": "1"
-			}
+			options
 		)
 		HTTP.GETCOUNTPOLICE(
 			dealPager,
 			alert_window, 
 			{
 				"UNIT_ID": value,
-				"ROWS": CONFIG.pageNumber,
-				"PAGE_INDEX": "1"
 			}
 		)
 	})
@@ -185,11 +186,16 @@ function dealPager (total) {
 		pagerObj.refresh({el:'.user_pg_btn',count:total})
 		return;
 	}
-	console.log(total)
 	pagerObj = new Pager({el:'.user_pg_btn',count:total})
 
 	pagerObj.evon(function(num){
-		console.log(num);
+		var options = CONFIG.searchOptions.PAGE_INDEX;
+		options.PAGE_INDEX = String(num);
+		HTTP.GETPOLICE(
+			dealPolice, 
+			alert_window,
+			options
+		)
 	})
 }
 function renderPoliceList (data) {
@@ -215,7 +221,7 @@ function renderPoliceList (data) {
 					+'<div>'+ (data[i].UNIT_ID || '') +'</div>'
 					+'<div>'+ (data[i].POLICE_TYPE || '') +'</div>'
 					+'<div>'+ (data[i].MOBILE_NO || '') +'</div>'
-					+'<div>'+ (data[i].JWT) +'</div>'
+					+'<div>'+ (data[i].JWT || '') +'</div>'
 					+'<div>'+ (data[i].ZFY || '') +'</div>'
 					+'<div>'+ (data[i].CZ || '') +'</div>'
 					+'<div>'+ (data[i].YJ || '') +'</div>'
@@ -240,7 +246,6 @@ function dealLiHeight() {
 }
 
 function setUnitSelectOptions (unitList) {
-	console.log(unitList)
 	var htmlStr = '';
 	for(var i = 0, l = unitList.length; i < l; i++){
 		htmlStr += '<option value="'+ unitList[i].UNIT_ID +'">'+ unitList[i].UNIT_NAME +'</option>'
@@ -285,6 +290,11 @@ function setJwtSelectOptions (data) {
 		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
 	}
 	$('.jwt_select').append(htmlStr)
+	setTimeout(function () {
+		if (CONFIG.editDefaultMsg.ZW) {
+			$('.jwt_select').val(CONFIG.editDefaultMsg.ZW)
+		}
+	}, 0)
 }
 
 function setZfySelectOptions (data) {
@@ -292,7 +302,8 @@ function setZfySelectOptions (data) {
 	for(var i = 0, l = data.length; i < l; i++){
 		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
 	}
-	$('.zfy_select').append(htmlStr)
+	$('.zfy_select').append(htmlStr);
+	setDefalutSelect($('.zfy_select'), 'ZFY');
 }
 
 function setMtcSelectOptions (data) {
@@ -300,15 +311,18 @@ function setMtcSelectOptions (data) {
 	for(var i = 0, l = data.length; i < l; i++){
 		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
 	}
-	$('.mtc_select').append(htmlStr)
+	$('.mtc_select').append(htmlStr);
+	setDefalutSelect($('.mtc_select'), 'MTC');
 }
 
 function setCzSelectOptions (data) {
 	var htmlStr = '';
 	for(var i = 0, l = data.length; i < l; i++){
+
 		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
 	}
 	$('.cz_select').append(htmlStr)
+	setDefalutSelect($('.cz_select'), 'CZ');
 }
 
 function setQtsbSelectOptions (data) {
@@ -317,6 +331,7 @@ function setQtsbSelectOptions (data) {
 		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
 	}
 	$('.qtsb_select').append(htmlStr)
+	setDefalutSelect($('.qtsb_select'), 'QTSB');
 }
 
 function setYjSelectOptions (data) {
@@ -325,8 +340,17 @@ function setYjSelectOptions (data) {
 		htmlStr += '<option value="'+ data[i].DEV_TYPE +'">'+ data[i].DEV_TYPE +'</option>'
 	}
 	$('.yj_select').append(htmlStr)
+	setDefalutSelect($('.yj_select'), 'YJ');
 }
 
+function setDefalutSelect (dom, name) {
+	setTimeout(function () {
+		var val = CONFIG.editDefaultMsg[name];
+		if (val) {
+			dom.val(val)
+		}
+	}, 0)
+}
 function clearSelect () {
 	CONFIG.editDefaultMsg = {};
 	$('.unit_select').val('');
@@ -335,5 +359,10 @@ function clearSelect () {
 	$('.policeid_input').val('');
 }
 function alert_window(msg){
-	console.log(msg)
+	if (alert_window.timer) {
+		clearInterval(alert_window.timer);
+	}
+	alert_window.timer = setTimeout(function () {
+		alert(msg)
+	},1000)
 }

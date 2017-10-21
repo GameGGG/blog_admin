@@ -226,6 +226,7 @@ main{
 .update-bottom li{
 	float:left;
 	width:399px;
+	font-size:16px;
 	line-height:60px;
 }
 .update-bottom li input{
@@ -256,7 +257,7 @@ main{
 	font-size:16px;
 	margin:0 10px;
 	color:#ffffff;
-	background:url(./../images/btn_bg.png) top left repeat-x / 5px 100%;
+	background:url(./../images/btn_bg.png) top left repeat-x;
 	border:none;
 	border-radius:3px;
 	box-shadow:2px 2px 5px 2px rgba(0,0,0,.3);

@@ -47,25 +47,31 @@ $(function(){
 		$('.user_container').hide();
 	})
 	// 点击搜索按钮
+	$('.user_select_btn').on('mousedown', function() {
+		$(this).addClass('active')
+	})
+	$('.user_select_btn').on('mouseup', function() {
+		$(this).removeClass('active')
+	})
 	$('.user_select_btn').on('click', function() {
 		var search_word = $('.user_select_input').val()
 		if(search_word === '') return false;
+		var options = {
+			"KEY_WORD": search_word,
+			"ROWS": CONFIG.pageNumber,
+			"PAGE_INDEX": "1"
+		}
+		CONFIG.searchOptions = options;
 		HTTP.GETDEV(
 			dealDev, 
 			alert_window,
-			{
-				"KEY_WORD": search_word,
-				"ROWS": CONFIG.pageNumber,
-				"PAGE_INDEX": "1"
-			}
+			options
 		)
 		HTTP.GETCOUNTDEV(
 			dealPager,
 			alert_window, 
 			{
 				"KEY_WORD": search_word,
-				"ROWS": CONFIG.pageNumber,
-				"PAGE_INDEX": "1"
 			}
 		)
 	})
@@ -83,27 +89,29 @@ $(function(){
 })
 
 // 组织结构处理
-function dealUnit(data) {
+function dealUnit(data, dataList) {
+	console.log(dataList)
+	setUnitSelectOptions(dataList)
 	new navTree({
 		el:'.user_or_tree',
 		obj:data
 	}).enov(function(value) {
+		var options = {
+			"UNIT_ID": value,
+			"ROWS": CONFIG.pageNumber,
+			"PAGE_INDEX": "1"
+		}
+		CONFIG.searchOptions = options
 		HTTP.GETDEV(
 			dealDev, 
 			alert_window,
-			{
-				"UNIT_ID": value,
-				"ROWS": CONFIG.pageNumber,
-				"PAGE_INDEX": "1"
-			}
+			options
 		)
 		HTTP.GETCOUNTDEV(
 			dealPager,
 			alert_window, 
 			{
-				"KEY_WORD": dealPager,
-				"ROWS": CONFIG.pageNumber,
-				"PAGE_INDEX": "1"
+				"UNIT_ID": value,
 			}
 		)
 	})
@@ -124,7 +132,13 @@ function dealPager(total) {
 	pagerObj = new Pager({el:'.user_pg_btn',count:total})
 
 	pagerObj.evon(function(num){
-		console.log(num);
+		var options = CONFIG.searchOptions;
+		options.PAGE_INDEX = num;
+		HTTP.GETDEV(
+			dealDev, 
+			alert_window,
+			options
+		)
 	})
 }
 function renderDevList(data) {
@@ -156,6 +170,19 @@ function dealLiHeight() {
 	if(!li2) return;
 	var h = li2.offsetHeight
 	$('.user_table_box li').not('.user_table_header').css('height',h + "px")
+}
+
+function setUnitSelectOptions (unitList) {
+	var htmlStr = '';
+	for(var i = 0, l = unitList.length; i < l; i++){
+		htmlStr += '<option value="'+ unitList[i].UNIT_ID +'">'+ unitList[i].UNIT_NAME +'</option>'
+	}
+	$('.unit_select').append(htmlStr)
+	setTimeout(function () {
+		$('.unit_select').on('change', function () {
+			setSelectOptions($(this).val())
+		})
+	}, 0)
 }
 
 function alert_window(msg){

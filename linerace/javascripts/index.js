@@ -38,7 +38,7 @@ function renderCa1() {
 	        {
 	            name:'设备数量',
 	            type:'pie',
-	            radius: ['40%', '70%'],
+	            radius: ['40%', '60%'],
 	            avoidLabelOverlap: false,
 	            label: {
 	                normal: {
@@ -83,9 +83,6 @@ function renderCa4() {
 		    textStyle: {
 		    	color:'#00CBC9'
 		    },
-		    legend: {
-		        data: ['人员', '设备']
-		    },
 		    xAxis:{
 		        	show: true,
 		            type: 'category',
@@ -104,7 +101,7 @@ function renderCa4() {
 		            name: '人员',
 		            type: 'bar',
 		            barGap: '0.1',
-		            data: [320, 332, 301, 334, 390,320, 10032, 301, 334, 390,320, 332, 301, 334, 390]
+		            data: [320, 332, 301, 334, 390,320, 1032, 301, 334, 390,320, 332, 301, 334, 390]
 		        },
 		        {
 		            name: '设备',

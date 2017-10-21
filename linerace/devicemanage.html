@@ -46,7 +46,7 @@
 		</section>
 		<section class="user_container">
 			<div class="user_utils">
-				<input type="text" placeholder="请输入查询条件">
+				<input type="text" placeholder="请输入查询条件" class="user_select_input">
 				<button class="user_select_btn">查询</button>
 				<div class="f_r">
 					<div class="user_pg_btn ">
@@ -81,11 +81,9 @@
 						</li>
 						<li class="c">
 							<p>单位</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="unit_select">
+								<option value="">请选择</options>
+								
 							</select>
 						</li>
 						<li class="c">
@@ -112,12 +110,7 @@
 						<li></li>
 						<li>
 							<p>通信号码</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
-							</select>
+							<input class="tx_input" type="text">
 						</li>
 					</ul>
 					<div class="update_menu">
