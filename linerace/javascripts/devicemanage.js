@@ -239,7 +239,10 @@ function addDevSuccess () {
 		dealDev, 
 		alert_window,
 		options
-	)
+	);
+	$('.update_alt').hide();
+	clearEditMsg();
+	$('.user_container').show();
 }
 function updateDevSuccess () {
 	alert('修改通信设备信息成功')
@@ -248,7 +251,10 @@ function updateDevSuccess () {
 		dealDev, 
 		alert_window,
 		options
-	)
+	);
+	$('.update_alt').hide();
+	clearEditMsg();
+	$('.user_container').show();
 }
 function delDevSuccess () {
 	alert('删除设备信息成功')

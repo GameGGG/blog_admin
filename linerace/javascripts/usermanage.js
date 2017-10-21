@@ -47,7 +47,7 @@ $(function(){
 		var name = $(this).parent().siblings().eq(1).html();
 		var policeId = $(this).parent().siblings().eq(0).html()
 		var phone = $(this).parent().siblings().eq(4).html();
-		CONFIG.editDefaultMsg.ZW = $(this).parent().siblings().eq(3).html()
+		var zw = $(this).parent().siblings().eq(3).html();
 		CONFIG.editDefaultMsg.JWT = $(this).parent().siblings().eq(5).html()
 		CONFIG.editDefaultMsg.ZFY = $(this).parent().siblings().eq(6).html()
 		CONFIG.editDefaultMsg.CZ = $(this).parent().siblings().eq(7).html()
@@ -58,6 +58,7 @@ $(function(){
 		$('.name_input').val(name);
 		$('.phone_input').val(phone);
 		$('.policeid_input').val(policeId);
+		$('.policepost_select').val(zw)
 		setSelectOptions(unitId);
 		$('.update_alt').show();
 		$('.user_container').hide();
@@ -179,15 +180,7 @@ function dealUnit (data, unitList) {
 	}, 0)
 }
 
-function submitSuccess () {
-	alert('修改信息成功')
-	var options = CONFIG.searchOptions;
-	HTTP.GETPOLICE(
-		dealPolice, 
-		alert_window,
-		options
-	)
-}
+
 
 function delPoliceSuccess () {
 	alert('删除警员信息成功')
@@ -196,7 +189,7 @@ function delPoliceSuccess () {
 		dealPolice, 
 		alert_window,
 		options
-	)
+	);
 }
 
 // 警员列表处理
@@ -324,6 +317,10 @@ function addSuccess () {
 		alert_window,
 		options
 	)
+	$('.update_alt').hide();
+	// 清空信息
+	clearSelect();
+	$('.user_container').show();
 }
 function submitSuccess () {
 	alert('修改警员信息成功！')
@@ -333,6 +330,10 @@ function submitSuccess () {
 		alert_window,
 		options
 	)
+	$('.update_alt').hide();
+	// 清空信息
+	clearSelect();
+	$('.user_container').show();
 }
 function setJwtSelectOptions (data) {
 	var htmlStr = '<option value="">请选择</option>';
@@ -340,7 +341,7 @@ function setJwtSelectOptions (data) {
 		htmlStr += '<option value="'+ data[i].IMEI +'">'+ data[i].DEV_NAME +'</option>'
 	}
 	$('.jwt_select').html(htmlStr)
-	setDefalutSelect($('.jwt_select'), 'jwt');
+	setDefalutSelect($('.jwt_select'), 'JWT');
 }
 
 function setZfySelectOptions (data) {
