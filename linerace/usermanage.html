@@ -56,35 +56,25 @@
 					<button class="user_new_btn">新建</button>
 				</div>
 			</div>
-			<ul class="user_table_box">
-				<li class="user_table_header c">
-					<div>警号</div>
-					<div>姓名</div>
-					<div>单位</div>
-					<div>职务</div>
-					<div>手机号</div>
-					<div>警务通APP</div>
-					<div>4G执法仪</div>
-					<div>4G车载</div>
-					<div>云镜</div>
-					<div>摩托车载</div>
-					<div>其他设备</div>
-					<div>操作</div>
-				</li>
-				<!-- <li class="c">
-					<div>1</div>
-					<div>代用名</div>
-					<div>领导管理类</div>
-					<div>admin</div>
-					<div>2015-06-11 22：27：05</div>
-					<div>大类</div>
-					<div></div>
-					<div>
-						<a href="javascript:void(0);" class="del_btn">删除</a>
-						<a href="javascript:void(0);" class="update_btn">编辑</a>
-					</div>
-				</li> -->
-			</ul>
+			<table class="user_table_box">
+				<tbody>
+					<tr class="user_table_header c">
+						<td>姓名</td>
+						<td>所属单位</td>
+						<td>职务</td>
+						<td>性别</td>
+						<td>警种</td>
+						<td>警务通号码</td>
+						<td>绑定执法仪ID</td>
+						<td>绑定车载ID</td>
+						<td>绑定摩托车ID</td>
+						<td>绑定PDT ID</td>
+						<td>绑定单兵ID</td>
+						<td>绑定步控球ID</td>
+						<td>操作</td>
+					</tr>
+				</tbody>
+			</table>
 		</section>
 		<section class="update_alt" style="display:none;">
 			<div class="update_alt_container">
@@ -144,16 +134,16 @@
 							</select>
 						</li>
 						<li>
-							<p>其他设备</p>
-							<select class="qtsb_select">
-								<option value="">请选择</options>
-							</select>
+							<p>单兵</p>
+							<input class="db_input base_input" type="text" name="">
 						</li>
 						<li>
-							<p>云镜</p>
-							<select class="yj_select">
-								<option value="">请选择</options>
-							</select>
+							<p>步控球</p>
+							<input class="bkq_input base_input" type="text" name="">
+						</li>
+						<li>
+							<p>PDT</p>
+							<input class="pdt_input base_input" type="text" name="">
 						</li>
 					</ul>
 					<div class="update_menu">

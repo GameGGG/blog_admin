@@ -44,10 +44,10 @@ $(function(){
 	// 修改设备信息
 	$('.user_table_box').on('click','.update_btn',function(){
 		CONFIG.add = false;
-		var devtype = $(this).parent().siblings().eq(1).html()
+		var devtype = $(this).parent().siblings().eq(0).html()
 		var unitid = $(this).attr('data-unitid')
 		var name = $(this).attr('data-devname')
-		var devid = $(this).parent().siblings().eq(0).html()
+		var devid = $(this).parent().siblings().eq(1).html()
 		var devnum = $(this).parent().siblings().eq(2).html()
 		var yxj = $(this).attr('data-yxj')
 		$('.type_select').val(devtype)
@@ -77,6 +77,17 @@ $(function(){
 			DEV_NAME: $('.name_input').val(),
 			GPSID:11111,
 			REMARK: '11',
+			GpsId: $('.gspid_input').val(),
+			MOBILE_SERVICE: $('.yys_input').val(),
+			INTO_TIME: $('.rwsj_input').val(),
+			CALL_NO: $('.call1_input').val(),
+			CALL_NO2: $('.call2_input').val(),
+			CALL_NO3: $('.call3_input').val(),
+			CALL_NO4: $('.call4_input').val(),
+			POLICE_ID: $('.pid_input').val(),
+			POLICE_NAME: $('.pname_input').val(),
+			MOBILE_NO: $('.phone_input').val()
+
 		}
 		if (CONFIG.add) {
 			HTTP.ADDDEV(addDevSuccess, alert_window, options)
@@ -186,25 +197,43 @@ function dealPager(total) {
 	})
 }
 function renderDevList(data) {
-	var htmlStr = '<li class="user_table_header c">'
-					+'<div>设备ID</div>'
-					+'<div>设备类型</div>'
-					+'<div>通信号码</div>'
-					+'<div>设备所属单位</div>'
-					+'<div>操作</div>'
-				+'</li>',
+	var htmlStr = '<tr class="user_table_header c">'
+					+'<td>类型</td>'
+					+'<td>名称</td>'
+					+'<td>所属单位</td>'
+					+'<td>所属民警</td>'
+					+'<td>所属民警警号</td>'
+					+'<td>民警手机号</td>'
+					+'<td>定位ID</td>'
+					+'<td>运营商</td>'
+					+'<td>入网时间</td>'
+					+'<td>音视频呼号1</td>'
+					+'<td>音视频呼号2</td>'
+					+'<td>音视频呼号3</td>'
+					+'<td>音视频呼号4</td>'
+					+'<td style="box-sizing:border-box">操作</td>'
+				+'</tr>',
 		i = 0;
 	for(; i < data.length; i++){
-		htmlStr += '<li class="c">'
-					+'<div>'+ (data[i].IMEI || '') +'</div>'
-					+'<div>'+ (data[i].DEV_TYPE || '') +'</div>'
-					+'<div>'+ (data[i].CALL_NO || '') +'</div>'
-					+'<div>'+ (data[i].UNIT_NAME || '') +'</div>'
-					+'<div>'
+		htmlStr += '<tr class="c">'
+					+'<td>'+ (data[i].DEV_TYPE || '') +'</td>'
+					+'<td>'+ (data[i].DEV_NAME || '') +'</td>'
+					+'<td>'+ (data[i].UNIT_NAME || '') +'</td>'
+					+'<td>'+ (data[i].POLICE_NAME || '') +'</td>'
+					+'<td>'+ (data[i].POLICE_ID || '') +'</td>'
+					+'<td>'+ (data[i].MOBILE_NO || '') +'</td>'
+					+'<td>'+ (data[i].GPS_ID || '') +'</td>'
+					+'<td>'+ (data[i].MOBILE_SERVICE || '') +'</td>'
+					+'<td>'+ (data[i].INTO_TIME || '') +'</td>'
+					+'<td>'+ (data[i].CALL_NO || '') +'</td>'
+					+'<td>'+ (data[i].CALL_NO2 || '') +'</td>'
+					+'<td>'+ (data[i].CALL_NO3 || '') +'</td>'
+					+'<td>'+ (data[i].CALL_NO4 || '') +'</td>'
+					+'<td style="min-width:120px;">'
 						+'<a href="javascript:void(0);" class="del_btn" data-devid="'+ data[i].IMEI +'">删除</a>'
-						+'<a href="javascript:void(0);" class="update_btn" data-unitid="'+ data[i].UNIT_ID +'" data-devname="'+ data[i].DEV_NAME +'" data-yxj="'+ data[i].YXJ +'">编辑</a>'
-					+'</div>'
-				+'</li>'
+						+'<a href="javascript:void(0);" class="update_btn" data-unitid="'+ data[i].UNIT_ID +'" data-devname="'+ data[i].DEV_NAME +'" data-yxj="'+ (data[i].YXJ || '') +'">编辑</a>'
+					+'</td>'
+				+'</tr>'
 	}
 	$('.user_table_box').html(htmlStr)
 	// dealLiHeight();
@@ -275,5 +304,5 @@ function clearEditMsg () {
 	$('.tx_input').val('')
 }
 function alert_window (msg){
-	console.log(msg)
+	alert(msg)
 }

@@ -127,20 +127,17 @@ main{
 .user_table_box{
 	border-top:1px solid #293c8c;
 	border-left:1px solid #293c8c;
-	border-right:1px solid #293c8c;
 }
-.user_table_box li{
+.user_table_box tr{
 	border-bottom:1px solid #293c8c;
-	height:70px;
 }
 .user_table_box .user_table_header {
 	height:0.46rem;
 	font-size:18px;
 	font-weight:600;
 }
-.user_table_box li>div{
+.user_table_box tr>td{
 	height:100%;
-	float:left;
 	text-align:center;
 	padding:0.1rem;
 	line-height:0.26rem;
@@ -216,7 +213,7 @@ main{
 	float:left;
 	width:100px;
 }
-.update-top select,.update-top input{
+.update-top select,.update-top input,.base_input{
 	width:250px;
 	outline:none;
 	vertical-align:middle;

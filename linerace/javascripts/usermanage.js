@@ -44,16 +44,16 @@ $(function(){
 	$('.user_table_box').on('click','.update_btn',function (){
 		CONFIG.add = false;
 		var unitId = $(this).attr('data-unitId')
-		var name = $(this).parent().siblings().eq(1).html();
-		var policeId = $(this).parent().siblings().eq(0).html()
-		var phone = $(this).parent().siblings().eq(4).html();
-		var zw = $(this).parent().siblings().eq(3).html();
+		var name = $(this).parent().siblings().eq(0).html();
+		var policeId = $(this).attr('data-policeId')
+		var phone = $(this).attr('data-phone')
+		var zw = $(this).parent().siblings().eq(2).html();
 		CONFIG.editDefaultMsg.JWT = $(this).parent().siblings().eq(5).html()
 		CONFIG.editDefaultMsg.ZFY = $(this).parent().siblings().eq(6).html()
 		CONFIG.editDefaultMsg.CZ = $(this).parent().siblings().eq(7).html()
-		CONFIG.editDefaultMsg.YJ = $(this).parent().siblings().eq(8).html()
-		CONFIG.editDefaultMsg.MTCZ = $(this).parent().siblings().eq(9).html()
-		CONFIG.editDefaultMsg.QTSB = $(this).parent().siblings().eq(10).html()
+		// CONFIG.editDefaultMsg.YJ = $(this).parent().siblings().eq(8).html()
+		CONFIG.editDefaultMsg.MTCZ = $(this).parent().siblings().eq(8).html()
+		// CONFIG.editDefaultMsg.QTSB = $(this).parent().siblings().eq(10).html()
 		$('.unit_select').val(unitId);
 		$('.name_input').val(name);
 		$('.phone_input').val(phone);
@@ -118,7 +118,10 @@ $(function(){
 			GENDER: "1",
 			CALLNUM: "123456",
 			REMARK: '11',
-			PWS: '123456'
+			PWS: '123456',
+			DB: $('.db_input').val(),
+			BKQ: $('.bkq_input').val(),
+			PDT: $('.pdt_input').val()
 		} 
 		console.log(opt)
 		if (CONFIG.add) {
@@ -214,40 +217,44 @@ function dealPager (total) {
 	})
 }
 function renderPoliceList (data) {
-	var htmlStr = '<li class="user_table_header c">'
-					+'<div>警号</div>'
-					+'<div>姓名</div>'
-					+'<div>单位</div>'
-					+'<div>职务</div>'
-					+'<div>手机号</div>'
-					+'<div>警务通APP</div>'
-					+'<div>4G执法仪</div>'
-					+'<div>4G车载</div>'
-					+'<div>云镜</div>'
-					+'<div>摩托车载</div>'
-					+'<div>其他设备</div>'
-					+'<div>操作</div>'
-				+'</li>',
+	var htmlStr = '<tbody>' 
+				 +'<tr class="user_table_header c">'
+						+'<td>姓名</td>'
+						+'<td>所属单位</td>'
+						+'<td>职务</td>'
+						+'<td>性别</td>'
+						+'<td>警种</td>'
+						+'<td>警务通号码</td>'
+						+'<td>绑定执法仪ID</td>'
+						+'<td>绑定车载ID</td>'
+						+'<td>绑定摩托车ID</td>'
+						+'<td>绑定PDT ID</td>'
+						+'<td>绑定单兵ID</td>'
+						+'<td>绑定步控球ID</td>'
+						+'<td style="box-sizing:border-box;">操作</td>'
+				+'</tr>',
 		i = 0;
 	for(; i < data.length; i++){
-		htmlStr += '<li class="c">'
-					+'<div>'+ data[i].POLICE_ID +'</div>'
-					+'<div>'+ data[i].POLICE_NAME +'</div>'
-					+'<div>'+ (data[i].UNIT_NAME || '') +'</div>'
-					+'<div>'+ (data[i].POLICE_POST || '') +'</div>'
-					+'<div>'+ (data[i].MOBILE_NO || '') +'</div>'
-					+'<div>'+ (data[i].JWT || '') +'</div>'
-					+'<div>'+ (data[i].ZFY || '') +'</div>'
-					+'<div>'+ (data[i].CZ || '') +'</div>'
-					+'<div>'+ (data[i].YJ || '') +'</div>'
-					+'<div>'+ (data[i].MTCZ || '') +'</div>'
-					+'<div>'+ (data[i].QTSB || '') +'</div>'
-					+'<div>'
+		htmlStr += '<tr class="c">'
+					+'<td>'+ data[i].POLICE_NAME +'</td>'
+					+'<td>'+ data[i].UNIT_NAME +'</td>'
+					+'<td>'+ (data[i].POLICE_POST || '') +'</td>'
+					+'<td>'+ (data[i].GENDER == 0 ? '女' : '男') +'</td>'
+					+'<td>'+ (data[i].POLICE_TYPE || '') +'</td>'
+					+'<td>'+ (data[i].JWT || '') +'</td>'
+					+'<td>'+ (data[i].ZFY || '') +'</td>'
+					+'<td>'+ (data[i].CZ || '') +'</td>'
+					+'<td>'+ (data[i].MTCZ || '') +'</td>'
+					+'<td>'+ (data[i].PDT || '') +'</td>'
+					+'<td>'+ (data[i].DB || '') +'</td>'
+					+'<td>'+ (data[i].BKQ || '') +'</td>'
+					+'<td style="box-sizing:border-box;">'
 						+'<a href="javascript:void(0);" class="del_btn" data-policeId="'+data[i].POLICE_ID+'">删除</a>'
-						+'<a href="javascript:void(0);" class="update_btn" data-unitId="'+data[i].UNIT_ID+'">编辑</a>'
-					+'</div>'
-				+'</li>'
+						+'<a href="javascript:void(0);" class="update_btn" data-unitId="'+data[i].UNIT_ID+'" data-policeId="'+data[i].POLICE_ID+'" data-phone="'+data[i].MOBILE_NO+'">编辑</a>'
+					+'</td>'
+				+'</tr>'
 	}
+	htmlStr += "</tbody>"
 	$('.user_table_box').html(htmlStr)
 	// dealLiHeight();
 }
