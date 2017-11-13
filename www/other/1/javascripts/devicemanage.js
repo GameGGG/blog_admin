@@ -110,9 +110,11 @@ $(function(){
 	})
 	$('.user_select_btn').on('click', function() {
 		var search_word = $('.user_select_input').val()
+		var search_type = $('.ts').val()
 		if(search_word === '') return false;
 		var options = {
 			"KEY_WORD": search_word,
+			"DEV_TYPE": search_type,
 			"ROWS": CONFIG.pageNumber,
 			"PAGE_INDEX": "1"
 		}
@@ -127,6 +129,7 @@ $(function(){
 			alert_window, 
 			{
 				"KEY_WORD": search_word,
+				"DEV_TYPE": search_type
 			}
 		)
 	})
