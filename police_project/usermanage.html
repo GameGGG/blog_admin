@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="font-size:100px">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+	<script type="text/javascript">
+		window.onload = function() {
+			document.querySelector('html').style.fontSize = document.body.offsetWidth/1920 * 100 + 'px'
+		}
+	</script>
 	<link rel="stylesheet" href="./styles/base.css">
 	<link rel="stylesheet" href="./styles/usermanage.css">
 	<script src="./javascripts/jquery-1.11.3.js"></script>
@@ -42,7 +47,7 @@
 		</section>
 		<section class="user_container">
 			<div class="user_utils">
-				<input type="text" placeholder="请输入查询条件">
+				<input type="text" class="user_select_input" placeholder="请输入查询条件">
 				<button class="user_select_btn">查询</button>
 				<div class="f_r">
 					<div class="user_pg_btn ">
@@ -51,64 +56,50 @@
 					<button class="user_new_btn">新建</button>
 				</div>
 			</div>
-			<ul class="user_table_box">
-				<li class="user_table_header c">
-					<div>序号</div>
-					<div>姓名</div>
-					<div>职称</div>
-					<div>创建者名称</div>
-					<div>创建时间</div>
-					<div>单位</div>
-					<div>密码</div>
-					<div>操作</div>
-				</li>
-				<li class="c">
-					<div>1</div>
-					<div>代用名</div>
-					<div>领导管理类</div>
-					<div>admin</div>
-					<div>2015-06-11 22：27：05</div>
-					<div>大类</div>
-					<div></div>
-					<div>
-						<a href="javascript:void(0);" class="del_btn">删除</a>
-						<a href="javascript:void(0);" class="update_btn">编辑</a>
-					</div>
-				</li>
-			</ul>
+			<table class="user_table_box">
+				<tbody>
+					<tr class="user_table_header c">
+						<td>姓名</td>
+						<td>所属单位</td>
+						<td>职务</td>
+						<td>性别</td>
+						<td>警种</td>
+						<td>警务通号码</td>
+						<td>绑定执法仪ID</td>
+						<td>绑定车载ID</td>
+						<td>绑定摩托车ID</td>
+						<td>绑定PDT ID</td>
+						<td>绑定单兵ID</td>
+						<td>绑定步控球ID</td>
+						<td>操作</td>
+					</tr>
+				</tbody>
+			</table>
 		</section>
 		<section class="update_alt" style="display:none;">
 			<div class="update_alt_container">
 				<div class="update-top c">
-					<div class="user_role_pic">
+					<!-- <div class="user_role_pic">
 						<img src="">
-					</div>
-					<ul>	
-						<li class="c">
-							<p>职务</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
-							</select>
-						</li>
+					</div> -->
+					<ul>
 						<li class="c">
 							<p>单位</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="unit_select">
+								<option value="" default>请选择</options>
 							</select>
+						</li>	
+						<li class="c">
+							<p>职务</p>
+							<input type="text" class="policepost_select">
 						</li>
 						<li class="c">
-							<p>人员</p>
-							<input type="text" name="">
+							<p>姓名</p>
+							<input class="name_input" type="text" name="">
 						</li>
 						<li class="c">
 							<p>警号</p>
-							<input type="text" name="">
+							<input class="policeid_input" type="text" name="">
 						</li>
 					</ul>
 				</div>
@@ -116,70 +107,47 @@
 					<ul class="c">
 						<li>
 							<p>警务通APP</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="jwt_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
 							<p>手机号</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
-							</select>
+							<input class="phone_input" type="text" name="">
 						</li>
 						<li>
 							<p>执法仪</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="zfy_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
 							<p>摩托车</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="mtc_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
 							<p>车载4G</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="cz_select">
+								<option value="">请选择</options>
 							</select>
 						</li>
 						<li>
-							<p>其他设备</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
-							</select>
+							<p>单兵</p>
+							<input class="db_input base_input" type="text" name="">
 						</li>
 						<li>
-							<p>云镜</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
-							</select>
+							<p>步控球</p>
+							<input class="bkq_input base_input" type="text" name="">
+						</li>
+						<li>
+							<p>PDT</p>
+							<input class="pdt_input base_input" type="text" name="">
 						</li>
 					</ul>
 					<div class="update_menu">
-						<button type="button">确认</button>
+						<button type="button" class="sub_sure">确认</button>
 						<button type="button" class="update_not">取消</button>
 					</div>
 				</div>

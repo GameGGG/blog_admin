@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="font-size:100px">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+	<script type="text/javascript">
+		window.onload = function() {
+			document.querySelector('html').style.fontSize = document.body.offsetWidth/1920 * 100 + 'px'
+		}
+	</script>
 	<link rel="stylesheet" href="./styles/base.css">
-	<link rel="stylesheet" href="./styles/usermanage.css">
+	<link rel="stylesheet" href="./styles/devicemanage.css">
 	<script src="./javascripts/jquery-1.11.3.js"></script>
 </head>
 <body>
@@ -27,7 +32,7 @@
 			<li><a href="./index.html">首页</a></li>
 			<li><a href="./usermanage.html">用户管理</a></li>
 			<li class="active"><a href="javascript:void(0);">设备管理</a></li>
-			<li class="no-bg authority"><a href="./authority.html">权限管理</a>
+			<li class="no-bg authority"><a href="javascript:void(0);">权限管理</a>
 				<ul class="authority_hover">
 					<li><a href="./authority.html">角色管理</a></li>
 					<li><a href="./commanage.html">呼叫优先管理</a></li>
@@ -41,7 +46,18 @@
 		</section>
 		<section class="user_container">
 			<div class="user_utils">
-				<input type="text" placeholder="请输入查询条件">
+				<label>类型
+				<select class="ts">
+					<option value=''>请选择</option>
+					<option value="警务通APP">警务通</options>
+					<option value="执法仪">执法仪</options>
+					<option value="车载4G">车载4G</options>
+					<option value="云镜">云镜</options>
+					<option value="摩托车载">摩托车载</options>
+					<option value="其他设备">其他设备</options>
+				</select>
+				</label>
+				<input type="text" placeholder="请输入查询条件" class="user_select_input">
 				<button class="user_select_btn">查询</button>
 				<div class="f_r">
 					<div class="user_pg_btn ">
@@ -51,64 +67,55 @@
 				</div>
 				
 			</div>
-			<ul class="user_table_box">
-				<li class="user_table_header c">
-					<div>序号</div>
-					<div>姓名</div>
-					<div>职称</div>
-					<div>创建者名称</div>
-					<div>创建时间</div>
-					<div>单位</div>
-					<div>密码</div>
-					<div>操作</div>
-				</li>
-				<li class="c">
-					<div>1</div>
-					<div>代用名</div>
-					<div>领导管理类</div>
-					<div>admin</div>
-					<div>2015-06-11 22：27：05</div>
-					<div>大类</div>
-					<div></div>
-					<div>
-						<a href="javascript:void(0);" class="del_btn">删除</a>
-						<a href="javascript:void(0);" class="update_btn">编辑</a>
-					</div>
-				</li>
-			</ul>
+			<table class="user_table_box">
+				<tr class="user_table_header c">
+					<td>类型</td>
+					<td>名称</td>
+					<td>所属单位</td>
+					<td>所属民警</td>
+					<td>所属民警警号</td>
+					<td>民警手机号</td>
+					<td>定位ID</td>
+					<td>运营商</td>
+					<td>入网时间</td>
+					<td>音视频呼号1</td>
+					<td>音视频呼号2</td>
+					<td>音视频呼号3</td>
+					<td>音视频呼号4</td>
+					<td style="box-sizing:border-box">操作</td>
+				</tr>
+			</table>
 		</section>
 		<section class="update_alt" style="display:none;">
 			<div class="update_alt_container">
 				<div class="update-top c">
-					<div class="user_role_pic">
-						<img src="">
-					</div>
 					<ul>	
 						<li class="c">
 							<p>类型</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="type_select">
+								<option value=''>请选择</option>
+								<option value="警务通APP">警务通</options>
+								<option value="执法仪">执法仪</options>
+								<option value="车载4G">车载4G</options>
+								<option value="云镜">云镜</options>
+								<option value="摩托车载">摩托车载</options>
+								<option value="其他设备">其他设备</options>
 							</select>
 						</li>
 						<li class="c">
 							<p>单位</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
+							<select class="unit_select">
+								<option value="">请选择</options>
+								
 							</select>
 						</li>
 						<li class="c">
 							<p>名称</p>
-							<input type="text" name="">
+							<input class="name_input" type="text" name="">
 						</li>
 						<li class="c">
 							<p>设备ID</p>
-							<input type="text" name="">
+							<input class="devid_input" type="text" name="">
 						</li>
 					</ul>
 				</div>
@@ -116,26 +123,56 @@
 					<ul class="c">
 						<li>
 							<p>呼叫优先</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
-							</select>
+							<input type="text" class="level_select">
 						</li>
 						<li></li>
 						<li>
 							<p>通信号码</p>
-							<select>
-								<option value="1">1</options>
-								<option value="2">2</options>
-								<option value="3">3</options>
-								<option value="4">4</options>
-							</select>
+							<input class="tx_input" type="text">
+						</li>
+						<li>
+							<p>GSP ID</p>
+							<input class="gspid_input base_input" type="text">
+						</li>
+						<li>
+							<p>运营商</p>
+							<input class="yys_input base_input" type="text">
+						</li>
+						<li>
+							<p>警员编号</p>
+							<input class="pid_input base_input" type="text">
+						</li>
+						<li>
+							<p>警员姓名</p>
+							<input class="pname_input base_input" type="text">
+						</li>
+						<li>
+							<p>手机号</p>
+							<input class="phone_input base_input" type="text">
+						</li>
+						<li>
+							<p>入网时间</p>
+							<input class="rwsj_input base_input" type="text">
+						</li>
+						<li>
+							<p>视频呼叫号1</p>
+							<input class="call1_input base_input" type="text">
+						</li>
+						<li>
+							<p>视频呼叫号2</p>
+							<input class="call2_input base_input" type="text">
+						</li>
+						<li>
+							<p>视频呼叫号3</p>
+							<input class="call3_input base_input" type="text">
+						</li>
+						<li>
+							<p>视频呼叫号4</p>
+							<input class="call4_input base_input" type="text">
 						</li>
 					</ul>
 					<div class="update_menu">
-						<button type="button">确认</button>
+						<button type="button" class="sure_submit">确认</button>
 						<button type="button" class="update_not">取消</button>
 					</div>
 				</div>
