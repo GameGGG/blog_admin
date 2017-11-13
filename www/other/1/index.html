@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size:100px">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script type="text/javascript">
+		window.onload = function() {
+			document.querySelector('html').style.fontSize = document.body.offsetWidth/1920 * 100 + 'px'
+		}
+	</script>
+	<link rel="stylesheet" href="./styles/base.css">
+	<link rel="stylesheet" href="./styles/index.css">
+	<script src="./javascripts/jquery-1.11.3.js"></script>
+</head>
+<body>
+	<nav class="c">
+		<slide class="user_msg"><p><span>用户：</span><span class="user_msg_name">管理员</span><a href="#">退出</a></p></slide>
+		<dl class="c">
+			<dt>
+				<h1>
+					<a href="javascript:void(0)"><img src="./images/logo.png" alt="警徽"></a>
+				</h1>
+			</dt>
+			<dd>
+				<p>郑州市公安局</p>
+				<p>融合通信资源管理平台</p>
+			</dd>
+		</dl>
+		<ul class="c nav">
+			<li class="active"><a href="javascript:void(0);">首页</a></li>
+			<li><a href="./usermanage.html">用户管理</a></li>
+			<li><a href="./devicemanage.html">设备管理</a></li>
+			<li class="no-bg authority"><a href="javascript:void(0);">权限管理</a>
+				<ul class="authority_hover">
+					<li><a href="./authority.html">角色管理</a></li>
+					<li><a href="./commanage.html">呼叫优先管理</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<main class="c">
+		<div class="index_main_left">
+			<section class="device_number">
+				<h2>设备类型数量</h2>
+				<div class="device_tips">
+					<p>96</p>
+					<p>设备类型数量</p>
+				</div>
+				<dl class="c">
+					<dd>
+						<div class="ca1"></div>
+					</dd>
+					<dt>
+						<ul>
+							<li>设备类型1<span></span></li>
+							<li>设备类型2<span></span></li>
+							<li>设备类型3<span></span></li>
+							<li>设备类型4<span></span></li>
+						</ul>
+					</dt>
+				</dl>
+			</section>
+			<section class="people_change">
+					<h2>人员变更</h2>
+					<ul>
+						<li class="title c">
+							<div class="people_name">人员</div>
+							<div class="department">单位</div>
+							<div class="change_content">变更内容</div>
+						</li>
+						<li class="c">
+							<div class="people_name">代用名</div>
+							<div class="department">蓄水街道派出所</div>
+							<div class="change_content">文字描述变更内容</div>
+						</li>
+						<li class="c">
+							<div class="people_name">代用名</div>
+							<div class="department">蓄水街道派出所</div>
+							<div class="change_content">文字描述变更内容</div>
+						</li>
+						<li class="c">
+							<div class="people_name">代用名</div>
+							<div class="department">蓄水街道派出所</div>
+							<div class="change_content">文字描述变更内容</div>
+						</li>
+						<li class="c">
+							<div class="people_name">代用名</div>
+							<div class="department">蓄水街道派出所</div>
+							<div class="change_content">文字描述变更内容</div>
+						</li>
+						<li class="c">
+							<div class="people_name">代用名</div>
+							<div class="department">蓄水街道派出所</div>
+							<div class="change_content">文字描述变更内容</div>
+						</li>
+						<li class="c">
+							<div class="people_name">人员</div>
+							<div class="department">单位</div>
+							<div class="change_content">变更内容</div>
+						</li>
+						<li class="c">
+							<div class="people_name">人员</div>
+							<div class="department">单位</div>
+							<div class="change_content">变更内容</div>
+						</li>
+						<li class="c">
+							<div class="people_name">人员</div>
+							<div class="department">单位</div>
+							<div class="change_content">变更内容</div>
+						</li>
+					</ul>
+			</section>
+		</div>
+		<div class="index_main_right">
+			 <div class="index_right_top c">
+				<div class="index_rt_l">
+					<img src="./images/map.png" alt="">
+				</div>
+				<div class="index_rt_r">
+					<section>
+						<h2>各呼叫优先级数量</h2>
+						<dl class="c">
+							<dd>
+								<div class="ca2"></div>
+							</dd>
+							<dt>
+								<ul class="yxj_count">
+									<li>重大警情<span></span></li>
+									<li>一般有限<span></span></li>
+									<li>紧急不重要<span></span></li>
+									<li>重要不紧急<span></span></li>
+								</ul>
+							</dt>
+						</dl>
+					</section>
+					<section class="role_statistics_box">
+						<h2>各角色统计</h2>
+						<ul class="role_statistics">
+							<li class="c"><em></em><div><span></span></div><p>123</p></li>
+							<li class="c"><em></em><div><span></span></div><p>310</p></li>
+							<li class="c"><em></em><div><span></span></div><p>620</p></li>
+							<li class="c"><em></em><div><span></span></div><p>620</p></li>
+						</ul>
+					</section>
+				</div>
+			 </div>
+			 <section class="ca4_section">
+				 <div class="ca4_tips">
+					 <span class="ca4_blue"></span>
+					 <span class="ca4_green"></span>
+				 </div>
+				 <div class="ca4"></div>
+			 </section>
+		</div>
+	</main>
+	<script type="text/javascript" src="./javascripts/echarts.min.js"></script>
+	<script type="text/javascript" src="./javascripts/http.js"></script>
+	<script src="./javascripts/index.js"></script>
+</body>
+</html>
