@@ -3,9 +3,8 @@ const app = express()
 const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
 const compression = require('compression')
-const DB = require('./server/module/index.js')
+const USER = require('./server/module/user.js')
 
-console.log(DB)
 // start static server
 app.use('/', express.static('www',{
 	index:'index.html'
@@ -24,7 +23,7 @@ app.post('/user/login',function(req,res,next){
 		return false;
 	}
 	console.log(value_uname)
-	DB.dbLogin({'username':value_uname,"password":value_password}, function (data) {
+	USER.login({'username':value_uname,"password":value_password}, function (data) {
 		console.log(data)
 		if (data.length > 0) {
 			res.cookie('uname', value_uname)
@@ -40,31 +39,38 @@ app.post('/user/login',function(req,res,next){
 		})
 	})
 })
-/*
-function dbConnect (callback) {
-	MongoClient.connect('mongodb://localhost:27017/platform', function (err, database) {
-		if (err) {
-			console.log(err)
+app.post('/user/register', function (req, res, next) {
+	let value_uname = req.body.uname
+	let value_password = req.body.password
+	let value_email = req.body.email
+	if (!(value_uname && value_password && value_email)) {
+		res.json({
+			state: 0,
+			message: '缺少参数'
+		})
+	}
+	USER.search({
+		"username": value_uname,
+		"email": value_email
+	}, function (data) {
+		if (data.length > 0) {
+			res.json({
+				state: 0,
+				message: '账号或邮箱已存在'	
+			})
+			return;
 		}
-		console.log('mongodb connection')
-		callback(database, function () {
-			database.close()
+		USER.insert({
+			"username": value_uname,
+			"password": value_password,
+			"email": value_email
+		}, function (data){
+			console.log(data)
+			res.json({
+				state: 1,
+				message: '注册账号成功'
+			})
 		})
 	})
-}
-
-function dbLogin (options, callback) {
-	dbConnect(function (database, cb) {
-		let use_Collection = database.collection('user')
-		use_Collection.find({
-			"username": options.username,
-			"password": options.password
-		}).toArray(function (err, result) {
-			callback(result)
-			cb()
-		})	
-	})
-}
-
-*/
+})
 app.listen(80)
