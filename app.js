@@ -3,8 +3,9 @@ const app = express()
 const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
 const compression = require('compression')
+const DB = require('./server/module/index.js')
 
-
+console.log(DB)
 // start static server
 app.use('/', express.static('www',{
 	index:'index.html'
@@ -23,7 +24,7 @@ app.post('/user/login',function(req,res,next){
 		return false;
 	}
 	console.log(value_uname)
-	dbLogin({'username':value_uname,"password":value_password}, function (data) {
+	DB.dbLogin({'username':value_uname,"password":value_password}, function (data) {
 		console.log(data)
 		if (data.length > 0) {
 			res.cookie('uname', value_uname)
@@ -39,6 +40,7 @@ app.post('/user/login',function(req,res,next){
 		})
 	})
 })
+/*
 function dbConnect (callback) {
 	MongoClient.connect('mongodb://localhost:27017/platform', function (err, database) {
 		if (err) {
@@ -64,5 +66,5 @@ function dbLogin (options, callback) {
 	})
 }
 
-
+*/
 app.listen(80)
