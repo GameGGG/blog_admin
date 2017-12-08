@@ -23,7 +23,6 @@ exports.search = function (options, callback) {
 			]
 			
 		}).toArray(function (err, result){
-			console.log(result)
 			callback(result)
 			cb()
 		})

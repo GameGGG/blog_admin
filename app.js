@@ -11,6 +11,7 @@ app.use('/', express.static('www',{
 }));
 app.use(compression())
 app.use(bodyParser.urlencoded({extend:false}))
+// 登录模块
 app.post('/user/login',function(req,res,next){
 	let value_uname = req.body.uname,
 		value_password = req.body.password;
@@ -22,7 +23,6 @@ app.post('/user/login',function(req,res,next){
 		})
 		return false;
 	}
-	console.log(value_uname)
 	USER.login({'username':value_uname,"password":value_password}, function (data) {
 		console.log(data)
 		if (data.length > 0) {
@@ -39,6 +39,7 @@ app.post('/user/login',function(req,res,next){
 		})
 	})
 })
+// 注册接口 
 app.post('/user/register', function (req, res, next) {
 	let value_uname = req.body.uname
 	let value_password = req.body.password
@@ -65,7 +66,6 @@ app.post('/user/register', function (req, res, next) {
 			"password": value_password,
 			"email": value_email
 		}, function (data){
-			console.log(data)
 			res.json({
 				state: 1,
 				message: '注册账号成功'
@@ -73,4 +73,5 @@ app.post('/user/register', function (req, res, next) {
 		})
 	})
 })
+// 监听端口
 app.listen(80)
