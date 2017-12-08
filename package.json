@@ -21,5 +21,8 @@
     "express": "^4.16.2",
     "mysql": "^2.15.0",
     "socket.io": "^2.0.4"
+  },
+  "dependencies": {
+    "mongodb": "^2.2.33"
   }
 }

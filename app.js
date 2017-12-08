@@ -1,128 +1,17 @@
-var express = require('express'),
-	app = express(),
-	add = express(),
-	{exec,execFile} = require('child_process'),
-	compression = require('compression'),
-	server = require('http').Server(app),
-	io = require('socket.io').listen(server),
-	mysql = require('mysql'),
-	bodyParser = require('body-parser'),
-	connection;
+const express = require('express')
+const app = express()
+const MongoClient = require('mongodb').MongoClient
+const bodyParser = require('body-parser')
+const compression = require('compression')
 
-server.listen(3000);
-add.listen(80);
 
-// db connect
-function connect(){
-	connection = mysql.createConnection({
-		host:'localhost',
-		user:'root',
-		password:'admin',
-		prot:'3306',
-		database:'passport'
-	})
-	connection.on('error',function(err){
-		if (err) {
-		    // 如果是连接断开，自动重新连接
-		    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-		      connect();
-		    } else {
-		      console.error(err.stack || err);
-		    }
-		}
-	});
-}
-connect();
-add.use(compression())
-add.use('/www',express.static('www',{
+// start static server
+app.use('/', express.static('www',{
 	index:'index.html'
 }));
-add.use(express.static('linerace',{
-	index:'index.html'
-}));
-add.use(bodyParser.urlencoded({extend:false}))
-
-io.sockets.on('connection',function(socket){
-	socket.on('commit',function(data){
-		if(data.uname && data.sid){
-			insertScoketId(data.uname,data.sid)
-		}
-	})
-	socket.on('message',function(data){
-		console.log(data);
-		connection.query('SELECT * FROM uinfo WHERE socketid = ?',[data.sid],function(err,result){
-			if(err){
-				console.log('[SELECT ERROR] - ',err.message);
-				return false;
-			}
-			let uname = result && result[0] && result[0].uname
-			if(!uname){
-				socket.emit('errorMsg',{
-					state:0
-				});
-				return;
-			};
-			socket.broadcast.emit('putMsg',{msg:data.msg,uname:uname});
-		})
-	})
-})
-add.get('/git/jojojo',function(req,res){
-	execFile('jojojogitpull.bat',function(err){
-		if(err){
-			res.send(err)
-		}else{
-			res.send('jojojo project git pull is OK')
-		}
-	});
-})
-add.get('/git/white_g',function(req,res){
-	exec('git pull',function(err){
-		if(err){
-			res.send(err)
-		}else{
-			res.send('white_g project git pull is OK')
-		}
-	});
-})
-// 注册
-add.post('/user/register',function(req,res,next){
-	let value_uname = req.body.uname,
-		value_password = req.body.password,
-		value_email = req.body.email;
-	if(!(value_uname && value_password && value_email)){
-		res.json({
-			state:0,
-			message:'缺少参数'
-		})
-		return false;
-	}
-	connection.query("SELECT * FROM uinfo WHERE uname=? OR email=?;",[value_uname,value_email],function(err,result){
-		if(err){
-			console.log('[SELECT ERROR] - ',err.message);
-			return;
-		}
-		console.log(!result.length)
-		if(!!result.length){
-			res.json({
-				state:0,
-				message:'用户名或邮箱以存在。'
-			})
-			return;
-		}
-		connection.query("INSERT INTO uinfo (uname,email,password) VALUES (?,?,?)",[value_uname,value_email,value_password],function(err,reult){
-			if(err){
-				console.log('[INSERT ERROR] - ',err.message);
-				return
-			}
-			res.json({
-				state:1,
-				message:'注册成功。'
-			})
-		})
-	});
-})
-// 登陆
-add.post('/user/login',function(req,res,next){
+app.use(compression())
+app.use(bodyParser.urlencoded({extend:false}))
+app.post('/user/login',function(req,res,next){
 	let value_uname = req.body.uname,
 		value_password = req.body.password;
 
@@ -134,52 +23,46 @@ add.post('/user/login',function(req,res,next){
 		return false;
 	}
 	console.log(value_uname)
-	connection.query("SELECT * FROM uinfo WHERE uname=? AND password=?;",[value_uname,value_password],function(err,result){
-		if(err){
-			console.log('[SELECT ERROR] - ',err.message);
-			return;
-		}
-		if(!!result.length){
-			res.cookie('uname',value_uname);
+	dbLogin({'username':value_uname,"password":value_password}, function (data) {
+		console.log(data)
+		if (data.length > 0) {
+			res.cookie('uname', value_uname)
 			res.json({
-				state:1,
-				message:''
+				state: 1,
+				message: '登录成功'
 			})
 			return;
 		}
 		res.json({
-			state:0,
-			message:'账号或密码错误。'
+			state: 0,
+			message: '账号或密码错误'
 		})
-	});
+	})
 })
-
-add.use(logErrors);
-add.use(errorHandler);
-
-function logErrors(err,req,res,next){
-	console.error(err.stack);
-	next();
-}
-function errorHandler(err,req,res,next){
-	res.status(500);
-	res.render('error',{error:err});
-}
-function insertScoketId(uname,id){
-	connection.query('UPDATE uinfo SET socketid = ? WHERE uname = ?',[id,uname],function(err,result){
-		if(err){
-			console.log("[UPDATE ERROR] - ",err.message);
-			return;
+function dbConnect (callback) {
+	MongoClient.connect('mongodb://localhost:27017/platform', function (err, database) {
+		if (err) {
+			console.log(err)
 		}
+		console.log('mongodb connection')
+		callback(database, function () {
+			database.close()
+		})
 	})
 }
-function selectUname(sid){
-	connection.query('SELECT * FROM uinfo WHERE socketid = ?',[sid],function(err,result){
-		if(err){
-			console.log('[SELECT ERROR] - ',err.message);
-			return false;
-		}
-		let uname = result && result[0] && result[0].uname
-		return uname;
+
+function dbLogin (options, callback) {
+	dbConnect(function (database, cb) {
+		let use_Collection = database.collection('user')
+		use_Collection.find({
+			"username": options.username,
+			"password": options.password
+		}).toArray(function (err, result) {
+			callback(result)
+			cb()
+		})	
 	})
 }
+
+
+app.listen(80)
