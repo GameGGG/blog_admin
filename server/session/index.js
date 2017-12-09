@@ -15,9 +15,13 @@ function judgeTime (t, outtime) {
 	}	
 	return false
 }
-function clearSession (username) {
+function clear (username) {
 	let sessionid = SESSIONS[username].session
-	delete SESSIONS[username]
+	if (sessionid) {
+		delete SESSIONS[username]
+		return true
+	}
+	return false
 }
 
 exports.setSession = function (username) {
@@ -39,7 +43,7 @@ exports.getSession = function (username) {
 exports.time = function (time) {
 	outTime = time
 }
-exports.clearSession = clearSession
+exports.clear = clear
 
 setInterval(() => {
 	for (let i in SESSIONS) {
