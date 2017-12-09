@@ -99,5 +99,23 @@ app.get('/user/islogin', function (req, res, next) {
 		message: '未登录'
 	})
 })
+// 退出登录
+app.get('/user/loginout/', function (req, res, next) {
+	const token = req.cookies.token
+	const messages = token ? token.split('&&') : []
+	const username = messages[1]
+	const session = messages[0]
+	if (username && SESSION.clear(username)) {
+		res.json({
+			state: 1,
+			message: '退出登录'
+		})		
+		return
+	}
+	res.json({
+		state: 0,
+		message: '登出失败'
+	})
+})
 // 监听端口
 app.listen(80)
