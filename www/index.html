@@ -132,11 +132,20 @@
 			pageHide = false,
 			un = getCookie('uname'),
 			socket = io.connect(domain);
-
-		if(!un){
-			alert('请先登录。');
-			window.location.href = './passport.html';
-		}
+		$.ajax({
+			url: 'http://60.205.226.213/user/islogin',
+			type: 'GET',
+			seccess: function (data) {
+				console.log(data)
+				if (data.state === 0) {
+					alert(data.message)
+					window.location = './passport.html'
+				}
+			},
+			error: function (err) {
+				alert('网络连接失败')
+			}
+		})
 		socket.on('connect',function(){
 			socket.emit('commit',{
 				sid:socket.id,
