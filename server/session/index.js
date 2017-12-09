@@ -17,7 +17,7 @@ function judgeTime (t, outtime) {
 }
 function clearSession (username) {
 	let sessionid = SESSIONS[username].session
-	SESSIONS.delete(username)
+	delete SESSIONS[username]
 }
 
 exports.setSession = function (username) {
@@ -27,6 +27,7 @@ exports.setSession = function (username) {
 		session: user_session,
 		time: t 
 	}
+	return user_session
 }
 exports.getSession = function (username) {
 	let session = ''
@@ -35,13 +36,16 @@ exports.getSession = function (username) {
 	}
 	return session
 }
+exports.time = function (time) {
+	outTime = time
+}
 exports.clearSession = clearSession
 
-setTimeout(() => {
+setInterval(() => {
 	for (let i in SESSIONS) {
 		if (judgeTime(SESSIONS[i].time, outTime)) {
 			// 清除session
-			clearSession(username)
+			clearSession(i)
 		}
 	}
 }, 60000)

@@ -3,13 +3,15 @@ const app = express()
 const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
 const compression = require('compression')
+const cookieParser = require('cookie-parser')
 const USER = require('./server/module/user.js')
-
+const SESSION = require('./server/session/index.js')
 // start static server
 app.use('/', express.static('www',{
 	index:'index.html'
 }));
 app.use(compression())
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({extend:false}))
 // 登录模块
 app.post('/user/login',function(req,res,next){
@@ -23,21 +25,27 @@ app.post('/user/login',function(req,res,next){
 		})
 		return false;
 	}
-	USER.login({'username':value_uname,"password":value_password}, function (data) {
-		console.log(data)
-		if (data.length > 0) {
-			res.cookie('uname', value_uname)
+	USER.login(
+		{
+			'username':value_uname,
+			"password":value_password
+		}, 
+		function (data) {
+			if (data.length > 0) {
+				const session = SESSION.setSession(value_uname)
+				res.cookie('token', session + '&&' + value_uname)
+				res.json({
+					state: 1,
+					message: '登录成功'
+				})
+				return;
+			}
 			res.json({
-				state: 1,
-				message: '登录成功'
+				state: 0,
+				message: '账号或密码错误'
 			})
-			return;
 		}
-		res.json({
-			state: 0,
-			message: '账号或密码错误'
-		})
-	})
+	)
 })
 // 注册接口 
 app.post('/user/register', function (req, res, next) {
@@ -71,6 +79,24 @@ app.post('/user/register', function (req, res, next) {
 				message: '注册账号成功'
 			})
 		})
+	})
+})
+// 验证登录接口
+app.get('/user/islogin', function (req, res, next) {
+	const token = req.cookies.token
+	const messages = token ? token.split('&&') : []
+	const username = messages[1]
+	const session = messages[0]
+	if (username && SESSION.getSession(username) === session) {
+		res.json({
+			state: 1,
+			message: '已登陆'
+		})
+		return
+	}
+	res.json({
+		state: 0,
+		message: '未登录'
 	})
 })
 // 监听端口
