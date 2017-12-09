@@ -24,7 +24,7 @@ function clear (username) {
 	return false
 }
 
-exports.setSession = function (username) {
+exports.set = function (username) {
 	const user_session = generatorSessionId()
 	const t = new Date().getTime()
 	SESSIONS[username] = {
@@ -33,7 +33,7 @@ exports.setSession = function (username) {
 	}
 	return user_session
 }
-exports.getSession = function (username) {
+exports.get = function (username) {
 	let session = ''
 	if (SESSIONS[username] && SESSIONS[username].session) {
 		session = SESSIONS[username].session
