@@ -11,3 +11,15 @@ exports.platform = function (callback) {
 		})
 	})
 }
+
+exports.blog = function (callback) {
+	MongoClient.connect('mongodb://localhost:27017/blog', function (err, database) {
+		if (err) {
+			console.log(err)	
+		}
+		console.log('mongodb connection blog database success')
+		callback(database, function () {
+			database.close()
+		})
+i	})
+}
