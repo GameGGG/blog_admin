@@ -23,7 +23,9 @@ app.use('/article', function (req, res, next) {
 	})
 	next()
 })
+// 用户路由
 app.use('/user', user)
+// 文章路由
 app.use('/article', article)
 
 
