@@ -5,24 +5,31 @@ exports.find = function (options, callback) {
 		let article = db.collection('article')
 		article.find({
 			type: options.type
-		}).toArray(function (err, result) {
+		}).toArray(function (err, data) {
+			let result = data
 			if (err) {
 				console.log(err)
+				result = []
 			}
 			callback(result)
+			close()
 		})
-		close()
 	})
 }
 
+// 插入文章
 exports.insert = function (options, callback) {
 	database.blog(function (db, close) {
 		let article = db.collection('article')
-		article.insert(options, function (err, result) {
+		article.insert(options, function (err, data) {
+			let result = true
 			if (err) {
 				console.log(err)
+				result = false
 			}
 			callback(result)
+			close()
 		})
 	})
 }
+

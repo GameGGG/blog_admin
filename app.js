@@ -1,4 +1,5 @@
 const express = require('express')
+
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
@@ -20,10 +21,20 @@ app.use('/article', function (req, res, next) {
 		'Access-Control-Request-Method': '*',
 		'Access-Control-Allow-Credentials': false
 	})
-
 	next()
 })
 app.use('/user', user)
 app.use('/article', article)
+
+
+// 用户错误日志
+app.use(function(err, req, res, next){
+	console.log(err)
+	next()
+})
+// 错误日志
+app.use(function(err, req, res, next) {
+	console.log(err)
+})
 // 监听端口
 app.listen(80)

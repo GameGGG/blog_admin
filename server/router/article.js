@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const ARTICLE = require('./../module/article.js')
-
+// article/list api handler
 router.get('/list', function (req, res, next) {
 	const type = req.query.type
 	const pageSize = req.query.pageSize
@@ -19,20 +19,12 @@ router.get('/list', function (req, res, next) {
 		res.json(result)
 	})
 })
-
+// article/put api handler
 router.post('/put', function (req, res, next) {
 	const type = req.body.type
 	const time = new Date()
 	const content = req.body.content
 	const title = req.body.title
-})
-
-router.get('/test', function (req, res, next) {
-	const type = req.body.type
-	const time = new Date().getTime()
-	const content = req.body.content
-	const title = req.body.title
-
 	ARTICLE.insert({
 		type,
 		time,
@@ -40,9 +32,14 @@ router.get('/test', function (req, res, next) {
 		title,
 		author: 'ganlei'
 	}, function (callback) {
-		res.send(callback)
+		const result = {
+			state: 1,
+			message: '提交成功'
+		}
+		res.json(result)
 	})
 })
+
 
 
 
