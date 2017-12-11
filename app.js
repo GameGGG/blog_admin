@@ -14,6 +14,15 @@ app.use('/', express.static('www',{
 app.use(compression())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extend:false}))
+app.use('/article', function (req, res, next) {
+	res.set({
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Request-Method': '*',
+		'Access-Control-Allow-Credentials': false
+	})
+
+	next()
+})
 app.use('/user', user)
 app.use('/article', article)
 // 监听端口

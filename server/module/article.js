@@ -1,8 +1,7 @@
 const database = require('./database.js')
 
-exports.get = function (options, callback) {
+exports.find = function (options, callback) {
 	database.blog(function (db, close) {
-		console.log(options)
 		let article = db.collection('article')
 		article.find({
 			type: options.type
@@ -13,5 +12,17 @@ exports.get = function (options, callback) {
 			callback(result)
 		})
 		close()
+	})
+}
+
+exports.insert = function (options, callback) {
+	database.blog(function (db, close) {
+		let article = db.collection('article')
+		article.insert(options, function (err, result) {
+			if (err) {
+				console.log(err)
+			}
+			callback(result)
+		})
 	})
 }
