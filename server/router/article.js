@@ -3,9 +3,9 @@ const router = express.Router()
 const ARTICLE = require('./../module/article.js')
 
 router.get('/list', function (req, res, next) {
-	const type = req.params.type
-	const pageSize = req.params.pageSize
-	const pageNumber = req.params.pageNumber
+	const type = req.query.type
+	const pageSize = req.query.pageSize
+	const pageNumber = req.query.pageNumber
 	ARTICLE.get({
 		type,
 		pageSize,
