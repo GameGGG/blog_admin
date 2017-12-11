@@ -11,8 +11,12 @@ router.get('/list', function (req, res, next) {
 		pageSize,
 		pageNumber
 	}, function (data) {
-		console.log(data)
-		res.json(data)
+		const result = {
+			state: 1,
+			list: data,
+			message: ''
+		}
+		res.json(result)
 	})
 })
 
