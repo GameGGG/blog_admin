@@ -46,5 +46,5 @@ exports.delete = function (options, callback) {
 			callback(result)
 			close()
 		})
-	}
+	})
 }
