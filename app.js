@@ -1,5 +1,5 @@
 const express = require('express')
-
+const http = require('http')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
@@ -8,7 +8,15 @@ const cookieParser = require('cookie-parser')
 // router config
 const user = require('./server/router/user.js')
 const article = require('./server/router/article.js')
+const Chat = require('./server/router/chat.js')
 // start static server
+
+const Server = http.createServer(app)
+// 开启socket io服务
+new Chat(Server, {
+	path: '/chat',
+	serveClient: false	
+})
 app.use('/', express.static('www',{
 	index:'index.html'
 }));
@@ -39,4 +47,6 @@ app.use(function(err, req, res, next) {
 	console.log(err)
 })
 // 监听端口
-app.listen(80)
+Server.listen('80', function () {
+	console.log('server start success')
+})

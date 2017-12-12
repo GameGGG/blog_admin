@@ -122,7 +122,7 @@
 	</div>
 	<script src="./socket.io.js"></script>
 	<script>
-		var domain = 'http://60.205.226.213:3000',
+		var domain = 'http://60.205.226.213:80',
 		// var domain = 'http://127.0.0.1:3000',
 			btn = document.querySelector('.btn'),
 			msgContent = document.querySelector('#msg'),
@@ -131,7 +131,7 @@
 			msg = '',
 			pageHide = false,
 			un = getCookie('uname'),
-			socket = io.connect(domain);
+			socket = io.connect(domain, {path: '/chat'});
 		$.ajax({
 			url: 'http://60.205.226.213/user/islogin',
 			type: 'GET',
@@ -147,30 +147,24 @@
 			}
 		})
 		socket.on('connect',function(){
-			socket.emit('commit',{
+			socket.emit('message',{
 				sid:socket.id,
 				uname:un
 			})
 			btn.removeAttribute('disabled')
 		})
-		socket.on('putMsg',function(data){
+		socket.on('message',function(data){
 			console.log(data);
 			putMsg(data,'i');
 			if(pageHide){
 				document.title = '你有新消息'
 			}
 		})
-		socket.on('errorMsg',function(data){
-			if(data.state === 0){
-				alert('消息发送失败，请先登录。');
-				window.location.href = './passport.html';
-			}
-		})
 		btn.addEventListener('click',function(){
 			var msg = msgContent.value
 			if(msg === '') return false
 			putMsg({msg:msg},'o')
-			socket.send({
+			socket.emit('message', {
 				msg:msg,
 				sid:socket.id
 			})
@@ -183,7 +177,7 @@
 			if(msg === '') return false;
 			msgContent.value = ''
 			putMsg({msg:msg},'o')
-			socket.send({
+			socket.emit('message',{
 				msg:msg,
 				sid:socket.id
 			})

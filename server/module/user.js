@@ -3,6 +3,7 @@ const DATABASE = require('./database.js')
 exports.login = function (options, callback) {
 	DATABASE.platform(function (database, cb) {
 		let use_Collection = database.collection('user')
+		console.log(options)
 		use_Collection.find({
 			"username": options.username,
 			"password": options.password
