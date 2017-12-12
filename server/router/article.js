@@ -31,16 +31,39 @@ router.post('/put', function (req, res, next) {
 		content,
 		title,
 		author: 'ganlei'
-	}, function (callback) {
+	}, function (data) {
 		const result = {
 			state: 1,
 			message: '提交成功'
 		}
+		if (data) {
+			result = {
+				state: 0,
+				message: '提交失败'
+			}			
+		}
 		res.json(result)
 	})
 })
-
-
+// article/del api hsnflrt
+router.post('/del', function (req, res, next) {
+	const id = req.body.id
+	ARTICLE.delete({
+		id
+	}, function (data) {
+		const result = {
+			state: 1,
+			message: '删除成功'
+		}
+		if (data) {
+			result = {
+				state: 0,
+				message: '删除失败'
+			}
+		}
+		res.json(result)	
+	})
+})
 
 
 
