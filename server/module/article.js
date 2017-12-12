@@ -32,4 +32,19 @@ exports.insert = function (options, callback) {
 		})
 	})
 }
-
+// 删除文章
+exports.delete = function (options, callback) {
+	database.blog(function (db, close) {
+		let article = db.collection('article')
+		article.remove({
+			id: options.id
+		}, function (err, data) {
+			let result =  true
+			if (err) {
+				result = false
+			}
+			callback(result)
+			close()
+		})
+	})
+}
