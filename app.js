@@ -5,18 +5,17 @@ const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
-const server = require('socket.io')
 // router config
 const user = require('./server/router/user.js')
 const article = require('./server/router/article.js')
-const chat = require('./server/router/chat.js')
+const Chat = require('./server/router/chat.js')
 // start static server
 
-
 const Server = http.createServer(app)
-const io = server(Server, {
+// 开启socket io服务
+new Chat(Server, {
 	path: '/chat',
-	serveClient: false
+	serveClient: false	
 })
 app.use('/', express.static('www',{
 	index:'index.html'
@@ -46,10 +45,6 @@ app.use(function(err, req, res, next){
 // 错误日志
 app.use(function(err, req, res, next) {
 	console.log(err)
-})
-// 开启socket.io
-io.on('connection', function (socket) {
-	console.log(socket.id)	
 })
 // 监听端口
 Server.listen('80', function () {
