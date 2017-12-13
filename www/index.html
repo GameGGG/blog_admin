@@ -130,6 +130,7 @@
 			msgboxContent = document.querySelector('.msgbox-content'),
 			msg = '',
 			pageHide = false,
+			USERNAME = '',
 			un = getCookie('uname'),
 			socket = io.connect(domain, {path: '/chat'});
 		$.ajax({
@@ -154,34 +155,19 @@
 			btn.removeAttribute('disabled')
 		})
 		socket.on('message',function(data){
-			console.log(data);
 			switch (data.type) {
 				case 'name': setNickName(data.body); break;
 				case 'broadcast': setBroadcast(data.body); break;
-				case 'message': putMessage(data.message); break;
+				case 'message': putMessage(data.body); break;
 			}
 		})
 		btn.addEventListener('click',function(){
-			var msg = msgContent.value
-			if(msg === '') return false
-			putMsg({msg:msg},'o')
-			socket.emit('message', {
-				msg:msg,
-				sid:socket.id
-			})
-			msgContent.value = ''
+			sendMessage()
 		})
 		msgContent.addEventListener('keydown',function(e){
 			e = e || event;
 			if(e.keyCode !== 13) return false;
-			msg = this.value;
-			if(msg === '') return false;
-			msgContent.value = ''
-			putMsg({msg:msg},'o')
-			socket.emit('message',{
-				msg:msg,
-				sid:socket.id
-			})
+			sendMessage()	
 			if(e.preventDefault){
             			e.preventDefault();
         		}else{
@@ -201,17 +187,28 @@
 		function putMessage (msg) {
 			putMsg(msg, '1')
 		}
+		function sendMessage () {
+			var msg = msgContent.value
+			if(msg === '') return false
+			putMsg(msg, 'o')
+			socket.emit('message', {
+				type: 'message',
+				body: msg,
+				room: 'Total'
+			})
+			msgContent.value = ''
+		}
 		function setBroadcast (msg) {
 			document.querySelector('.broadcast-msg').innerHTML = msg;
 		}
 		function setNickName (name) {
 			var nickNameDom = document.querySelector('.nick-name span')
+			USERNAME = name
 			nickNameDom.innerHTML = name	
 		}
 		function putMsg(msg,cn){
-			console.log(msg)
 			var p = document.createElement('p')
-			p.innerHTML = '<em class="'+cn+'">'+(msg.uname || '')+'</em><span class="'+cn+'">' + msg.msg + '</span>'
+			p.innerHTML = '<em class="'+cn+'">'+(USERNAME || '')+'</em><span class="'+cn+'">' + msg + '</span>'
 			msgboxContent.appendChild(p)
 		}
 
@@ -254,9 +251,7 @@
 		drawDot(dotArr);
 
 
-		function clearCanvas(){
-			myCanvas.clearRect(0,0,bodyW,bodyH)
-		}
+		function clearCanvas(){ myCanvas.clearRect(0,0,bodyW,bodyH) }
 		function drawDot(obj){
 			for(var i = 0;i<obj.length;i++){
 				myCanvas.beginPath();
