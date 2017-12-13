@@ -111,7 +111,9 @@
 	<div class="main">
 		<h1>Welcome to my chat room</h1>
 		<div class="nick-name">your name is: <span></span></div>
+		<div class="broadcast-msg"></div>
 		<div class="msgbox">
+			<div class="msgbox-content"></div>
 		</div>
 		<div class="send-msg-box">
 			<textarea id="msg"></textarea>
@@ -156,6 +158,7 @@
 			switch (data.type) {
 				case 'name': setNickName(data.body); break;
 				case 'broadcast': setBroadcast(data.body); break;
+				case 'message': putMessage(data.message); break;
 			}
 		})
 		btn.addEventListener('click',function(){
@@ -195,6 +198,12 @@
 				document.title = 'chat room'
 			}
 		})
+		function putMessage (msg) {
+			putMsg(msg, '1')
+		}
+		function setBroadcast (msg) {
+			document.querySelector('.broadcast-msg').innerHTML = msg;
+		}
 		function setNickName (name) {
 			var nickNameDom = document.querySelector('.nick-name span')
 			nickNameDom.innerHTML = name	
