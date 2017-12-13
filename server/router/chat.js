@@ -19,6 +19,7 @@ class Chat {
 		this.joinRoom(socket, 'Total')
 		socket.on('message', (data) => {
 			console.log(data)
+			//this[data.type](socket, data.message)	
 		})
 	}
 	assetNickName (socket) {
