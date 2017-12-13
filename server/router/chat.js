@@ -19,6 +19,13 @@ class Chat {
 		this.joinRoom(socket, 'Total')
 		socket.on('message', (data) => {
 			console.log(data)
+			if (data.type === 'message') {
+				socket.broadcast.to(data.room).emit('message', {
+					type: 'message',
+					body: data.body
+				})
+			}
+			//this[data.type](socket, data.message)	
 		})
 	}
 	assetNickName (socket) {
