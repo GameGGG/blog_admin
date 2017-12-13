@@ -103,17 +103,15 @@
 		.send-msg-box button:hover{
 			background:#33cc00;
 			color:#fff;
-		}
-		.send-msg-box button.active{}
-	</style>
+		} .send-msg-box button.active{} </style>
 	<script src="./jquery-1.11.3.min.js"></script>
 </head>
 <body>
 	<canvas></canvas>
 	<div class="main">
 		<h1>Welcome to my chat room</h1>
+		<div class="nick-name">your name is: <span></span></div>
 		<div class="msgbox">
-			<div class="msgbox-content"></div>
 		</div>
 		<div class="send-msg-box">
 			<textarea id="msg"></textarea>
@@ -122,7 +120,7 @@
 	</div>
 	<script src="./socket.io.js"></script>
 	<script>
-		var domain = 'http://60.205.226.213:80',
+		var domain = 'http://60.205.226.213',
 		// var domain = 'http://127.0.0.1:3000',
 			btn = document.querySelector('.btn'),
 			msgContent = document.querySelector('#msg'),
@@ -155,9 +153,9 @@
 		})
 		socket.on('message',function(data){
 			console.log(data);
-			putMsg(data,'i');
-			if(pageHide){
-				document.title = '你有新消息'
+			switch (data.type) {
+				case 'name': setNickName(data.body); break;
+				case 'broadcast': setBroadcast(data.body); break;
 			}
 		})
 		btn.addEventListener('click',function(){
@@ -197,6 +195,10 @@
 				document.title = 'chat room'
 			}
 		})
+		function setNickName (name) {
+			var nickNameDom = document.querySelector('.nick-name span')
+			nickNameDom.innerHTML = name	
+		}
 		function putMsg(msg,cn){
 			console.log(msg)
 			var p = document.createElement('p')
