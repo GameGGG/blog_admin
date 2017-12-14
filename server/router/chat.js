@@ -22,7 +22,8 @@ class Chat {
 			if (data.type === 'message') {
 				socket.broadcast.to(data.room).emit('message', {
 					type: 'message',
-					body: data.body
+					body: data.body,
+					name: name
 				})
 			}
 			//this[data.type](socket, data.message)	
