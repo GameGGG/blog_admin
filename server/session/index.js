@@ -40,6 +40,13 @@ exports.get = function (username) {
 	}
 	return session
 }
+exports.is = function (username) {
+	if (SESSIONS[username] && SESSIONS[username].session) {
+		SESSIONS[username].time = new Date().getTIme()
+		return true;
+	}
+	return false;
+}
 exports.time = function (time) {
 	outTime = time
 }
