@@ -40,9 +40,9 @@ exports.get = function (username) {
 	}
 	return session
 }
-exports.is = function (username) {
-	if (SESSIONS[username] && SESSIONS[username].session) {
-		SESSIONS[username].time = new Date().getTIme()
+exports.is = function (username, session) {
+	if (SESSIONS[username] && SESSIONS[username].session === session) {
+		SESSIONS[username].time = new Date().getTime()
 		return true;
 	}
 	return false;

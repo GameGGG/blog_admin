@@ -76,7 +76,7 @@ router.get('/islogin', function (req, res, next) {
 	const messages = token ? token.split('&&') : []
 	const username = messages[1]
 	const session = messages[0]
-	if (username && SESSION.is(username) === session) {
+	if (username && SESSION.is(username, session)) {
 		res.json({
 			state: 1,
 			message: '已登陆'
