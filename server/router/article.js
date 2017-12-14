@@ -26,6 +26,7 @@ router.post('/put', function (req, res, next) {
 	const content = req.body.content
 	const title = req.body.title
 	ARTICLE.insert({
+		id: new Date().getTime(),
 		type,
 		time,
 		content,
@@ -45,7 +46,7 @@ router.post('/put', function (req, res, next) {
 		res.json(result)
 	})
 })
-// article/del api hsnflrt
+// article/del api handler
 router.post('/del', function (req, res, next) {
 	const id = req.body.id
 	ARTICLE.delete({
